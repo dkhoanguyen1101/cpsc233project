@@ -1,4 +1,7 @@
+import java.util.ArrayList;
 
+
+public class map {
 
   private int row;
   private int collumn;
@@ -56,4 +59,4 @@
 		 setPos(id, rowCoord, colCoord);
 	 }
   }
-  
+  }
