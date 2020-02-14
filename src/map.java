@@ -18,7 +18,7 @@ public class map {
     		}
     	}
     }
-  
+
   protected int[] getPos(int a) {
 	  int[] position = new int[2];
 	  for(int countRow = 0; countRow <= row; countRow++) {
@@ -38,7 +38,6 @@ public class map {
 			 }
 		 }
 	  }
-	  twoDList.get(rowCoord).set(colCoord, 0);
+	  twoDList.get(rowCoord).set(colCoord, id);
   }
   }
-  
