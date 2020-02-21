@@ -5,11 +5,14 @@ public class Character {
 	private int health;
 	private int ID;
 	private String name;
-	private int faculty;
-	private int item;
-	private String[] facultys = {"CS","ENG","NURSE"};
-	private String[] items = {"0","1","2"};
+	private item[] inventory = item[3];
 
+	public Character(String name, int id, int att, int health) {
+		this.name = name;
+		this.id = id;
+		this.attack = att;
+		this.health = health;
+	}
 	
 	public Integer getAttack() {
         return attack;
@@ -43,53 +46,21 @@ public class Character {
         this.name = name;
     }
   
-    public int getFaculty() {
-        return faculty;
+
+    public int getInventory() {
+    	toReturn = new item[3];
+    	for (int index = 0; index < this.inventory.size(); index++) {
+    		toReturn[index] = this.inventory[index]
+    	}
+        return toReturn;
     }
 
-    public void setFaculty(int faculty) {
-        this.faculty = faculty;
-    }
-
-    public int getItem() {
-        return item;
-    }
-
-    public void setItem(int item) {
-        this.item = item;
-    }
-   
-   //output player name
-    public String Setting() {
-        System.out.println("Enter the character name：");
-        Scanner sc = new Scanner(System.in);
-        this.name = sc.next();
-        return name;
-    }
-
-    public void output(){
-        System.out.println("name:"+this.name);
+    public void setItem(item newItem, index) {
+        inventory[index] = newItem;
     }
     
-    // output player faculty
-    public int Selectfaculty(){
-        while(true){
-            System.out.println("Choose Faculty （0,CS，1,ENG，2,NURSE）：");
-            Scanner sc = new Scanner(System.in);
-            this.faculty = sc.nextInt();
-            if(faculty >= 0 && faculty <= 2){
-                break;
-            }else{
-                System.out.println("Enter the number to choose faculty");
-            }
-        }
-        return faculty;
-    }
    
-    public void outputs(){
-        System.out.println("faculty"+facultys[this.faculty]);
-        
-    }
+   //output player name
     
 }
 	
