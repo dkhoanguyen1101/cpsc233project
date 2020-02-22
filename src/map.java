@@ -21,9 +21,9 @@ public class map {
 protected map(int r, int cl){
     row = r;
     column = cl;
-    for(int countRow = 0; countRow <= row; countRow++) {
+    for(int countRow = 0; countRow < row; countRow++) {
     	twoDList.add(new ArrayList<Integer>());
-    	for(int countColumn = 0; countColumn <= column; countColumn++) {
+    	for(int countColumn = 0; countColumn < column; countColumn++) {
     		twoDList.get(countRow).add(0);
     		}
     	}
@@ -158,4 +158,19 @@ protected map(int r, int cl){
 		System.out.println("character is not on map");
 	}
   }
-}
+  
+  protected String toString() {
+	  String toReturn;
+	  for(int countRow = 0; countRow < row ; countRow++) {
+		  toReturn += "[";
+		  for(int countCol = 0; countCol < column; countCol++) {
+			  if (countCol < column -1) {
+				  toReturn += (String) twoDList.get(countRow).get(countCol);
+				  toReturn += ";";
+			  } else {
+				  toReturn += (String) twoDList.get(countRow).get(countCol)
+			  }
+			toReturn += "]";  
+		  }
+	 return toReturn;
+  }
