@@ -170,8 +170,9 @@ protected map(int r, int cl){
 			  } else {
 				  toReturn += (String) twoDList.get(countRow).get(countCol)
 			  }
-			toReturn += "]";  
+			
 		  }
+		  toReturn += "]";  
 	  }
 	 return toReturn;
   }
