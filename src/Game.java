@@ -8,13 +8,13 @@ public class Game {
 
 	public static void main(String[] args) {
 		map demoMap = new map(7, 11); //make a generic 7x11 map
-		Character player = new Character();	//generating the generic player character
+		Chara player = new Chara();	//generating the generic player character
 		player.setAttack(10);
 		player.setHealth(100);
 		player.setId(1);
-		item healthPot = new healthPotion();
+		healthPotion healthPot = new healthPotion();
 		player.setItem(healthPot, 0);
-		Character enemy = new Character(); //generating the generic enemy character
+		Chara enemy = new Chara(); //generating the generic enemy character
 		enemy.setAttack(5);
 		enemy.setHealth(50);
 		enemy.setId(2);

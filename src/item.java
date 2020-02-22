@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 
-public class item {
+public class Item {
 	String name;
 	
 	public item(String name) {
