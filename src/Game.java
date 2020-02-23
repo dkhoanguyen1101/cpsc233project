@@ -73,4 +73,127 @@ public class Game {
 		}
 	}
 
+	
+	//Attack, Item, and Move methods in the Game class are made by Robert Ferguson.
+	
+	
+	public boolean Attack(Chara attacker, Chara receiver, Map map) {
+		//check if attacker is in range
+		int attackerX = map.getPos(attacker.getID())[0];
+		int attackerY = map.getPos(attacker.getID())[1];
+		int receiverX = map.getPos(receiver.getID())[0];
+		int receiverY = map.getPos(receiver.getID())[1];
+		if (((attackerX == receiverX + 1) || (attackerX == receiverX - 1)) && ((attackerY == receiverY + 1) || (attackerY == receiverY - 1))) {
+			//lower receiver health
+			receiver.setHealth((receiver.getHealth()) - (attacker.getAttack()));
+			//change boolean to true
+			return true;
+		} else {
+			//if not within range, return false
+			System.out.println(attacker + " cannot reach anybody!");
+			return false;
+		}
+		
+			
+	}
+	
+	public boolean Item(Chara user) {
+		//check if inventory is empty
+		String slot1 = user.getInventorys().get[0];
+		String slot2 = user.getInventorys().get[1];
+		String slot3 = user.getInventorys().get[2];
+		if (slot1 == "Empty" && slot2 == "Empty" && slot3 == "Empty") {
+			System.out.println(user + "'s inventory is empty");
+			return false;
+		} else {
+			//ask for user input
+			Scanner sc = new Scanner(System.in);
+			int select = sc.nextInt();
+			System.out.println("Select an Item");
+			System.out.println("type 1 ("+ slot1 +"), 2 ("+ slot2 +"), or 3 ("+ slot3 +")");
+			if (select == 1) {
+				if (slot1 == "Health Potion") {
+					//if input correct, make item, use item and change string to empty
+					healthPotion hPotion = new item().new healthPotion();
+					hPotion.setAttributes();
+					hPotion.characterHealth(user.getID());
+					
+					
+					//make method that lets me change specific slots
+					user.setInventorys("Empty");
+					
+					
+					//change boolean to true
+					return true;
+				} else {
+					System.out.println("That slot is empty");
+					return false;
+				}
+			} else if (select == 2) {
+				if (slot2 == "Health Potion") {
+					//if input correct, make item, use item and change string to empty
+					healthPotion hPotion = new item().new healthPotion();
+					hPotion.setAttributes();
+					hPotion.characterHealth(user.getID());
+					
+					
+					//make method that lets me change specific slots
+					user.setInventorys("Empty");
+					
+					
+					//change boolean to true
+					return true;
+				} else {
+					System.out.println("That slot is empty");
+					return false;
+				}
+			} else if (select == 3) {
+				if (slot3 == "Health Potion") {
+					//if input correct, make item, use item and change string to empty
+					healthPotion hPotion = new item().new healthPotion();
+					hPotion.setAttributes();
+					hPotion.characterHealth(user.getID());
+					
+					
+					//make method that lets me change specific slots
+					user.setInventorys("Empty");
+					
+					
+					//change boolean to true
+					return true;
+				} else {
+					System.out.println("That slot is empty");
+					return false;
+				}
+				
+			} else {
+				//send back to menu if item is not selected
+				System.out.println("That is not a valid item");
+				return false;
+			}
+		}
+	}
+	
+	//moves chosen character to new location on map, provided location is legal
+	
+	public void Move(Chara chara, Map map) {
+		//ask for user input (x and y positions)
+		Scanner pick = new Scanner(System.in);
+		System.out.println("Pick an x position to move to");
+		int newX = pick.nextInt();
+		System.out.println("Now pick a y position to move to");
+		int newY = pick.nextInt();
+		//ask for new x and y position if position is illegal
+		while (map.isLegalMove(chara.getID(), newX, newY, 4) == false) {
+			System.out.println("that is not a legal move");
+			System.out.println("Pick another x position to move to");
+			int newX = pick.nextInt();
+			System.out.println("Now pick another y position to move to");
+			int newY = pick.nextInt();
+		}
+		//once positions are legal, move to that position
+		map.move(chara.getID(), newX, newY, 4);
+	}
+}
+	
 }
