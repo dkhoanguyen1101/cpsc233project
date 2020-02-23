@@ -40,4 +40,8 @@ public class Chara {
 		ID = i;
 		
 	}
+	
+	public int getId() {
+		return ID;
+	}
 	}
