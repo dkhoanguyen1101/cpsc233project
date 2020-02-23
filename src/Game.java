@@ -12,8 +12,7 @@ public class Game {
 		player.setAttack(10);
 		player.setHealth(100);
 		player.setId(1);
-		healthPotion healthPot = new healthPotion();
-		player.setItem(healthPot, 0);
+		player.setItem("Health Potion", 0);
 		Chara enemy = new Chara(); //generating the generic enemy character
 		enemy.setAttack(5);
 		enemy.setHealth(50);
