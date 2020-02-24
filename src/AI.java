@@ -13,7 +13,7 @@ class AI extends map {
     //make a loop so that every time the enemy walk a step, it will check is there any player around it
 
 
-	public boolean check() {
+	public boolean CheckChara() {
 			Position = EnemyID.getPos();
 			xpos = Position[0];
 			ypos = Position[1];
