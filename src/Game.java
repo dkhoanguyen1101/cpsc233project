@@ -113,13 +113,13 @@ public class Game {
 			if (select == 1) {
 				if (slot1 == "Health Potion") {
 					//if input correct, make item, use item and change string to empty
-					healthPotion hPotion = new item().new healthPotion();
-					hPotion.setAttributes();
-					hPotion.characterHealth(user.getID());
-					
+					//healthPotion hPotion = new item().new healthPotion();
+					//hPotion.setAttributes();
+					//hPotion.characterHealth(user.getID());
+					user.setHealth(user.getHealth() + 50);
 					
 					//make method that lets me change specific slots
-					user.setInventorys(null);
+					user.setItem(null, 0);
 					
 					
 					//change boolean to true
@@ -131,13 +131,13 @@ public class Game {
 			} else if (select == 2) {
 				if (slot2 == "Health Potion") {
 					//if input correct, make item, use item and change string to empty
-					healthPotion hPotion = new item().new healthPotion();
-					hPotion.setAttributes();
-					hPotion.characterHealth(user.getID());
-					
+					//healthPotion hPotion = new item().new healthPotion();
+					//hPotion.setAttributes();
+					//hPotion.characterHealth(user.getID());
+					user.setHealth(user.getHealth() + 50);
 					
 					//make method that lets me change specific slots
-					user.setInventorys(null);
+					user.setItem(null, 1);
 					
 					
 					//change boolean to true
@@ -149,13 +149,14 @@ public class Game {
 			} else if (select == 3) {
 				if (slot3 == "Health Potion") {
 					//if input correct, make item, use item and change string to empty
-					healthPotion hPotion = new item().new healthPotion();
-					hPotion.setAttributes();
-					hPotion.characterHealth(user.getID());
+					//healthPotion hPotion = new item().new healthPotion();
+					//hPotion.setAttributes();
+					//hPotion.characterHealth(user.getID());
+					user.setHealth(user.getHealth() + 50);
 					
 					
 					//make method that lets me change specific slots
-					user.setInventorys(null);
+					user.setItem(null, 2);
 					
 					
 					//change boolean to true
