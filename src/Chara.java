@@ -1,3 +1,6 @@
+/**character class @author Yuwen
+
+
 public class Chara {
 	private int health;
 	private int attack;
