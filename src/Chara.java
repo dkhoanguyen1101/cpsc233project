@@ -1,4 +1,4 @@
-/**character class @author Yuwen
+//character class @author Yuwen
 
 
 public class Chara {
