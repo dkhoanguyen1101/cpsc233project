@@ -101,7 +101,7 @@ public class Game {
 		String slot1 = user.getInventorys().get[0];
 		String slot2 = user.getInventorys().get[1];
 		String slot3 = user.getInventorys().get[2];
-		if (slot1 == "Empty" && slot2 == "Empty" && slot3 == "Empty") {
+		if (slot1 == null && slot2 == null && slot3 == null) {
 			System.out.println(user + "'s inventory is empty");
 			return false;
 		} else {
@@ -119,7 +119,7 @@ public class Game {
 					
 					
 					//make method that lets me change specific slots
-					user.setInventorys("Empty");
+					user.setInventorys(null);
 					
 					
 					//change boolean to true
@@ -137,7 +137,7 @@ public class Game {
 					
 					
 					//make method that lets me change specific slots
-					user.setInventorys("Empty");
+					user.setInventorys(null);
 					
 					
 					//change boolean to true
@@ -155,7 +155,7 @@ public class Game {
 					
 					
 					//make method that lets me change specific slots
-					user.setInventorys("Empty");
+					user.setInventorys(null);
 					
 					
 					//change boolean to true
