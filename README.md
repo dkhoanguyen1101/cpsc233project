@@ -1,5 +1,5 @@
 # cpsc233project
-To run, download project off of github onto editing software of choice(e.g. eclipse).
+To run, download Chara.java, Map.java and Game.java off of github onto editing software of choice(e.g. eclipse).
 From there, just run from the console.
 
 Our game is a turn-based rpg. This demo is controlled completely by the number-keys, and the goal of the game is to lower the opponents health to zero, while keeping yourself healthy.
