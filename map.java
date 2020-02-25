@@ -158,12 +158,32 @@ protected map(int r, int cl){
 		System.out.println("character is not on map");
 	}
   }
-  
+    /**
+   * Take in arguments for 2 points(with column and row coord) and return distance
+   * Usage -> calDist(int col1, int row1,int col2,int row2)
+   * Parameters: col1, row1,col2,row2
+   * col1, row1(coordinators of first point)
+   * col2,row2(coordinators of second point)
+   *
+   *
+   * Return: dist (distance between 2 point)(note:not the real distance but the number of blocks to travel to reach that point)
+   */
+
   protected double calDist(int col1, int row1,int col2,int row2) {
 	  double dist = Math.abs(row1 - row2) + Math.abs(col1 - col2); 
 	  return dist;
   }
-  
+   /**
+   * Take in id of the bot(enemy) and the player to attack, then decide where to move for the AI
+   * Usage ->  AImove(int idAI, int idPlayer)
+   * Parameters: 
+   * idAI (id of the bot)(the one to move)
+   * idPlayer(id of the player)
+   *
+   *The method loop through the map and find the spot within range of the bot and closest to the player to attack, then move the bot
+   *
+   * Return: nothing
+   */
   protected void AImove(int idAI, int idPlayer) {
 	  int[] selfPos = getPos(idAI);
 	  int[] playerPos = getPos(idPlayer);
@@ -189,7 +209,9 @@ protected map(int r, int cl){
 	  setPos(idAI, rowReturn, colReturn);
   }
   
-  
+  //return string version of the map
+	
+	
   public String toString() {
 	  String toReturn="";
 	  for(int countRow = 0; countRow < row ; countRow++) {
