@@ -101,7 +101,7 @@ public class Game {
 		String slot1 = user.getItem(0);
 		String slot2 = user.getItem(1);
 		String slot3 = user.getItem(2);
-		if (slot1 == "empty" && slot2 == "empty" && slot3 == "empty") {
+		if (slot1.equals("empty") && slot2.equals("empty") && slot3.equals("empty")) {
 			System.out.println(user.getName() + "'s inventory is empty");
 			return false;
 		} else {
