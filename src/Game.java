@@ -84,6 +84,7 @@ public class Game {
 		if (((attackerX == receiverX + 1) || (attackerX == receiverX - 1)) && ((attackerY == receiverY + 1) || (attackerY == receiverY - 1))) {
 			//lower receiver health
 			receiver.setHealth((receiver.getHealth()) - (attacker.getAttack()));
+			System.out.println(attacker.getName() + " attacked " + reciever.getName() + " for " + attacker.getAttack() + " health!");
 			//change boolean to true
 			return true;
 		} else {
@@ -116,7 +117,7 @@ public class Game {
 					//hPotion.setAttributes();
 					//hPotion.characterHealth(user.getID());
 					user.setHealth(user.getHealth() + 50);
-
+					System.out.println("Restored 50 health!")
 					//make method that lets me change specific slots
 					user.setItem(null, 0);
 
@@ -134,7 +135,7 @@ public class Game {
 					//hPotion.setAttributes();
 					//hPotion.characterHealth(user.getID());
 					user.setHealth(user.getHealth() + 50);
-
+					System.out.println("Restored 50 health!")
 					//make method that lets me change specific slots
 					user.setItem(null, 1);
 
@@ -152,7 +153,7 @@ public class Game {
 					//hPotion.setAttributes();
 					//hPotion.characterHealth(user.getID());
 					user.setHealth(user.getHealth() + 50);
-
+					System.out.println("Restored 50 health!")
 
 					//make method that lets me change specific slots
 					user.setItem(null, 2);
@@ -195,4 +196,6 @@ public class Game {
 	}
 }
 
+	public void charToString(Chara character) {
+		System.out.println(character.getName() + ": " + character.getHealth() + " health");
 }
