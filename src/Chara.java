@@ -44,7 +44,7 @@ public class Chara {
 		
 	}
 	
-	public int getId() {
+	public int getID() {
 		return ID;
 	}
 	}

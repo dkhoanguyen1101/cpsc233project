@@ -166,7 +166,7 @@ protected map(int r, int cl){
   
   protected void AImove(int idAI, int idPlayer) {
 	  int[] selfPos = getPos(idAI);
-	  int[] playerPos = getPos(idAi);
+	  int[] playerPos = getPos(idPlayer);
 	  shortest = row + colummn;
 	  for(int countRow = 0; countRow < row ; countRow++) {
 		  for(int countCol = 0; countCol < column; countCol++) {
