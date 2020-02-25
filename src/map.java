@@ -175,6 +175,7 @@ protected map(int r, int cl){
 				  if(calDist(countCol, countRow, playerPos[0], playerPos[1])<shortest){
 					  colReturn = countCol;
 					  rowReturn = countRow;
+					  shortest = calDist(countCol, countRow, playerPos[0], playerPos[1]);
 				  }
 			  } 
 			
