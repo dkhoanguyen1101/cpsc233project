@@ -1,5 +1,5 @@
 /**game runner portion - uses main to facilitate gameplay
- * 
+ *
  * @author Derrick
  *
  */
@@ -19,8 +19,8 @@ public class Game {
 		enemy.setId(2);
 		demoMap.setPos(1, 4, 10); //putting player on right side of map
 		demoMap.setPos(2, 4, 0); //putting enemy on left side of map
-		boolean isPlayerAlive = true;	//booleans used to execute phase if not dead 
-		boolean isEnemyAlive = true; 
+		boolean isPlayerAlive = true;	//booleans used to execute phase if not dead
+		boolean isEnemyAlive = true;
 		boolean isGame = true;	//boolean used to keep turns going is nobody is dead
 		boolean isWin = true;	//boolean used to determine final message
 		//beginning of the actual game
@@ -57,7 +57,13 @@ public class Game {
 			}
 			if(isEnemyAlive) { //enemy phase
 				demoMap.toString();
-				AI(enemy); //use AI function to determine moves for this character
+				AI(enemy);
+				demoMap.AImove(enemy.getID(),player.getID());
+				int[] selfPos = getPos(enemy.getID());
+			  int[] playerPos = getPos(player.getID());
+				if(demoMap.calDIst(selfPos[0],selfPos[1],playerPos[0],playerPos[1]) == 1){
+					attack(enemy, player, demoMap);
+				}//use AI function to determine moves for this character
 				if(player.getHealth() <= 0) { //if the enemy killed you
 					isPlayerAlive = false;	//you are dead
 					isGame = false;
@@ -72,10 +78,10 @@ public class Game {
 		}
 	}
 
-	
+
 	//Attack, Item, and Move methods in the Game class are made by Robert Ferguson.
-	
-	
+
+
 	public boolean Attack(Chara attacker, Chara receiver, Map map) {
 		//check if attacker is in range
 		int attackerX = map.getPos(attacker.getID())[0];
@@ -92,10 +98,10 @@ public class Game {
 			System.out.println(attacker + " cannot reach anybody!");
 			return false;
 		}
-		
-			
+
+
 	}
-	
+
 	public boolean Item(Chara user) {
 		//check if inventory is empty
 		String slot1 = user.getInventorys().get[0];
@@ -117,11 +123,11 @@ public class Game {
 					//hPotion.setAttributes();
 					//hPotion.characterHealth(user.getID());
 					user.setHealth(user.getHealth() + 50);
-					
+
 					//make method that lets me change specific slots
 					user.setItem(null, 0);
-					
-					
+
+
 					//change boolean to true
 					return true;
 				} else {
@@ -135,11 +141,11 @@ public class Game {
 					//hPotion.setAttributes();
 					//hPotion.characterHealth(user.getID());
 					user.setHealth(user.getHealth() + 50);
-					
+
 					//make method that lets me change specific slots
 					user.setItem(null, 1);
-					
-					
+
+
 					//change boolean to true
 					return true;
 				} else {
@@ -153,19 +159,19 @@ public class Game {
 					//hPotion.setAttributes();
 					//hPotion.characterHealth(user.getID());
 					user.setHealth(user.getHealth() + 50);
-					
-					
+
+
 					//make method that lets me change specific slots
 					user.setItem(null, 2);
-					
-					
+
+
 					//change boolean to true
 					return true;
 				} else {
 					System.out.println("That slot is empty");
 					return false;
 				}
-				
+
 			} else {
 				//send back to menu if item is not selected
 				System.out.println("That is not a valid item");
@@ -173,9 +179,9 @@ public class Game {
 			}
 		}
 	}
-	
+
 	//moves chosen character to new location on map, provided location is legal
-	
+
 	public void Move(Chara chara, Map map) {
 		//ask for user input (x and y positions)
 		Scanner pick = new Scanner(System.in);
@@ -195,5 +201,5 @@ public class Game {
 		map.move(chara.getID(), newX, newY, 4);
 	}
 }
-	
+
 }
