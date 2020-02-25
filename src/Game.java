@@ -8,15 +8,9 @@ public class Game {
 
 	public static void main(String[] args) {
 		map demoMap = new map(7, 11); //make a generic 7x11 map
-		Chara player = new Chara();	//generating the generic player character
-		player.setAttack(10);
-		player.setHealth(100);
-		player.setId(1);
+		Chara player = new Chara("Player", 1, 10, 100);	//generating the generic player character
 		player.setItem("Health Potion", 0);
-		Chara enemy = new Chara(); //generating the generic enemy character
-		enemy.setAttack(5);
-		enemy.setHealth(50);
-		enemy.setId(2);
+		Chara enemy = new Chara(2, 5, 50); //generating the generic enemy character
 		demoMap.setPos(1, 4, 10); //putting player on right side of map
 		demoMap.setPos(2, 4, 0); //putting enemy on left side of map
 		boolean isPlayerAlive = true;	//booleans used to execute phase if not dead
@@ -44,7 +38,7 @@ public class Game {
 					System.out.println("Enter 3 to end turn now");
 					int choice = input.nextInt();
 					switch(choice) {
-					case 1: didSomething = attack(player); break; //supplementary methods will determine if legal action was taken
+					case 1: didSomething = attack(player, enenmy, demoMap); break; //supplementary methods will determine if legal action was taken
 					case 2: didSomething = item(player); break;  //if so, boolean becomes true, moves on to next character
 					case 3: didSomething = true; break; //if no action wants to be taken by user, breaks the loop without acting
 					}
@@ -57,7 +51,6 @@ public class Game {
 			}
 			if(isEnemyAlive) { //enemy phase
 				demoMap.toString();
-				AI(enemy);
 				demoMap.AImove(enemy.getID(),player.getID());
 				int[] selfPos = getPos(enemy.getID());
 			  int[] playerPos = getPos(player.getID());
