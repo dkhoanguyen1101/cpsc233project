@@ -159,6 +159,33 @@ protected map(int r, int cl){
 	}
   }
   
+  protected double calDist(int col1, int row1,int col2,int row2) {
+	  double dist = Math.abs(row1 - row2) + Math.abs(col1 - col2); 
+	  return dist;
+  }
+  
+  protected void AImove(int idAI, int idPlayer) {
+	  int[] selfPos = getPos(idAI);
+	  int[] playerPos = getPos(idAi);
+	  shortest = row + colummn;
+	  for(int countRow = 0; countRow < row ; countRow++) {
+		  for(int countCol = 0; countCol < column; countCol++) {
+			  if(isEmpty(countRow, countCol)) {
+			  if (calDist(selfPos[0], selfPos[1], countCol, countRow) <= 4) {
+				  if(calDist(countCol, countRow, playerPos[0], playerPos[1])<shortest){
+					  colReturn = countCol;
+					  rowReturn = countRow;
+				  }
+			  } 
+			
+		  }
+	  }
+	  
+  }
+	  setPos(0, originalRow, originalCol);
+	  setPos(idAI, rowReturn, colReturn);
+  }
+  
   protected String toString() {
 	  String toReturn;
 	  for(int countRow = 0; countRow < row ; countRow++) {
