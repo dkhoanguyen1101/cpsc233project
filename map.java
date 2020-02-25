@@ -189,6 +189,7 @@ protected map(int r, int cl){
 	  setPos(idAI, rowReturn, colReturn);
   }
   
+  
   public String toString() {
 	  String toReturn="";
 	  for(int countRow = 0; countRow < row ; countRow++) {
