@@ -121,7 +121,7 @@ protected map(int r, int cl){
 		  if (isOnMap(id)) {
 		  int originalCol = position[0];
 		  int originalRow = position[1];
-		  int distance = Math.abs(rowCoord - originalRow) + Math.abs(colCoord - originalCol);
+		  int distance = shortestWay(colCoord, rowCoord, originalCol, originalRow);
 		  return (distance <= limit);}
 		  return false;
   }
@@ -206,5 +206,21 @@ protected map(int r, int cl){
 		  toReturn += "] \n";  
 	  }
 	 return toReturn;
+  }
+  public int shortestWay(int destX, int destY, int xStart, int yStart) {
+	  if ((destX == xStart + 1 && destY == yStart) || (destX == xStart - 1 && destY == yStart) || (destX == xStart  && destY == yStart + 1) || (destX == xStart && destY == yStart -1 )) {
+		  return 1;
+		  }
+	  if (calDist(destX , destY, xStart -1, yStart) < calDist(destX , destY, xStart, yStart)) {
+		  return (1 + shortestWay( destX,  destY,  xStart-1,  yStart));
+	  }else if(calDist(destX , destY, xStart +1, yStart) < calDist(destX , destY, xStart , yStart)) {
+		  return (1 + shortestWay( destX,  destY,  xStart+1,  yStart));
+	  }
+	  else if(calDist(destX , destY, xStart , yStart+1) < calDist(destX , destY, xStart , yStart)) {
+		  return (1 + shortestWay( destX,  destY,  xStart,  yStart+1));
+	  }
+	  else {
+		  return (1+shortestWay( destX,  destY,  xStart,  yStart-1));
+	  }
   }
   }
