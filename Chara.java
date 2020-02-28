@@ -7,7 +7,7 @@ public class Chara {
 	private int attack;
 	private int ID;
 	private String name;
-	private String[] inventory = {"empty", "empty", "empty"};
+	private Item[] inventory = { new EmptyItem(),  new EmptyItem(),  new EmptyItem()};
 	public Chara() {
 		
 	}
@@ -23,18 +23,22 @@ public class Chara {
 	public void setAttack(int att) {
       attack = att;
 	}
-	 public String[] getInventory() {
-		String[] toReturn = new String[3];
+	 public Item[] getInventory() {
+		Item[] toReturn = new Item[3];
 	    for (int index = 0; index < this.inventory.length; index++) {
 	    	toReturn[index] = this.inventory[index];
 	    	}
 	    return toReturn;
 	    }
-	 public void setItem(String newItem,int index) {
+	 public void setItem(Item newItem,int index) {
 	        inventory[index] = newItem;
 	    }
-	 public String getItem(int ind) {
-		 return new String(this.inventory[ind]);
+	 public String getItemName(int ind) {
+		 return new String(this.inventory[ind].getName());
+	 }
+	 
+	 public Item getItem(int ind) {
+		 return this.inventory[ind];
 	 }
 	
 	 public void setHealth(int i) {
@@ -59,6 +63,9 @@ public class Chara {
 	
 	public String getName() {
 		return name;
+	}
+	public void Special() {
+		
 	}
 }	
 
