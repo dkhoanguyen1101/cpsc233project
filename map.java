@@ -207,20 +207,24 @@ protected map(int r, int cl){
 	  }
 	 return toReturn;
   }
-  public int shortestWay(int destX, int destY, int xStart, int yStart) {
+  public int shortestWay(int destX, int destY, int xStart, int yStart, char step) {
 	  if ((destX == xStart + 1 && destY == yStart) || (destX == xStart - 1 && destY == yStart) || (destX == xStart  && destY == yStart + 1) || (destX == xStart && destY == yStart -1 )) {
 		  return 1;
 		  }
-	  if (calDist(destX , destY, xStart -1, yStart) < calDist(destX , destY, xStart, yStart)) {
-		  return (1 + shortestWay( destX,  destY,  xStart-1,  yStart));
-	  }else if(calDist(destX , destY, xStart +1, yStart) < calDist(destX , destY, xStart , yStart)) {
-		  return (1 + shortestWay( destX,  destY,  xStart+1,  yStart));
+	  if ((calDist(destX , destY, xStart -1, yStart) < calDist(destX , destY, xStart, yStart)) && step != 'r') {
+		  return (1 + shortestWay( destX,  destY,  xStart-1,  yStart, 'l'));
+	  }else if(calDist(destX , destY, xStart +1, yStart) < calDist(destX , destY, xStart , yStart) && step != 'l') {
+		  return (1 + shortestWay( destX,  destY,  xStart+1,  yStart, 'r'));
 	  }
-	  else if(calDist(destX , destY, xStart , yStart+1) < calDist(destX , destY, xStart , yStart)) {
-		  return (1 + shortestWay( destX,  destY,  xStart,  yStart+1));
+	  else if(calDist(destX , destY, xStart , yStart+1) < calDist(destX , destY, xStart , yStart) && step != 'd') {
+		  return (1 + shortestWay( destX,  destY,  xStart,  yStart+1, 'u'));
 	  }
 	  else {
 		  return (1+shortestWay( destX,  destY,  xStart,  yStart-1));
 	  }
   }
+	 public int shortestWay(int destX, int destY, int xStart, int yStart) {
+		 return shortestWay (destX,destY, xStart,  yStart, 'i');
+	  }
+  
   }
