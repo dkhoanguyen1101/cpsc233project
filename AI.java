@@ -9,7 +9,9 @@ public class AI {
 	public AI(Cell cell) {
 		this.cell = cell;
 	}
-	//returns the id of the closest player to the enemy
+	
+	//checkClosest : returns the id of the closest player to the enemy
+	//parameters : the IDs of the enemy moving, and all the player characters
 	
 	//shouldn't be used outside of class
 	
@@ -43,40 +45,43 @@ public class AI {
 		}
 	}
 	
-	//moves character to the farthest location from the nearest player
+	//moveAIAway : moves character to the farthest location from the nearest player
+	//parameters : the IDs of the enemy that is moving, and all the player characters
 	
 	public void moveAIAway(int enemyID, int player1ID, int player2ID, int player3ID) {
-		//get position of both characters
-		//int nearestPlayerID = checkClosest(enemyID, player1ID, player2ID, player3ID);
-		//int [] enemyPos = cell.getPos(enemyID);
-		//int [] playerPos = cell.getPos(nearestPlayerID);
+		get position of both characters
+		int nearestPlayerID = checkClosest(enemyID, player1ID, player2ID, player3ID);
+		int [] enemyPos = cell.getPos(enemyID);
+		int [] playerPos = cell.getPos(nearestPlayerID);
 		
 		//need to add getRow() and getColumn() to Cell
 		
-		//double shortest = cell.getRow() + cell.getColumn();
-		//	int colReturnClose = 0;
-		//	int rowReturnClose = 0;
-		//	for(int countRow = 0; countRow < row ; countRow++) {
-		//		for(int countCol = 0; countCol < column; countCol++) {
-		//			if(cell.isEmpty(countRow, countCol)) {
-		//				if (cell.calDist(enemyPos[0], enemyPos[1], countCol, countRow) <= 4) {
-		//					if(cell.calDist(countCol, countRow, playerPos[0], playerPos[1]) < shortest){
-		//						colReturn = countCol;
-		//						rowReturn = countRow;
-		//						shortest = cell.calDist(countCol, countRow, playerPos[0], playerPos[1]);
-		//					}
-		//				} 
-		//			}
-		//		} 
-		//	}
-		//	int rowReturn = rowReturnClose;
-		//	int colReturn = colReturnClose;
-		//	setPos(0, enemyPos[1], enemyPos[0]);
-		//	setPos(enemyID, rowReturn, colReturn);	
+		double longest = cell.getRow() + cell.getColumn();
+			int colReturn = 0;
+			int rowReturn = 0;
+			for(int countRow = 0; countRow < row ; countRow++) {
+				for(int countCol = 0; countCol < column; countCol++) {
+					if(cell.isEmpty(countRow, countCol)) {
+						
+						//how do i get the distance limit
+						
+						if (cell.calDist(enemyPos[0], enemyPos[1], countCol, countRow) <= 4) {
+							if(cell.calDist(countCol, countRow, playerPos[0], playerPos[1]) > longest){
+								colReturn = countCol;
+								rowReturn = countRow;
+								longest = cell.calDist(countCol, countRow, playerPos[0], playerPos[1]);
+							}
+						} 
+					}
+				} 
+			}
+			setPos(0, enemyPos[1], enemyPos[0]);
+			setPos(enemyID, rowReturn, colReturn);	
 	}
 		
 	
-	//moves character to the closest location to the nearest player
+	//moveAITowards : moves character to the closest location to the nearest player
+	//parameters : the IDs of the enemy that is moving, and all the player characters
 	
 	public void moveAITowards(int enemyID, int player1ID, int player2ID, int player3ID) {
 		//get position of both characters
@@ -92,6 +97,9 @@ public class AI {
 			for(int countRow = 0; countRow < row ; countRow++) {
 				for(int countCol = 0; countCol < column; countCol++) {
 					if(cell.isEmpty(countRow, countCol)) {
+						
+						//how do i get the distance limit
+						
 						if (cell.calDist(enemyPos[0], enemyPos[1], countCol, countRow) <= 4) {
 							if(cell.calDist(countCol, countRow, playerPos[0], playerPos[1]) < shortest){
 								colReturn = countCol;
@@ -106,4 +114,3 @@ public class AI {
 			setPos(enemyID, rowReturn, colReturn);	
 	}	
 }
-		
