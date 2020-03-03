@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class map {
 
-  private int row;
-  private int column;
+  private int row = 16;
+  private int column= 16;
   private ArrayList<ArrayList<Integer>> twoDList = new ArrayList<ArrayList<Integer>>();
 
   /**
@@ -18,9 +18,8 @@ public class map {
  * Return: Nothing
  */
 
-protected map(int r, int cl){
-    row = r;
-    column = cl;
+protected map(){
+    
     for(int countRow = 0; countRow < row; countRow++) {
     	twoDList.add(new ArrayList<Integer>());
     	for(int countColumn = 0; countColumn < column; countColumn++) {
@@ -164,7 +163,7 @@ protected map(int r, int cl){
 	  return dist;
   }
   
-  protected void AImove(int idAI, int idPlayer) {
+  protected void AImove(int idAI, int idPlayer, int moveRange) {
 	  int[] selfPos = getPos(idAI);
 	  int[] playerPos = getPos(idPlayer);
 	  double shortest = row + column;
@@ -173,11 +172,11 @@ protected map(int r, int cl){
 	  for(int countRow = 0; countRow < row ; countRow++) {
 		  for(int countCol = 0; countCol < column; countCol++) {
 			  if(isEmpty(countRow, countCol)) {
-			  if (calDist(selfPos[0], selfPos[1], countCol, countRow) <= 4) {
+			  if (shortestWay(selfPos[0], selfPos[1], countCol, countRow) <= moveRange) {
 				  if(calDist(countCol, countRow, playerPos[0], playerPos[1])<shortest){
 					   colReturn = countCol;
 					   rowReturn = countRow;
-					  shortest = calDist(countCol, countRow, playerPos[0], playerPos[1]);
+					  shortest = shortestWay(countCol, countRow, playerPos[0], playerPos[1]);
 				  }
 			  } 
 			

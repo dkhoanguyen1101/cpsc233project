@@ -4,25 +4,38 @@
 
 public class Chara {
 	private int health;
+	private int maxHealth;
 	private int attack;
+	private int maxAttack;
 	private int ID;
 	private String name;
 	private Item[] inventory = { new EmptyItem(),  new EmptyItem(),  new EmptyItem()};
+	private int range;
 	public Chara() {
 		
 	}
 	public Chara(String name, int id, int att, int health) {
 		this.name = name;
 		this.ID = id;
-		this.attack = att;
-		this.health = health;
+		setAttack(att);
+		setHealth(health);
 	}
 	public int getAttack() {
       return attack;
 	}
 	public void setAttack(int att) {
-      attack = att;
+	if (att > maxAttack) {
+		attack = maxAttack;
+	}else {
+      attack = att;}
 	}
+	
+	public int getRange() {
+	      return range;
+		}
+		public void setRange(int r) {
+	      range = r;
+		}
 	 public Item[] getInventory() {
 		Item[] toReturn = new Item[3];
 	    for (int index = 0; index < this.inventory.length; index++) {
@@ -42,7 +55,11 @@ public class Chara {
 	 }
 	
 	 public void setHealth(int i) {
-		health  = i;
+		if (i >= maxHealth) {
+			health = maxHealth;
+		}else {
+			health = i;
+		}
 	}
 	
 	public int getHealth() {
@@ -64,8 +81,8 @@ public class Chara {
 	public String getName() {
 		return name;
 	}
-	public void Special() {
-		
+	public boolean Special() {
+		return false;
 	}
 }	
 

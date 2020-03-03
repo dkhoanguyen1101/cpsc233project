@@ -24,11 +24,9 @@ public void setName(String aName) {
 	name = aName;
 }
 
-public void use(char c) {
-	
+public boolean use(char c) {
+	return false;
 }
 
-public boolean doSth(){
-	return true;
-}
+
 }
