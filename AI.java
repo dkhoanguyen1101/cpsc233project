@@ -46,14 +46,64 @@ public class AI {
 	//moves character to the farthest location from the nearest player
 	
 	public void moveAIAway(int enemyID, int player1ID, int player2ID, int player3ID) {
-		//find distance using setPos(id), getPos(id), isLegalMove(), isEmpty(), calDist()
+		//get position of both characters
+		//int nearestPlayerID = checkClosest(enemyID, player1ID, player2ID, player3ID);
+		//int [] enemyPos = cell.getPos(enemyID);
+		//int [] playerPos = cell.getPos(nearestPlayerID);
 		
+		//need to add getRow() and getColumn() to Cell
+		
+		//double shortest = cell.getRow() + cell.getColumn();
+		//	int colReturnClose = 0;
+		//	int rowReturnClose = 0;
+		//	for(int countRow = 0; countRow < row ; countRow++) {
+		//		for(int countCol = 0; countCol < column; countCol++) {
+		//			if(cell.isEmpty(countRow, countCol)) {
+		//				if (cell.calDist(enemyPos[0], enemyPos[1], countCol, countRow) <= 4) {
+		//					if(cell.calDist(countCol, countRow, playerPos[0], playerPos[1]) < shortest){
+		//						colReturn = countCol;
+		//						rowReturn = countRow;
+		//						shortest = cell.calDist(countCol, countRow, playerPos[0], playerPos[1]);
+		//					}
+		//				} 
+		//			}
+		//		} 
+		//	}
+		//	int rowReturn = rowReturnClose;
+		//	int colReturn = colReturnClose;
+		//	setPos(0, enemyPos[1], enemyPos[0]);
+		//	setPos(enemyID, rowReturn, colReturn);	
 	}
+		
 	
 	//moves character to the closest location to the nearest player
 	
 	public void moveAITowards(int enemyID, int player1ID, int player2ID, int player3ID) {
+		//get position of both characters
+		int nearestPlayerID = checkClosest(enemyID, player1ID, player2ID, player3ID);
+		int [] enemyPos = cell.getPos(enemyID);
+		int [] playerPos = cell.getPos(nearestPlayerID);
 		
-	}
-	
+		//need to add getRow() and getColumn() to Cell
+		
+		double shortest = cell.getRow() + cell.getColumn();
+			int colReturn = 0;
+			int rowReturn = 0;
+			for(int countRow = 0; countRow < row ; countRow++) {
+				for(int countCol = 0; countCol < column; countCol++) {
+					if(cell.isEmpty(countRow, countCol)) {
+						if (cell.calDist(enemyPos[0], enemyPos[1], countCol, countRow) <= 4) {
+							if(cell.calDist(countCol, countRow, playerPos[0], playerPos[1]) < shortest){
+								colReturn = countCol;
+								rowReturn = countRow;
+								shortest = cell.calDist(countCol, countRow, playerPos[0], playerPos[1]);
+							}
+						} 
+					}
+				} 
+			}
+			setPos(0, enemyPos[1], enemyPos[0]);
+			setPos(enemyID, rowReturn, colReturn);	
+	}	
 }
+		
