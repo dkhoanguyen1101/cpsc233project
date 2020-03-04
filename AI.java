@@ -13,60 +13,44 @@ public class AI {
 	//checkClosest : returns the id of the closest player to the enemy
 	//parameters : the IDs of the enemy moving, and all the player characters
 	
-	//shouldn't be used outside of class
+	//shouldn't be used outside of the AI class
 	
-	private int checkClosest(int enemyID, int player1ID, int player2ID, int player3ID) {
-		//get distance of each item
+	protected int checkClosest(int enemyID, ArrayList<Integer> playerIDs) {
+		//get position of enemy that is moving
 		int[] posE = map.getPos(enemyID);
-		int[] posP1 = map.getPos(player1ID);
-		double dist1 = calDist(posP1[0], posP1[1], posE[0], posE[1]);
-		int[] posP2 = map.getPos(player2ID);
-		double dist2 = calDist(posP2[0], posP2[1], posE[0], posE[1]);
-		int[] posP3 = map.getPos(player3ID);
-		double dist3 = calDist(posP3[0], posP3[1], posE[0], posE[1]);
-		//use loop to find shortest distance
-		ArrayList<Double> dists = new ArrayList<Double>();
-		dists.add(dist1);
-		dists.add(dist2);
-		dists.add(dist3);
-		double closest = dist1;
-		for (double item : dists) {
-			if (item < closest) {
-				closest = item;
+		//run a for loop that finds the shortest distance and returns the id of the player character at that position
+		int closestPlayerID = playerIDs.get(0);
+		int closest = shortestWay((map.getPos(playerIDs.get(0)))[0], (map.getPos(playerIDs.get(0)))[1], posE[0], posE[1]);
+		for ( int pos : playerIDs) {
+			int newDist = shortestWay(map.getPos(pos)[0], map.getPos(pos)[1], posE[0], posE[1]); 
+			//if  newDist is smaller than closest, replace
+			if (newDist < closest) {
+				closest = newDist;
+				closestPlayerID = playerIDs.get(pos);
 			}
 		}
-		//return id of closest player
-		if (closest == dist1) {
-			return player1ID;
-		} else if (closest == dist2) {
-			return player2ID;
-		} else if (closest == dist3) {
-			return player3ID;
-		}
+		return closestPlayerID;
 	}
 	
-	//moveAIAway : moves character to the farthest location from the nearest player
-	//parameters : the IDs of the enemy that is moving, and all the player characters
+	//moveAIAway : moves character to the farthest location possible from the nearest player
+	//parameters : the IDs of the enemy that is moving, the movement limit of the same enemy, and an array list of all the player characters IDs
 	
-	public void moveAIAway(int enemyID, int player1ID, int player2ID, int player3ID) {
+	public void moveAIAway(int enemyID, int enemyMoveLimit, ArrayList<Integer> playerIDs) {
 		//get position of both characters
-		int nearestPlayerID = checkClosest(enemyID, player1ID, player2ID, player3ID);
+		int nearestPlayerID = checkClosest(enemyID, playerIDs);
 		int [] enemyPos = map.getPos(enemyID);
 		int [] playerPos = map.getPos(nearestPlayerID);
 		double longest = 32;
 			int colReturn = 0;
 			int rowReturn = 0;
-			for(int countRow = 0; countRow < row ; countRow++) {
-				for(int countCol = 0; countCol < column; countCol++) {
+			for(int countRow = 0; countRow < 16 ; countRow++) {
+				for(int countCol = 0; countCol < 16; countCol++) {
 					if(map.isEmpty(countRow, countCol)) {
-						
-						//how do i get the distance limit
-						
-						if (map.calDist(enemyPos[0], enemyPos[1], countCol, countRow) <= 4) {
-							if(map.calDist(countCol, countRow, playerPos[0], playerPos[1]) > longest){
+						if (map.shortestWay(enemyPos[0], enemyPos[1], countCol, countRow) <= enemyMoveLimit) {
+							if(map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]) > longest){
 								colReturn = countCol;
 								rowReturn = countRow;
-								longest = map.calDist(countCol, countRow, playerPos[0], playerPos[1]);
+								longest = map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]);
 							}
 						} 
 					}
@@ -77,28 +61,25 @@ public class AI {
 	}
 		
 	
-	//moveAITowards : moves character to the closest location to the nearest player
-	//parameters : the IDs of the enemy that is moving, and all the player characters
-	
-	public void moveAITowards(int enemyID, int player1ID, int player2ID, int player3ID) {
+	//moveAITowards : moves character to the closest location possible to the nearest player
+	//parameters : the IDs of the enemy that is moving, the movement limit of the same enemy, and an array list of all the player characters IDs
+
+	public void moveAITowards(int enemyID, int enemyMoveLimit, ArrayList<Integer> playerIDs) {
 		//get position of both characters
-		int nearestPlayerID = checkClosest(enemyID, player1ID, player2ID, player3ID);
+		int nearestPlayerID = checkClosest(enemyID, playerIDs);
 		int [] enemyPos = map.getPos(enemyID);
 		int [] playerPos = map.getPos(nearestPlayerID);
-		double shortest = 32;
+		double longest = 32;
 			int colReturn = 0;
 			int rowReturn = 0;
-			for(int countRow = 0; countRow < row ; countRow++) {
-				for(int countCol = 0; countCol < column; countCol++) {
-					if(cell.isEmpty(countRow, countCol)) {
-						
-						//how do i get the distance limit
-						
-						if (map.calDist(enemyPos[0], enemyPos[1], countCol, countRow) <= 4) {
-							if(map.calDist(countCol, countRow, playerPos[0], playerPos[1]) < shortest){
+			for(int countRow = 0; countRow < 16 ; countRow++) {
+				for(int countCol = 0; countCol < 16; countCol++) {
+					if(map.isEmpty(countRow, countCol)) {		
+						if (map.shortestWay(enemyPos[0], enemyPos[1], countCol, countRow) <= enemyMoveLimit) {
+							if(map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]) < longest){
 								colReturn = countCol;
 								rowReturn = countRow;
-								shortest = map.calDist(countCol, countRow, playerPos[0], playerPos[1]);
+								longest = map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]);
 							}
 						} 
 					}
