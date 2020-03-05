@@ -6,6 +6,9 @@ public class map {
   private int row = 16;
   private int column= 16;
   private int[] charPos = new int[6];
+  private int[] enemyPos = new int[6];
+  private int[] itemPos = new int[2];
+
  
   private ArrayList<ArrayList<Integer>> twoDList = new ArrayList<ArrayList<Integer>>();
 
@@ -20,7 +23,7 @@ public class map {
  * Return: Nothing
  */
 
-protected map(){
+protected map(int[] acharPos, int[] aenemy, int[] aitem){
     
     for(int countRow = 0; countRow < row; countRow++) {
     	twoDList.add(new ArrayList<Integer>());
@@ -28,6 +31,9 @@ protected map(){
     		twoDList.get(countRow).add(0);
     		}
     	}
+    charPos = acharPos.clone();
+    enemyPos = aenemy.clone();
+    itemPos = aitem.clone();
     }
 
 
