@@ -1,7 +1,6 @@
 
 //character class @author Yuwen
 
-
 public class Chara {
 	private int health;
 	private int maxHealth;
@@ -11,9 +10,7 @@ public class Chara {
 	private String name;
 	private Item[] inventory = { new EmptyItem(),  new EmptyItem(),  new EmptyItem()};
 	private int range;
-	public Chara() {
-		
-	}
+	
 	public Chara(String name, int id, int att, int health) {
 		this.name = name;
 		this.ID = id;
@@ -99,6 +96,10 @@ public class Chara {
 	}
 	public boolean Special() {
 		return false;
+	}
+	
+	public void attack(Chara receiver) {
+		receiver.setHealth(receiver.getHealth() - getAttack());
 	}
 }	
 

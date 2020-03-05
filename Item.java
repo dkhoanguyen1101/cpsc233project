@@ -28,7 +28,7 @@ public void setName(String aName) {
 	name = aName;
 }
 
-public boolean use(char c) {
+public boolean use(Chara c) {
 	return false;
 }
 
