@@ -5,6 +5,8 @@ public class map {
 
   private int row = 16;
   private int column= 16;
+  private int[] charPos = new int[6];
+ 
   private ArrayList<ArrayList<Integer>> twoDList = new ArrayList<ArrayList<Integer>>();
 
   /**
@@ -83,7 +85,7 @@ protected map(){
    *
    * Return: boolean: true if the slot is empty, false if there is an object in the slot
    */
-  private boolean isEmpty(int rowCoord, int colCoord) {
+  public boolean isEmpty(int rowCoord, int colCoord) {
 	  return twoDList.get(rowCoord).get(colCoord).equals(0);
   }
 
