@@ -3,10 +3,10 @@ import java.util.ArrayList;
 public class AI {
 	
 	//instance variables
-	Map map;
+	map map;
 	
 	//constructor
-	public AI(Map map) {
+	public AI(map map) {
 		this.map = map;
 	}
 	
@@ -20,9 +20,9 @@ public class AI {
 		int[] posE = map.getPos(enemyID);
 		//run a for loop that finds the shortest distance and returns the id of the player character at that position
 		int closestPlayerID = playerIDs.get(0);
-		int closest = shortestWay((map.getPos(playerIDs.get(0)))[0], (map.getPos(playerIDs.get(0)))[1], posE[0], posE[1]);
+		int closest = map.shortestWay((map.getPos(playerIDs.get(0)))[0], (map.getPos(playerIDs.get(0)))[1], posE[0], posE[1]);
 		for ( int pos : playerIDs) {
-			int newDist = shortestWay(map.getPos(pos)[0], map.getPos(pos)[1], posE[0], posE[1]); 
+			int newDist = map.shortestWay(map.getPos(pos)[0], map.getPos(pos)[1], posE[0], posE[1]); 
 			//if  newDist is smaller than closest, replace
 			if (newDist < closest) {
 				closest = newDist;

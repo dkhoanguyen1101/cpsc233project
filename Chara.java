@@ -30,7 +30,7 @@ public class Chara {
       attack = att;}
 	}
 	
-	public int getRange() {
+	public int getRange() {  
 	      return range;
 		}
 		public void setRange(int r) {
