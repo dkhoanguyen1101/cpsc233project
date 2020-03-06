@@ -17,7 +17,10 @@ public map generate() {
 		map toReturn = new map(map1[0], map1[1], map1[2]);
 		return toReturn;
 	}
+	default:{
+		map toReturn = new map(map1[0], map1[1], map1[2]);
+		return toReturn;}
 	}
-	return toReturn;
+	
 }
 }
