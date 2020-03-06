@@ -56,8 +56,8 @@ public class AI {
 					}
 				} 
 			}
-			map.setPos(0, enemyPos[1], enemyPos[0]);
-			map.setPos(enemyID, rowReturn, colReturn);	
+			map.setPos(0, enemyPos[0], enemyPos[1]);
+			map.setPos(enemyID, colReturn, rowReturn);	
 	}
 		
 	
@@ -85,7 +85,7 @@ public class AI {
 					}
 				} 
 			}
-			map.setPos(0, enemyPos[1], enemyPos[0]);
-			map.setPos(enemyID, rowReturn, colReturn);	
+			map.setPos(0, enemyPos[0], enemyPos[1]);
+			map.setPos(enemyID, colReturn, rowReturn);	
 	}	
 }
