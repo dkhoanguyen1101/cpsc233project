@@ -154,8 +154,8 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
 		 int originalCol = position[0];
 		 int originalRow = position[1];
 		 setPos(0, originalRow, originalCol);
-		 setPos(id, rowCoord, colCoord);}
-		  return true;
+		 setPos(id, rowCoord, colCoord);
+	  	return true;}
 	  else {
 		  System.out.println("out of range move");
 		  return false;
