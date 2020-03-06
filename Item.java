@@ -8,7 +8,7 @@ public Item(int id, String aName) {
 	setID(id);
 	setName(aName);
 }
-public String getStatic() {
+public int getStatic() {
 	int toReturn = staticID;
 	return toReturn;
 }

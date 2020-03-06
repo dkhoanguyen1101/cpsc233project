@@ -77,7 +77,7 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
    *
    * Return: nothing
    */
-  protected void setPos(int id, int rowCoord, int colCoord) {
+  protected void setPos(int id, int colCoord, int rowCoord) {
 	  twoDList.get(rowCoord).set(colCoord, id);
   }
 
