@@ -146,7 +146,7 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
    *  limit: how many step can the object move
    * Return: nothing
    */
-  protected void move(int id, int rowCoord, int colCoord, int limit) {
+  protected boolean move(int id, int rowCoord, int colCoord, int limit) {
 	  if (isOnMap(id)) {
 	  if (isEmpty(rowCoord, colCoord)) {
 	  if (isLegalMove( id, rowCoord, colCoord, limit) == true) {
@@ -155,14 +155,18 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
 		 int originalRow = position[1];
 		 setPos(0, originalRow, originalCol);
 		 setPos(id, rowCoord, colCoord);}
+		  return true;
 	  else {
 		  System.out.println("out of range move");
+		  return false;
 	  }
 	 } else {
 		 System.out.println("place is not empty");
+		  return false;
 	 	}
 	}else {
 		System.out.println("character is not on map");
+		  return false;
 	}
   }
   
