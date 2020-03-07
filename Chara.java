@@ -6,18 +6,44 @@ public class Chara {
 	private int maxHealth;
 	private int attack;
 	private int maxAttack;
+	private int mana;
+	private int maxMana;
 	private int ID;
 	private String name;
 	private Item[] inventory = { new EmptyItem(),  new EmptyItem(),  new EmptyItem()};
 	private int range;
+	private int move;
 	
-	public Chara(String name, int id, int att, int health) {
-		this.name = name;
+	public Chara() {
+		
+	}
+	public Chara(String name, int id, int att, int health, int mana, int maxAtt, int maxHealth, int maxMana, int move, int range) {
+		this.name = new String(name);
 		this.ID = id;
-		setMaxAttack(att);
-		setMaxHealth (health);
+		setMove(move);
+		setRange(range);
+		setMaxAttack(maxAtt);
+		setMaxHealth(maxHealth);
 		setAttack(att);
 		setHealth(health);
+		setMana(mana);
+		setMaxMana(maxMana);
+	}
+	public int getMana() {return mana;}
+	public void setMana(int newMana) {
+		if(newMana >= maxMana) mana = maxMana;
+		else mana = newMana;
+	}
+	
+	public int getMaxMana() {return maxMana;}
+	public void setMaxMana(int newMax) {maxMana = newMax;}
+	public int getMove() {return move;}
+	public void setMove(int newMove) {move = newMove;}
+	public int getAttack() {
+      return attack;
+	}
+	public void setAttack(int att) {
+      attack = att;
 	}
 	public void setMaxAttack(int i) {
 		maxAttack = i;
@@ -33,16 +59,6 @@ public class Chara {
 	public void setMaxHealth(int i) {
 		maxHealth = i;
 	}
-	public int getAttack() {
-      return attack;
-	}
-	public void setAttack(int att) {
-	if (att > maxAttack) {
-		attack = maxAttack;
-	}else {
-      attack = att;}
-	}
-	
 	public int getRange() {  
 	      return range;
 		}
