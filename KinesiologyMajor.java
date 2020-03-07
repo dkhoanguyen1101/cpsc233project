@@ -4,9 +4,21 @@ import java.math.*;
 public class KinesiologyMajor extends Chara{
 	Scanner userIn = new Scanner(System.in);
 	
-	public KinesiologyMajor(String name, int id, int att, int health, int maxAtt, int maxHealth, int move, int range) {
+	public KinesiologyMajor(String name, int id, int att, int health, int mana, 
+			int maxAtt, int maxHealth, int maxMana, int move, int range) {
 		super(name, id, att, health, maxAtt, maxHealth, move, range);
+		setMaxMana(maxMana);
+		setMana(mana);
 	}
+	
+	public int getMana() {return mana;}
+	public void setMana(int newMana) {
+		if(newMana >= maxMana) mana = maxMana;
+		else mana = newMana;
+	}
+	
+	public int getMaxMana() {return maxMana;}
+	public void setMaxMana(int newMax) {maxMana = newMax;}
 	
 	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
 		boolean didSomething = false;
