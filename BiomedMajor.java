@@ -6,6 +6,7 @@ public class BiomedMajor extends Chara {
 	
 	Scanner userIn = new Scanner(System.in);
 	
+	private int mana, maxMana;
 	public BiomedMajor(String name, int id, int att, int health, int mana, 
 			int maxAtt, int maxHealth, int maxMana, int move, int range) {
 		super(name, id, att, health, maxAtt, maxHealth, move, range);
