@@ -65,6 +65,17 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
 	  return position;
   }
 
+  protected int[] getCharPos() {
+	  return charPos.clone();
+  }
+  
+  protected int[] getEnemyPos() {
+	  return enemyPos.clone();
+  }
+  
+  protected int[] getItemPos() {
+	  return itemPos.clone();
+  }
 
   /**
    * Take in arguments for id, rowCoord, colCoord to set the position of the object
