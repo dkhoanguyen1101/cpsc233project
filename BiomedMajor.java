@@ -32,7 +32,7 @@ public class BiomedMajor extends Chara {
 			if(isPlayer) {
 				int[] playerPos = theMap.getPos(playerID);
 				int[] healerPos = theMap.getPos(getID());
-				int range = Math.abs((healerPos[0] - playerPos[0]) + (healerPos[1] - playerPos[1]));
+				int range = Math.abs(healerPos[0] - playerPos[0]) + Math.abs(healerPos[1] - playerPos[1]);
 				if(range <= 3) {
 					Chara healed = players.get(playerIndex);
 					healed.setHealth(healed.getHealth() + 40);
