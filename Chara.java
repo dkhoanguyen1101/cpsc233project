@@ -24,10 +24,10 @@ public class Chara {
 		setRange(range);
 		setMaxAttack(maxAtt);
 		setMaxHealth(maxHealth);
+		setMaxMana(maxMana);
 		setAttack(att);
 		setHealth(health);
 		setMana(mana);
-		setMaxMana(maxMana);
 	}
 	public int getMana() {return mana;}
 	public void setMana(int newMana) {
