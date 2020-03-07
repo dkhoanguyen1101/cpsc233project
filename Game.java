@@ -18,11 +18,11 @@ public class Game {
 		ArrayList<Chara> players = new ArrayList<Chara>();
 		ArrayList<Chara> enemies = new ArrayList<Chara>();
 		
-		Chara toAdd = new KinesiologyMajor("Player 1", 1, 30, 300, 2, 30, 300, 5, 3, 1);
+		Chara toAdd = new KinesiologyMajor("Player 1", 1, 30, 300, 1, 30, 300, 5, 3, 1);
 		players.add(toAdd);
-		toAdd = new EngMajor("Player 2", 2, 20, 250, 2, 20, 250, 5, 3, 3);
+		toAdd = new EngMajor("Player 2", 2, 20, 250, 1, 20, 250, 5, 3, 3);
 		players.add(toAdd);
-		toAdd = new BiomedMajor("Player 3", 3, 10, 175, 3, 10, 175, 7, 3, 1);
+		toAdd = new BiomedMajor("Player 3", 3, 10, 175, 2, 10, 175, 7, 3, 1);
 		players.add(toAdd);
 		boolean stillAlive = true;
 		for(map Map: worldMap) {
@@ -83,7 +83,7 @@ public class Game {
 				for(int i = 0; i < enemies.size(); i++) {
 					Chara currentEnemy = enemies.get(i);
 					ArrayList<Integer> playerIDs = new ArrayList<Integer>();
-					for(int j = 0; j < players.size(); j++) playerIDs.add(players.get(i).getID()); 
+					for(int j = 0; j < players.size(); j++) playerIDs.add(new Integer(players.get(i).getID())); 
 					/*if (currentEnemy.getNature() == 'A')*/ enemyAI.moveAITowards(currentEnemy.getID(), currentEnemy.getMove(), playerIDs);
 					//else if (currentEnemy.getNature() == 'P') enemyAI.moveAIAway(currentEnemy.getID(), playersPos);
 					Chara closestPlayer = getCharaFromID(enemyAI.checkClosest(currentEnemy.getID(), playerIDs), players);
@@ -105,6 +105,7 @@ public class Game {
 			while(notAllMoved || notAllActed) {
 				if(notAllMoved) System.out.println("Enter 1 to move a character");
 				if(notAllActed) System.out.println("Enter 2 to have a character do something");
+				System.out.println("Enter 3 to end your turn now");
 				int choice = userIn.nextInt();
 				if(notAllMoved && choice == 1) {
 					playerMove(players, playersDidntMove, currentMap);
@@ -116,13 +117,17 @@ public class Game {
 				notAllMoved = playersDidntMove.size() > 0;
 				notAllActed = playersDidntAct.size() > 0;
 				System.out.println(currentMap.toString());
+				if(choice == 3) {
+					notAllMoved = false;
+					notAllActed = false;
+				}
 			}
 	}
 	
 	private static void playerMove(ArrayList<Chara> players, ArrayList<Chara> didntMove, map currentMap) {
 		System.out.println("These characters can move: ");
 		for(int i = 0; i < didntMove.size(); i++) {
-			System.out.print("ID: " + didntMove.get(i).getID());
+			System.out.print("ID: " + didntMove.get(i).getID() + " ");
 		} System.out.println();
 		System.out.println("Enter the ID of a character to move");
 		int moveChoice = userIn.nextInt();
@@ -136,7 +141,7 @@ public class Game {
 	private static void playerAct(ArrayList<Chara> players, ArrayList<Chara> didntAct, ArrayList<Chara> enemies, map currentMap) {
 		System.out.println("These characters can act");
 		for(int i = 0; i < didntAct.size(); i++) {
-			System.out.print(" ID: " + didntAct.get(i).getID());
+			System.out.print("ID: " + didntAct.get(i).getID() + " ");
 		} System.out.println();
 		System.out.println("Enter the ID of a character to act");
 		int actCharChoice = userIn.nextInt();
@@ -168,7 +173,7 @@ public class Game {
 		int newX = userIn.nextInt();
 		System.out.println("enter the y coordinate you want to move to");
 		int newY = userIn.nextInt();
-		didMove = currentMap.move(charToMove.getID(), newX, newY, charToMove.getMove());
+		didMove = currentMap.move(charToMove.getID(), newY, newX, charToMove.getMove());
 		return didMove;
 	}
 	
@@ -207,7 +212,10 @@ public class Game {
 		int[] atkPos = currentMap.getPos(attacker.getID());
 		int[] recPos = currentMap.getPos(receiver.getID());
 		int atkDist = (Math.abs(atkPos[0] - recPos[0]) + Math.abs(atkPos[1] - recPos[1]));
-		if (atkDist > atkRange) return false;
+		if (atkDist > atkRange)  {
+			System.out.println("That enemy is not in range!");
+			return false;
+		}
 		else return true;
 	}
 	
@@ -326,160 +334,3 @@ public class Game {
 	}
 	
 }
-		if (stillAlive) System.out.println("You won");
-		else System.out.println("You lost");
-	}
-	
-	private static boolean playMap(ArrayList<Chara> players, ArrayList<Chara> enemies, map currentMap) {
-		int turnCounter = 0;
-		AI enemyAI = new AI(currentMap);
-		boolean playersAlive = players.size() > 0, enemiesAlive = enemies.size() > 0;
-		while(playersAlive && enemiesAlive) {
-			if(playersAlive) {
-				playerTurn(players, enemies, currentMap);
-			}
-			if(enemiesAlive) {
-				for(int i = 0; i < enemies.length(); i++) {
-					Enemy currentEnemy = enemies.size(i);
-					ArrayList<int[]> playersPos = new ArrayList<int[]>();
-					for(int j = 0; j < players.length; j++) playersPos.add(currentMap.getPos(players.get(i).getUniqueID)); 
-					if (currentEnemy.getNature() == 'A') enemyAI.moveAITowards(currentEnemy.getUniqueID(), playersPos);
-					else if (currentEnemy.getNature() == 'P') enemyAI.moveAIAway(currentEnemy.getUniqueID(), playersPos);
-					Chara closestPlayer = getCharaFromID(enemyAI.checkClosest(currentEnemy.getUniqueID(), playersPos), players);
-					if (isLegalAttack(closestPlayer, currentEnemy)) currentEnemy.attack(closestPlayer);
-				}
-			}
-			playersAlive = players.size() > 0;
-			enemiesAlive = enemies.size() > 0;
-		}
-		return playersAlive;
-	}
-
-	private static void playerTurn(ArrayList<Chara> players, ArrayList<Chara> enemies, map currentMap) {
-		ArrayList<Chara> playersDidntMove = new ArrayList<Chara>(players);
-		ArrayList<Chara> playersDidntAct = new ArrayList<Chara>(players);
-		boolean notAllMoved = playersDidntMove.size() > 0, notAllActed = playersDidntAct.length() > 0;
-			while(notAllMoved || notAllActed) {
-				if(notAllMoved) System.out.println("Enter 1 to move a character");
-				if(notAllActed) System.out.println("Enter 2 to have a character do something");
-				int choice = userIn.nextInt();
-				if(notAllMoved && choice == 1) {
-					System.out.println("These characters can move: ");
-					for(int i = 0; i < playersDidntMove.size(); i++) {
-						System.out.print("ID: " + playersDidntMove.get(i).getUniqueID());
-					} System.out.println();
-					System.out.println("Enter the ID of a character to move");
-					int moveChoice = userIn.nextInt();
-					if(checkIfIDInList(moveChoice, playersDidntMove)) {
-						boolean moved = false;
-						moved = doMove(getCharaFromList(moveChoice, players));
-						if (moved) playersDidntMove.remove(getCharaFromList(moveChoice, playersDidntMove));
-					}
-				}
-				if(notAllActed && choice == 2) {
-					System.out.println("These characters can act");
-					for(int i = 0; i < playersDidntAct.size(); i++) {
-						System.out.print(" ID: " + playersDidntAct.get(i).getUniqueID());
-					} System.out.println();
-					System.out.println("Enter the ID of a character to act");
-					int actCharChoice = userIn.nextInt();
-					if(checkIfIDInList(actCharChoice, playersDidntAct)) {
-						boolean acted = false;
-						System.out.println("Enter 1 to attack an enemy");
-						System.out.println("Enter 2 to use an item");
-						int actChoice = userIn.nextInt();
-						if(actChoice == 1) {
-							acted = doAttack(getCharaFromID(actCharChoice, players), currentMap);
-						} else if(actChoice == 2) {
-							acted = useItem(getCharaFromID(actCharChoice, players));
-						}
-						if (acted) playersDidntAct.remove(getCharaFromList(actCharChoice, playersDidntAct));
-					}
-				}
-				notAllMoved = playersDidntMove.size() > 0;
-				notAllActed = playersDidntAct.size() > 0;
-			}
-	}
-	
-	private static boolean doMove(Chara charToMove, map currentMap) {
-		boolean didMove = false;
-		System.out.println("Enter the x coordinate you want to move to");
-		int newX = userIn.nextInt();
-		System.out.println("enter the y coordinate you want to move to");
-		int newY = userIn.nextInt();
-		didMove = currentMap.move(charToMove.getUniqueID, newY, newX, charToMove.getMove());
-		return didMove;
-	}
-	
-	private static boolean doAttack(Chara attacker, ArrayList<Chara> enemiesList, map currentMap) {
-		System.out.println("You can attack in a range of " + attacker.getAtkRange());
-		System.out.println("Enter the ID of an enemy to attack");
-		int choice = userIn.nextInt();
-		Chara receiver = getCharaFromID(choice, enemiesList);
-		boolean didAttack = false;
-		if (checkIfIDInList(choice, enemiesList)) {
-			if (isLegalAttack(attacker, receiver, currentMap)) {
-				attacker.attack(receiver);
-				didAttack = true;
-			}
-		} else {
-			System.out.println("That enemy does not exist");
-		}
-		return didAttack;
-	}
-	
-	private static boolean isLegalAttack(Chara attacker, Chara receiver, map currentMap) {
-		int atkRange = attacker.getAtkRange();
-		int[] atkPos = currentMap.getPos(attacker.getUniqueID());
-		int[] recPos = currentMap.getPos(receiver.getUniqueID());
-		int atkDist = (Math.abs(atkPos[0] - recPos[0]) + Math.abs(atkPos[1] - recPos[1]));
-		if (atkDist > atkRange) return false;
-		else return true;
-	}
-	
-	public static void kill(Chara charToKill, ArrayList<Chara> listContainingChar, map currentMap) {
-		int[] killCoords = getPos(charToKill.getUniqueID());
-		currentMap.setPos(0, killCoords[0], killCoords[1]);
-		listContainingChar.remove(charToKill);
-	}
-	
-	private static boolean useItem(Chara user) {
-		System.out.println("Enter a number to use item");
-		for (int i = 0, i < 3, i++) {
-			System.out.println("" + (i + 1) + ". " + user.getItem(i).getName());
-		}
-		System.out.println("4. Do not use an item");
-		int choice = userIn.nextInt();
-		boolean itemWasUsed = false;
-		switch(choice) {
-		case 1:
-			itemWasUsed: user.getItem(0).use(); break;
-		case 2:
-			itemWasUsed: user.getItem(1).use(); break;
-		case 3:
-			itemWasUsed: user.getItem(2).use(); break;
-		default:
-			itemWasUsed = false;
-		}
-		if (itemWasUsed) user.setItem(choice - 1, new emptyItem());
-		
-		return itemWasUsed;
-	}
-	
-	public static Chara getCharaFromID(int ID, ArrayList<Chara> listToCheck) {
-		Chara toReturn = null;
-		for(int i = 0; i < listToCheck.size(); i++) {
-			if (listToCheck.get(i).getUniqueID() == ID) toReturn = listToCheck.get(i);
-		}
-		return toReturn;
-	}
-	
-	public static boolean checkIfIDInList(int ID, ArrayList<Chara> listToCheck) {
-		boolean isThere = false;
-		for(int i = 0; i < listToCheck.size(); i++) {
-			if (!isThere) {
-				if (listToCheck.get(i).getUniqueID() == ID) isThere = true;
-			}
-		}
-		return isThere;
-	}
