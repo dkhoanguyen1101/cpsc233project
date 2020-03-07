@@ -3,7 +3,7 @@ import java.util.Random;
 public class mapGenerator {
 	
 map toReturn;
-private int[][] map1 = {{0, 13, 1, 14, 15,2}, {13, 0, 14, 1, 15,2}, {4,11}};
+private int[][] map1 = {{0, 13, 1, 14, 2, 15}, {13, 0, 14, 1, 15,2}, {4,11}};
 
 public mapGenerator() {
 	generate();
