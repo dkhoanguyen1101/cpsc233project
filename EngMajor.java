@@ -23,17 +23,21 @@ public class EngMajor extends Chara{
 	
 	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
 		boolean didSomething = false;
-		System.out.println("Attack all enemies in the same row as you");
-		System.out.println("Enter 1 to confirm");
-		int choice = userIn.nextInt();
-		if(choice == 1) {
-			int row = theMap.getPos(getID())[1];
-			for(int i = 0; i < enemies.size(); i++) {
-				if(theMap.getPos(enemies.get(i).getID())[1] == row) {
-					attack(enemies.get(i));
+		if(mana < 2) System.out.println("This special requires 2 mana");
+		else {
+			System.out.println("Attack all enemies in the same row as you (Costs 2 mana");
+			System.out.println("Enter 1 to confirm");
+			int choice = userIn.nextInt();
+			if(choice == 1) {
+				int row = theMap.getPos(getID())[1];
+				for(int i = 0; i < enemies.size(); i++) {
+					if(theMap.getPos(enemies.get(i).getID())[1] == row) {
+						attack(enemies.get(i));
+					}
 				}
+				setMana(getMana() - 2);
+				didSomething = true;
 			}
-			didSomething = true;
 		}
 		return didSomething;
 	}
