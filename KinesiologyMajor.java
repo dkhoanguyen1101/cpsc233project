@@ -29,7 +29,7 @@ public class KinesiologyMajor extends Chara{
 			if(isEnemy) {
 				int[] enemyPos = theMap.getPos(enemyID);
 				int[] playerPos = theMap.getPos(getID());
-				int range = Math.abs((enemyPos[0] - playerPos[0]) + (enemyPos[1] - playerPos[1]));
+				int range = Math.abs(enemyPos[0] - playerPos[0]) + Math.abs(enemyPos[1] - playerPos[1]);
 				if(range <= 1) {
 					int regAttack = getAttack();
 					setAttack(regAttack * 2);
