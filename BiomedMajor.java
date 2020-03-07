@@ -19,6 +19,9 @@ public class BiomedMajor extends Chara {
 		else mana = newMana;
 	}
 	
+	public int getMaxMana() {return maxMana;}
+	public void setMaxMana(int newMax) {maxMana = newMax;}
+	
 	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
 		boolean didSomething = false;
 		System.out.println("Heal another teammate for 40 health - within 3 spaces");
