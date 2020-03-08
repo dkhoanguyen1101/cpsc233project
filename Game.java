@@ -34,13 +34,7 @@ public class Game {
 					toAdd = new Chara("Enemy", i, 15, 150, 0, 15, 150, 0, 3, 1);
 					enemies.add(toAdd);
 				}
-				//populateMap(players, enemies, Map);
-				Map.setPos(1, 1, 14);
-				Map.setPos(4, 0, 14);
-				Map.setPos(2, 0, 0);
-				Map.setPos(3, 0, 1);
-				Map.setPos(5, 2, 14);
-				Map.setPos(6, 1, 15);
+				populateMap(players, enemies, Map);
 				for(int j = 0; j < players.size(); j++) {
 					players.get(j).setHealth(players.get(j).getMaxHealth());
 				}
