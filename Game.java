@@ -34,7 +34,13 @@ public class Game {
 					toAdd = new Chara("Enemy", i, 15, 150, 0, 15, 150, 0, 3, 1);
 					enemies.add(toAdd);
 				}
-				populateMap(players, enemies, Map);
+				//populateMap(players, enemies, Map);
+				Map.setPos(1, 1, 14);
+				Map.setPos(4, 0, 14);
+				Map.setPos(2, 0, 0);
+				Map.setPos(3, 0, 1);
+				Map.setPos(5, 2, 14);
+				Map.setPos(6, 1, 15);
 				for(int j = 0; j < players.size(); j++) {
 					players.get(j).setHealth(players.get(j).getMaxHealth());
 				}
@@ -76,14 +82,17 @@ public class Game {
 			System.out.println(currentMap.toString());
 			printListOfChars(players, true);
 			printListOfChars(enemies, false);
-			if(playersAlive) {
+			if(playersAlive && enemiesAlive) {
 				playerTurn(players, enemies, currentMap);
 			}
-			if(enemiesAlive) {
+			playersAlive = players.size() > 0;
+			if(enemiesAlive && playersAlive) {
 				for(int i = 0; i < enemies.size(); i++) {
 					Chara currentEnemy = enemies.get(i);
 					ArrayList<Integer> playerIDs = new ArrayList<Integer>();
-					for(int j = 0; j < players.size(); j++) playerIDs.add(new Integer(players.get(i).getID())); 
+					for(int j = 0; j < players.size(); j++) {
+						playerIDs.add(new Integer(players.get(j).getID())); 
+					}
 					/*if (currentEnemy.getNature() == 'A')*/ enemyAI.moveAITowards(currentEnemy.getID(), currentEnemy.getMove(), playerIDs);
 					//else if (currentEnemy.getNature() == 'P') enemyAI.moveAIAway(currentEnemy.getID(), playersPos);
 					Chara closestPlayer = getCharaFromID(enemyAI.checkClosest(currentEnemy.getID(), playerIDs), players);
@@ -91,7 +100,6 @@ public class Game {
 					killChecker(players, currentMap);
 				}
 			}
-			playersAlive = players.size() > 0;
 			enemiesAlive = enemies.size() > 0;
 			turnCounter++;
 		}
@@ -193,6 +201,8 @@ public class Game {
 		if (checkIfIDInList(choice, enemiesList)) {
 			if (isLegalAttack(attacker, receiver, currentMap)) {
 				attacker.attack(receiver);
+				System.out.println(attacker.getName() + " attacked " + receiver.getName() + ". " + receiver.getName() + " now has "
+						+ receiver.getHealth() + " health.");
 				didAttack = true;
 			}
 		} else {
@@ -225,15 +235,19 @@ public class Game {
 	 * @param listContainingChar	the list the belong to that holds members (players, enemies)
 	 * @param currentMap	the map the characters are on
 	 */
-	public static void kill(Chara charToKill, ArrayList<Chara> listContainingChar, map currentMap) {
-		int[] killCoords = currentMap.getPos(charToKill.getID());
+	public static void kill(int IDToKill, int posToKill, ArrayList<Chara> listContainingChar, map currentMap) {
+		System.out.println(listContainingChar.get(posToKill).getName() + " died!");
+		int[] killCoords = currentMap.getPos(IDToKill);
 		currentMap.setPos(0, killCoords[0], killCoords[1]);
-		listContainingChar.remove(charToKill);
+		listContainingChar.remove(posToKill);
 	}
 	
 	public static void killChecker(ArrayList<Chara> chars, map currentMap) {
 		for(int i = 0; i < chars.size(); i++) {
-			if(chars.get(i).getHealth() <= 0) kill(chars.get(i), chars, currentMap);
+			Chara dead = chars.get(i);
+			if(dead.getHealth() <= 0) {
+				kill(dead.getID(), i, chars, currentMap);
+			}
 		}
 	}
 	
@@ -295,6 +309,7 @@ public class Game {
 				Item toAdd = new HealthPotion(7);
 				pickUpItem(user, toAdd);
 				didSomething = true;
+				currentMap.setPos(0, itemCoords[0], itemCoords[1]);
 			}
 		} else System.out.println("that item is not in range");
 		return didSomething;
