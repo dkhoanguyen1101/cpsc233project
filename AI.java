@@ -26,7 +26,7 @@ public class AI {
 			//if  newDist is smaller than closest, replace
 			if (newDist < closest) {
 				closest = newDist;
-				closestPlayerID = playerIDs.get(pos);
+				closestPlayerID = pos;
 			}
 		}
 		return closestPlayerID;
