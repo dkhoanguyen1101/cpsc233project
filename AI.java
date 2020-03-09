@@ -2,13 +2,15 @@ import java.util.ArrayList;
 
 public class AI {
 	
-	//instance variables
+	//instance variable
 	map map;
 	
 	//constructor
 	public AI(map map) {
 		this.map = map;
 	}
+	
+	//methods
 	
 	//checkClosest : returns the id of the closest player to the enemy
 	//parameters : the IDs of the enemy moving, and all the player characters
@@ -29,6 +31,7 @@ public class AI {
 				closestPlayerID = pos;
 			}
 		}
+		//return the closest player characters id
 		return closestPlayerID;
 	}
 	
@@ -56,6 +59,7 @@ public class AI {
 					}
 				} 
 			}
+		//set enemys position to the farthest location from the nearest player character
 			map.setPos(0, enemyPos[0], enemyPos[1]);
 			map.setPos(enemyID, colReturn, rowReturn);	
 	}
@@ -85,6 +89,7 @@ public class AI {
 					}
 				} 
 			}
+		//set enemys position to the closest position to the closest player character
 			map.setPos(0, enemyPos[0], enemyPos[1]);
 			map.setPos(enemyID, colReturn, rowReturn);	
 	}	
