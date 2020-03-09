@@ -95,8 +95,12 @@ public class GUI extends Application {
         button1.setOnAction(value ->  {
             button1.setText("whatever");
         });
+        
+        
+        //Enemy and Chara are just two differet color button
 
         Button btnChara = new Button();
+        btnChara.setMinSize(120,60);
         btnChara.setLayoutX(Map.getCharPos()[0]*37.5);
         btnChara.setLayoutY(Map.getCharPos()[1]*37.5);
         btnChara.setStyle("-fx-background-color: #00FF00");
@@ -104,6 +108,7 @@ public class GUI extends Application {
 
 
         Button btnEnemy = new Button();
+        btnEnemy.setMinSize(120,60);
         btnEnemy.setLayoutX(Map.getEnemyPos()[0]);
         btnEnemy.setLayoutY(Map.getEnemyPos()[1]);
         btnEnemy.setStyle("-fx-background-color: #FF8347");
