@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 
 //character class @author Yuwen
+
 
 public class Chara {
 	private int health;
@@ -110,7 +112,7 @@ public class Chara {
 	public String getName() {
 		return name;
 	}
-	public boolean Special() {
+	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
 		return false;
 	}
 	
@@ -118,6 +120,3 @@ public class Chara {
 		receiver.setHealth(receiver.getHealth() - getAttack());
 	}
 }	
-
-
-
