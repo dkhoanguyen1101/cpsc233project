@@ -14,51 +14,61 @@ public class Game {
 	 * 
 	 */
 	private static void playGame() {
-		map[] worldMap = {genMap.generate(), genMap.generate(), genMap.generate()};
-		ArrayList<Chara> players = new ArrayList<Chara>();
-		ArrayList<Chara> enemies = new ArrayList<Chara>();
-		
-		Chara toAdd = new KinesiologyMajor("Player 1", 1, 30, 300, 1, 30, 300, 5, 3, 1);
+		map[] worldMap = {genMap.generate(), genMap.generate(), genMap.generate()}; //create three random maps to act as the whole world
+		ArrayList<Chara> players = new ArrayList<Chara>(); //create a list to hold all player characters between iteration of map
+		ArrayList<Chara> enemies = new ArrayList<Chara>(); //create a list to hold all enemies between iterations
+		//make some default characters
+		Chara toAdd = new KinesiologyMajor("Player 1", 1, 30, 300, 1, 30, 300, 5, 3, 1); //new close combat kines character (magic numbers are a bandaid right now)
+		players.add(toAdd);//put them into the player character list
+		toAdd = new EngMajor("Player 2", 2, 20, 250, 1, 20, 250, 5, 3, 3);//new ranged eng character
 		players.add(toAdd);
-		toAdd = new EngMajor("Player 2", 2, 20, 250, 1, 20, 250, 5, 3, 3);
+		toAdd = new BiomedMajor("Player 3", 3, 10, 175, 2, 10, 175, 7, 3, 1);//new healer biomed character
 		players.add(toAdd);
-		toAdd = new BiomedMajor("Player 3", 3, 10, 175, 2, 10, 175, 7, 3, 1);
-		players.add(toAdd);
-		boolean stillAlive = true;
-		for(map Map: worldMap) {
-			if(stillAlive) {
-				System.out.println("Enter an integer to go to the next map");
+		boolean stillAlive = true; //boolean to keep track of the player list - if its empty the boolean is false
+		for(map Map: worldMap) {// going through all maps in the world
+			if(stillAlive) {// if the players havent died yet
+				System.out.println("Enter an integer to go to the next map");//a sort of between map pause screen, so it doesn't just pop into another map after one is beaten
 				int wait = userIn.nextInt();
-				enemies = new ArrayList<Chara>();
-				for(int i = 4; i <= 6; i++) {
+				enemies = new ArrayList<Chara>(); //initialize a new enemy list for a new map
+				for(int i = 4; i <= 6; i++) {//put some generic enemies in the enemy list
 					toAdd = new Chara("Enemy", i, 15, 150, 0, 15, 150, 0, 3, 1);
 					enemies.add(toAdd);
 				}
-				populateMap(players, enemies, Map);
-				for(int j = 0; j < players.size(); j++) {
+				populateMap(players, enemies, Map);//put them all into the map (privacy leaks help with this)
+				for(int j = 0; j < players.size(); j++) {//restore all characters to full health
 					players.get(j).setHealth(players.get(j).getMaxHealth());
 				}
-				stillAlive = playMap(players, enemies, Map);
+				stillAlive = playMap(players, enemies, Map);//play the map until one team dies
 			}
 		}
 		if (stillAlive) System.out.println("You won");
 		else System.out.println("You lost");
 	}
 	
+	/**put characters, enemies, and items on a map
+	 *
+	 *	@param players - list of player characters that end up in special spaces on the map
+	 *	@param enemies - list of enemy characters that get their own spaces
+	 *	@param map - the map to populate
+	 */
 	private static void populateMap(ArrayList<Chara> players, ArrayList<Chara> enemies, map Map) {
-		int[] test = Map.getCharPos();
-		int[] test2 = Map.getEnemyPos();
-		for(int i = 0; i < players.size(); i++) {
-			int index = i * 2;
-			Map.setPos(players.get(i).getID(), Map.getCharPos()[index], Map.getCharPos()[index + 1]);
+		int[] test = Map.getCharPos();// get default instatiated character position list
+		int[] test2 = Map.getEnemyPos();// get default enemy posiyions
+		for(int i = 0; i < players.size(); i++) {//for all player characters
+			int index = i * 2;//get an index to use for the 1-D list of deafult positions (goes x then y)
+			Map.setPos(players.get(i).getID(), Map.getCharPos()[index], Map.getCharPos()[index + 1]);//set the id of that character on the map
 		}
-		for(int i = 0; i < enemies.size(); i++) {
-			int index = i * 2;
+		for(int i = 0; i < enemies.size(); i++) {//for all enemies
+			int index = i * 2;//same thing as above
 			Map.setPos(enemies.get(i).getID(), Map.getEnemyPos()[index], Map.getEnemyPos()[index + 1]);
 		}
-		Map.setPos(7, Map.getItemPos()[0], Map.getItemPos()[1]);
+		Map.setPos(7, Map.getItemPos()[0], Map.getItemPos()[1]);//set the id of an item on the map (only one for now - will generate a random number when new items are eventually added
 	}
 	
+	/** small function to restore every player's mana each turn
+	 *
+	 *	@param players - the player list to restore mana to
+	 */
 	private static void turnMana(ArrayList<Chara> players) {
 		for(int i = 0; i < players.size(); i++) {
 			Chara currentPlayer = players.get(i);
@@ -66,38 +76,44 @@ public class Game {
 		}
 	}
 	
+	/** play on a given map - facilitates turns and win/lose
+	 *
+	 *	@param players - list of player characters
+	 *	@param enemies - list of all enemy characters
+	 *	@param currentMap - the map to play on
+	 *	@return boolean that reflects the status of the players (all dead means it returns false)
+	 */
 	private static boolean playMap(ArrayList<Chara> players, ArrayList<Chara> enemies, map currentMap) {
-		int turnCounter = 1;
-		AI enemyAI = new AI(currentMap);
-		boolean playersAlive = players.size() > 0, enemiesAlive = enemies.size() > 0;
-		while(playersAlive && enemiesAlive) {
-			turnMana(players);
-			System.out.println("Turn: " + turnCounter + "\n");
-			System.out.println(currentMap.toString());
-			printListOfChars(players, true);
-			printListOfChars(enemies, false);
-			if(playersAlive && enemiesAlive) {
-				playerTurn(players, enemies, currentMap);
+		int turnCounter = 1;//numer to reflect turn
+		AI enemyAI = new AI(currentMap);//create a new AI based on the current map iteration
+		boolean playersAlive = players.size() > 0, enemiesAlive = enemies.size() > 0;//booleans to facilitate turn execution (if some team dies then you can't execute their turn)
+		while(playersAlive && enemiesAlive) {//the turn based part - while both teams are alive - each iteration is a turn
+			turnMana(players);//start of a new turn - add some mana
+			System.out.println("Turn: " + turnCounter + "\n");//display the current turn number
+			System.out.println(currentMap.toString());//display the map
+			printListOfChars(players, true);//display the state of the characters
+			printListOfChars(enemies, false);//display the state of enemies
+			if(playersAlive && enemiesAlive) {//if players are alive and have nemies to attack
+				playerTurn(players, enemies, currentMap);//prompt the players turn
 			}
-			playersAlive = players.size() > 0;
-			if(enemiesAlive && playersAlive) {
-				for(int i = 0; i < enemies.size(); i++) {
-					Chara currentEnemy = enemies.get(i);
-					ArrayList<Integer> playerIDs = new ArrayList<Integer>();
-					for(int j = 0; j < players.size(); j++) {
+			enemiesAlive = enemies.size() > 0;//check to make sure the opponentss are still alive so they can execute their turn
+			if(enemiesAlive && playersAlive) {//if the enemies are still alive and have players to attack
+				for(int i = 0; i < enemies.size(); i++) {//for each enemy in the list of enemies
+					Chara currentEnemy = enemies.get(i);//get the current enemy in the list
+					ArrayList<Integer> playerIDs = new ArrayList<Integer>();//create a list to get the IDs of players to pass into AI
+					for(int j = 0; j < players.size(); j++) {//fill the player ID list
 						playerIDs.add(new Integer(players.get(j).getID())); 
 					}
-					/*if (currentEnemy.getNature() == 'A')*/ enemyAI.moveAITowards(currentEnemy.getID(), currentEnemy.getMove(), playerIDs);
-					//else if (currentEnemy.getNature() == 'P') enemyAI.moveAIAway(currentEnemy.getID(), playersPos);
-					Chara closestPlayer = getCharaFromID(enemyAI.checkClosest(currentEnemy.getID(), playerIDs), players);
-					if (isLegalAttack(closestPlayer, currentEnemy, currentMap)) currentEnemy.attack(closestPlayer);
-					killChecker(players, currentMap);
+					enemyAI.moveAITowards(currentEnemy.getID(), currentEnemy.getMove(), playerIDs); //move all enemies toward the players (all enemies are aggressive for now)
+					Chara closestPlayer = getCharaFromID(enemyAI.checkClosest(currentEnemy.getID(), playerIDs), players); //get the character closest to the enemy
+					if (isLegalAttack(closestPlayer, currentEnemy, currentMap)) currentEnemy.attack(closestPlayer); //if possible to attack, attack
+					killChecker(players, currentMap);//check to see if the enemy killed a player
 				}
 			}
-			enemiesAlive = enemies.size() > 0;
-			turnCounter++;
+			playersAlive = players.size() > 0;//check to see if players remain
+			turnCounter++;//turn over - increase the counter by 1 for the next turn
 		}
-		return playersAlive;
+		return playersAlive;//once a team dies loop is broken - return the state of players
 	}
 
 	private static void playerTurn(ArrayList<Chara> players, ArrayList<Chara> enemies, map currentMap) {
