@@ -13,7 +13,7 @@ public class BiomedMajor extends Chara {
 	
 	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
 		boolean didSomething = false;
-		if(getMana < 3) System.out.println("This special requires 3 mana");
+		if(getMana() < 3) System.out.println("This special requires 3 mana");
 		else {
 			System.out.println("Heal another teammate for 40 health - within 3 spaces (costs 3 mana)");
 			System.out.println("Enter the ID of a teammate to heal");
