@@ -186,31 +186,14 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
 	  return dist;
   }
   
-  protected void AImove(int idAI, int idPlayer, int moveRange) {
-	  int[] selfPos = getPos(idAI);
-	  int[] playerPos = getPos(idPlayer);
-	  double shortest = row + column;
-	  int colReturn = 0;
-	  int rowReturn = 0;
-	  for(int countRow = 0; countRow < row ; countRow++) {
-		  for(int countCol = 0; countCol < column; countCol++) {
-			  if(isEmpty(countRow, countCol)) {
-			  if (shortestWay(selfPos[0], selfPos[1], countCol, countRow) <= moveRange) {
-				  if(calDist(countCol, countRow, playerPos[0], playerPos[1])<shortest){
-					   colReturn = countCol;
-					   rowReturn = countRow;
-					  shortest = shortestWay(countCol, countRow, playerPos[0], playerPos[1]);
-				  }
-			  } 
-			
-		  }
-	  }
-	  
-  }
-	  setPos(0, selfPos[1], selfPos[0]);
-	  setPos(idAI, rowReturn, colReturn);
-  }
   
+  /**
+   * return string reresent the map in textbase
+   * Usage -> toString()
+   * 
+   *
+   * Return: String representing map
+   */
   
   public String toString() {
 	  String toReturn="";
@@ -229,22 +212,38 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
 	  }
 	 return toReturn;
   }
+  /**
+   * take argument and calculate shortest way
+   * Usage -> shortestWay(int destX, int destY, int xStart, int yStart, 'i')
+   *this is a recursing fuction which loop the way from start point to end point, if the path move forward once, it wont go backward right after, same with up/down.
+   *
+   * Return: int ( the steps take to travel from startpoint to end point)
+   */
+  
   public int shortestWay(int destX, int destY, int xStart, int yStart, char step) {
 	  if ((destX == xStart + 1 && destY == yStart) || (destX == xStart - 1 && destY == yStart) || (destX == xStart  && destY == yStart + 1) || (destX == xStart && destY == yStart -1 )) {
 		  return 1;
 		  }
-	  if ((calDist(destX , destY, xStart -1, yStart) < calDist(destX , destY, xStart, yStart)) && step != 'r') {
+	  if ((calDist(destX , destY, xStart -1, yStart) < calDist(destX , destY, xStart, yStart)) && step != 'r' && isEmpty( yStart, xStart-1)) {
 		  return (1 + shortestWay( destX,  destY,  xStart-1,  yStart, 'l'));
-	  }else if(calDist(destX , destY, xStart +1, yStart) < calDist(destX , destY, xStart , yStart) && step != 'l') {
+	  }else if(calDist(destX , destY, xStart +1, yStart) < calDist(destX , destY, xStart , yStart) && step != 'l'&& isEmpty( yStart, xStart+1)) {
 		  return (1 + shortestWay( destX,  destY,  xStart+1,  yStart, 'r'));
 	  }
-	  else if(calDist(destX , destY, xStart , yStart+1) < calDist(destX , destY, xStart , yStart) && step != 'd') {
+	  else if(calDist(destX , destY, xStart , yStart+1) < calDist(destX , destY, xStart , yStart) && step != 'd'&& isEmpty( yStart+1, xStart)) {
 		  return (1 + shortestWay( destX,  destY,  xStart,  yStart+1, 'u'));
 	  }
-	  else {
-		  return (1+shortestWay( destX,  destY,  xStart,  yStart-1));
+	  else if(calDist(destX , destY, xStart , yStart-1) < calDist(destX , destY, xStart , yStart) && step != 'u'&& isEmpty( yStart-1, xStart)){
+		  return (1+shortestWay( destX,  destY,  xStart,  yStart-1, 'd'));
 	  }
+	  return 1;
   }
+  /**
+   * take argument and passed into shortestWay(int destX, int destY, int xStart, int yStart, char step) to generate number of steps
+   * Usage -> shortestWay(int destX, int destY, int xStart, int yStart)
+   * 
+   *
+   * Return: shortestWay (destX,destY, xStart,  yStart, 'i')
+   */
 	 public int shortestWay(int destX, int destY, int xStart, int yStart) {
 		 return shortestWay (destX,destY, xStart,  yStart, 'i');
 	  }
