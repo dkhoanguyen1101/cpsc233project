@@ -1,6 +1,6 @@
 # cpsc233project
 
-To run both programs, move all classes in the desired branch to a preferred editor (e.g. eclipse) and run the “Game.java” class. 
+To run the program, move all classes in the desired branch to a preferred editor (e.g. eclipse) and run the “Game.java” class. 
 
 Our game is a turn-based rpg. This demo is controlled completely by the mouse, and the goal of the game is to lower the all of the enemies health to zero, while keeping your own team healthy.
 
