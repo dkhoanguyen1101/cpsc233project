@@ -35,7 +35,7 @@ public class KinesiologyMajor extends Chara{
 					setAttack(regAttack * 2);
 					attack(enemies.get(enemyIndex));
 					setAttack(regAttack);
-					setMana(getMana - 2);
+					setMana(getMana() - 2);
 					didSomething = true;
 				} else {
 					System.out.println("Enemy is not in range");
