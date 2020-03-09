@@ -21,9 +21,9 @@ public class BiomedMajor extends Chara {
 			boolean isPlayer = false;
 			int playerID = 0;
 			int playerIndex = 0;
-			for(int i = 0; i < enemies.size(); i++) {
+			for(int i = 0; i < players.size(); i++) {
 				if(!isPlayer) {
-					playerID = enemies.get(i).getID();
+					playerID = players.get(i).getID();
 					isPlayer = playerID == choice;
 					playerIndex = i;
 				}
