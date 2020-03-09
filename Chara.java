@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 //character class @author Yuwen
 
 public class Chara {
@@ -110,7 +110,7 @@ public class Chara {
 	public String getName() {
 		return name;
 	}
-	public boolean Special() {
+	public boolean Special(map Map,  ArrayList<Chara> players, ArrayList<Chara> enemies) {
 		return false;
 	}
 	
