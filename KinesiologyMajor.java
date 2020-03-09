@@ -11,7 +11,7 @@ public class KinesiologyMajor extends Chara{
 	
 	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
 		boolean didSomething = false;
-		if(mana < 2) System.out.println("This special requires 2 mana");
+		if(getMana() < 2) System.out.println("This special requires 2 mana");
 		else {
 			System.out.println("Attack an enemy for 2x damage - within 1 cell (costs 2 mana)");
 			System.out.println("Enter the ID of an enemy to attack");
