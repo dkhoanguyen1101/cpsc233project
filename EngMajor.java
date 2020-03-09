@@ -11,7 +11,7 @@ public class EngMajor extends Chara{
 	
 	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
 		boolean didSomething = false;
-		if(mana < 2) System.out.println("This special requires 2 mana");
+		if(getMana() < 2) System.out.println("This special requires 2 mana");
 		else {
 			System.out.println("Attack all enemies in the same row as you (Costs 2 mana");
 			System.out.println("Enter 1 to confirm");
