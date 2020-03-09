@@ -96,6 +96,20 @@ public class GUI extends Application {
             button1.setText("whatever");
         });
 
+        Button btnChara = new Button();
+        btnChara.setLayoutX(Map.getCharPos()[0]*37.5);
+        btnChara.setLayoutY(Map.getCharPos()[1]*37.5);
+        btnChara.setStyle("-fx-background-color: #00FF00");
+        root.getChildren().add(btnChara);
+
+
+        Button btnEnemy = new Button();
+        btnEnemy.setLayoutX(Map.getEnemyPos()[0]);
+        btnEnemy.setLayoutY(Map.getEnemyPos()[1]);
+        btnEnemy.setStyle("-fx-background-color: #FF8347");
+        root.getChildren().add(btnEnemy);
+
+
 
 
         stage.setScene(scene);
