@@ -93,4 +93,3 @@ public class AI {
 			map.setPos(0, enemyPos[0], enemyPos[1]);
 			map.setPos(enemyID, colReturn, rowReturn);	
 	}	
-}
