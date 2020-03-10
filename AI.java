@@ -92,4 +92,5 @@ public class AI {
 		//set enemys position to the closest position to the closest player character
 			map.setPos(0, enemyPos[0], enemyPos[1]);
 			map.setPos(enemyID, colReturn, rowReturn);	
-	}	
+	}
+}
