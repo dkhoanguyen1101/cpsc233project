@@ -27,12 +27,13 @@ public class Start extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
+//the start screen setting
         Pane root = new Pane();
         Scene scene = new Scene(root,800,600);
         stage.setScene(scene);
         stage.show();
-
+//the game scene setting
+//if want to add anything please add to this
         Pane gameroot = new Pane();
         Scene gamescene = new Scene(gameroot,800,600);
 
