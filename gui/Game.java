@@ -14,6 +14,170 @@ public class Game {
 	/**begin playing the actual game
 	 * 
 	 */
+	
+	public static void main(String[] args){launch(args);}
+
+
+
+
+    @Override
+    public void start(Stage stage) throws Exception {
+//the start screen setting
+        Pane root = new Pane();
+        Scene scene = new Scene(root,800,600);
+        stage.setScene(scene);
+        stage.show();
+//the game scene setting
+//if want to add anything please add to this
+        Pane gameroot = new Pane();
+        Scene gamescene = new Scene(gameroot,800,600);
+
+
+
+        //start scene
+        BackgroundImage bg = new BackgroundImage(new Image("start.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        root.setBackground(new Background(bg));
+
+        Image duck = new Image("duck.png");
+        ImageView dk = new ImageView(duck);
+        dk.setLayoutX(53);
+        dk.setLayoutY(55);
+        root.getChildren().add(dk);
+
+        Button button1 = new Button("About");
+        button1.setMinSize(120,60);
+        button1.setLayoutX(340);
+        button1.setLayoutY(230);
+        button1.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
+        button1.setStyle("-fx-background-color: #A9A9A9");
+        root.getChildren().add(button1);
+
+        Label label = new Label();
+        Popup popup = new Popup();
+        label.setLayoutX(100);
+        label.setLayoutY(200);
+        popup.getContent().add(label);
+        label.setGraphic(new ImageView(new Image("name.png")));
+        EventHandler<ActionEvent> event =
+                new EventHandler<ActionEvent>() {
+
+                    public void handle(ActionEvent e)
+                    {
+
+                        if (!popup.isShowing()){
+                            popup.show(stage);
+                            button1.setText("BACK");}
+                        else{
+                            popup.hide();
+                            button1.setText("About");}
+                    }
+                };
+
+        // when button is pressed
+        button1.setOnAction(event);
+
+
+        Button PLAY = new Button("play");
+        PLAY.setMinSize(120,60);
+        PLAY.setLayoutX(340);
+        PLAY.setLayoutY(330);
+        PLAY.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
+        PLAY.setStyle("-fx-background-color: #A9A9A9");
+        root.getChildren().add(PLAY);
+
+
+        PLAY.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+
+                stage.setScene(gamescene);
+                stage.show();
+
+
+            }
+        });
+
+
+        //game scene
+        Button button = new Button("1");
+        button.setMinSize(80,40);
+        button.setLayoutX(30);
+        button.setLayoutY(510);
+        button.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
+        button.setStyle("-fx-background-color: #A9A9A9");
+        gameroot.getChildren().add(button);
+
+
+        Button button2 = new Button("2");
+        button2.setMinSize(80,40);
+        button2.setLayoutX(140);
+        button2.setLayoutY(510);
+        button2.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
+        button2.setStyle("-fx-background-color: #A9A9A9");
+        button2.textFillProperty();
+        gameroot.getChildren().add(button2);
+
+        Button button3 = new Button("3");
+        button3.setMinSize(80,40);
+        button3.setLayoutX(250);
+        button3.setLayoutY(510);
+        button3.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
+        button3.setStyle("-fx-background-color: #A9A9A9");
+        button3.textFillProperty();
+        gameroot.getChildren().add(button3);
+
+        Button button4 = new Button("4");
+        button4.setMinSize(80,40);
+        button4.setLayoutX(360);
+        button4.setLayoutY(510);
+        button4.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
+        button4.setStyle("-fx-background-color: #A9A9A9");
+        button4.textFillProperty();
+        gameroot.getChildren().add(button4);
+
+
+        BackgroundImage GameBg = new BackgroundImage(new Image("map.jpg"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        gameroot.setBackground(new Background(GameBg));
+        
+        
+        
+        
+        Button Replay = new Button("Replay");
+        Replay.setMinSize(80,40);
+        Replay.setLayoutX(360);
+        Replay.setLayoutY(510);
+        Replay.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
+        Replay.setStyle("-fx-background-color: #A9A9A9");
+        Replay.textFillProperty();
+        gameroot.getChildren().add(Replay);
+
+
+
+
+        //lose scene
+        BackgroundImage LoseBg = new BackgroundImage(new Image("end.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        loseroot.setBackground(new Background(LoseBg));
+        loseroot.getChildren().add(Replay);
+
+
+
+        //win scene
+        BackgroundImage WinBg = new BackgroundImage(new Image("WIN.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        loseroot.setBackground(new Background(WinBg));
+        loseroot.getChildren().add(Replay);
+
+
+
+
+
+
+
+
+
+    }
 	private static void playGame() {
 		map[] worldMap = {genMap.generate(), genMap.generate(), genMap.generate()}; //create three random maps to act as the whole world
 		ArrayList<Chara> players = new ArrayList<Chara>(); //create a list to hold all player characters between iteration of map
