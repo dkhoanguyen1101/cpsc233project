@@ -3,7 +3,7 @@ import java.util.ArrayList;
 //character class @author Yuwen
 
 
-public class Chara {
+public abstract class Chara {
 	private int health;
 	private int maxHealth;
 	private int attack;
@@ -112,9 +112,7 @@ public class Chara {
 	public String getName() {
 		return name;
 	}
-	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
-		return false;
-	}
+	public abstract boolean  Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies);
 	
 	public void attack(Chara receiver) {
 		receiver.setHealth(receiver.getHealth() - getAttack());
