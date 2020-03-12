@@ -144,6 +144,35 @@ public class Start extends Application {
         BackgroundImage GameBg = new BackgroundImage(new Image("map.jpg"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
         gameroot.setBackground(new Background(GameBg));
+        
+        
+        
+        
+        Button Replay = new Button("Replay");
+        Replay.setMinSize(80,40);
+        Replay.setLayoutX(360);
+        Replay.setLayoutY(510);
+        Replay.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
+        Replay.setStyle("-fx-background-color: #A9A9A9");
+        Replay.textFillProperty();
+        gameroot.getChildren().add(Replay);
+
+
+
+
+        //lose scene
+        BackgroundImage LoseBg = new BackgroundImage(new Image("end.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        loseroot.setBackground(new Background(LoseBg));
+        loseroot.getChildren().add(Replay);
+
+
+
+        //win scene
+        BackgroundImage WinBg = new BackgroundImage(new Image("WIN.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        loseroot.setBackground(new Background(WinBg));
+        loseroot.getChildren().add(Replay);
 
 
 
