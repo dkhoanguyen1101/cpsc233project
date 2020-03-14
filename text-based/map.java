@@ -8,7 +8,77 @@ public class map {
   private int[] charPos = new int[6];
   private int[] enemyPos = new int[6];
   private int[] itemPos = new int[2];
-
+  
+  
+  public ArrayList<ArrayList<Integer>> getNeighbours(int x, int y) {
+	  ArrayList<ArrayList<Integer>> toReturn = new ArrayList<ArrayList<Integer>>();
+	  
+	  ArrayList<Integer> up = new ArrayList<Integer>();
+	  if(x >=0 && x < column && y - 1 >=0 && y -1  < row) {}
+	  up.add(x);
+	  up.add(y-1);
+	  toReturn.add(up);
+	  
+	  
+	  ArrayList<Integer> down = new ArrayList<Integer>();
+	  if(x >=0 && x < column && y + 1 >=0 && y + 1  < row) {
+	  down.add(x);
+	  down.add(y+1);
+	  toReturn.add(down);
+	  }
+	  
+	  ArrayList<Integer> right = new ArrayList<Integer>();
+	  if(x + 1 >=0 && x + 1 < column && y  >=0 && y  < row) {
+	  right.add(x+1);
+	  right.add(y);
+	  toReturn.add(right);
+	  }
+	  
+	  ArrayList<Integer> left = new ArrayList<Integer>();
+	  if(x - 1 >=0 && x - 1 < column && y  >=0 && y  < row) {
+	  left.add(x-1);
+	  left.add(y);
+	  toReturn.add(left);
+	  }
+	  
+	  return toReturn;
+  }
+  
+  public boolean trapped(int x, int y) {
+	  boolean toReturn = true;
+	  for(ArrayList<Integer> j : getNeighbours(x, y)) {
+		  if (isEmpty(j.get(1), j.get(0))) {
+			  toReturn = false;
+		  }
+	  }
+	  return toReturn;
+  }
+  
+  public int shortestWay(int endX,int endY,int startX,int startY) {
+	  int steps = 0;
+	  
+	  ArrayList<Integer> end = new ArrayList<Integer>();
+	  end.add(endX);
+	  end.add(endY);
+	 
+	  ArrayList<ArrayList<Integer>> location = new ArrayList<ArrayList<Integer>>();
+	  ArrayList<ArrayList<Integer>> passed =  new ArrayList<ArrayList<Integer>>();
+	  
+	  ArrayList<Integer> start = new ArrayList<Integer>();
+	  location.add(start);
+	  while(!passed.contains(end)) {
+		  steps ++;
+		  for(ArrayList<Integer> i : location) {
+			  for (ArrayList<Integer> j : getNeighbours(i.get(0), i.get(1))) {
+				  if(isEmpty(j.get(1), j.get(0)) && !passed.contains(j)){
+					  passed.add(j);
+				  }
+			  }
+			  location.remove(i);
+		  }
+	  }
+	  return steps;
+  }
  
   private ArrayList<ArrayList<Integer>> twoDList = new ArrayList<ArrayList<Integer>>();
 
@@ -181,8 +251,8 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
 	}
   }
   
-  protected double calDist(int col1, int row1,int col2,int row2) {
-	  double dist = Math.abs(row1 - row2) + Math.abs(col1 - col2); 
+  protected int calDist(int col1, int row1,int col2,int row2) {
+	  int dist = Math.abs(row1 - row2) + Math.abs(col1 - col2); 
 	  return dist;
   }
   
@@ -220,32 +290,84 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
    * Return: int ( the steps take to travel from startpoint to end point)
    */
   
-  public int shortestWay(int destX, int destY, int xStart, int yStart, char step) {
-	  if ((destX == xStart + 1 && destY == yStart) || (destX == xStart - 1 && destY == yStart) || (destX == xStart  && destY == yStart + 1) || (destX == xStart && destY == yStart -1 )) {
-		  return 1;
-		  }
-	  if ((calDist(destX , destY, xStart -1, yStart) < calDist(destX , destY, xStart, yStart)) && step != 'r' && isEmpty( yStart, xStart-1)) {
-		  return (1 + shortestWay( destX,  destY,  xStart-1,  yStart, 'l'));
-	  }else if(calDist(destX , destY, xStart +1, yStart) < calDist(destX , destY, xStart , yStart) && step != 'l'&& isEmpty( yStart, xStart+1)) {
-		  return (1 + shortestWay( destX,  destY,  xStart+1,  yStart, 'r'));
-	  }
-	  else if(calDist(destX , destY, xStart , yStart+1) < calDist(destX , destY, xStart , yStart) && step != 'd'&& isEmpty( yStart+1, xStart)) {
-		  return (1 + shortestWay( destX,  destY,  xStart,  yStart+1, 'u'));
-	  }
-	  else if(calDist(destX , destY, xStart , yStart-1) < calDist(destX , destY, xStart , yStart) && step != 'u'&& isEmpty( yStart-1, xStart)){
-		  return (1+shortestWay( destX,  destY,  xStart,  yStart-1, 'd'));
-	  }
-	  return 1;
-  }
-  /**
-   * take argument and passed into shortestWay(int destX, int destY, int xStart, int yStart, char step) to generate number of steps
-   * Usage -> shortestWay(int destX, int destY, int xStart, int yStart)
-   * 
-   *
-   * Return: shortestWay (destX,destY, xStart,  yStart, 'i')
-   */
-	 public int shortestWay(int destX, int destY, int xStart, int yStart) {
-		 return shortestWay (destX,destY, xStart,  yStart, 'i');
-	  }
-  
+//  public int shortestWay(int destX, int destY, int xStart, int yStart, char step) {
+//	  if ((destX == xStart + 1 && destY == yStart) || (destX == xStart - 1 && destY == yStart) || (destX == xStart  && destY == yStart + 1) || (destX == xStart && destY == yStart -1 )) {
+//		  return 1;
+//		  }
+//	  if ((calDist(destX , destY, xStart -1, yStart) < calDist(destX , destY, xStart, yStart)) && step != 'r' && isEmpty( yStart, xStart-1)) {
+//		  return (1 + shortestWay( destX,  destY,  xStart-1,  yStart, 'l'));
+//	  }else if(calDist(destX , destY, xStart +1, yStart) < calDist(destX , destY, xStart , yStart) && step != 'l'&& isEmpty( yStart, xStart+1)) {
+//		  return (1 + shortestWay( destX,  destY,  xStart+1,  yStart, 'r'));
+//	  }
+//	  else if(calDist(destX , destY, xStart , yStart+1) < calDist(destX , destY, xStart , yStart) && step != 'd'&& isEmpty( yStart+1, xStart)) {
+//		  return (1 + shortestWay( destX,  destY,  xStart,  yStart+1, 'u'));
+//	  }
+//	  else if(calDist(destX , destY, xStart , yStart-1) < calDist(destX , destY, xStart , yStart) && step != 'u'&& isEmpty( yStart-1, xStart)){
+//		  return (1+shortestWay( destX,  destY,  xStart,  yStart-1, 'd'));
+//	  }
+//	  return 1;
+//  }
+// 
+//  public boolean pathXClear(int xValue, int yHead, int yTail) {
+//	  int block = 0;
+//		 if (yHead > yTail) {
+//			 for ( int y = yTail; y < yHead; y++) {
+//				 if(!isEmpty(y, xValue)) {
+//					 block ++;
+//				 }
+//			 }
+//		 }else {
+//			 for ( int y = yTail; y > yHead; y--) {
+//				 if(!isEmpty(y, xValue)) {
+//					 block ++;
+//				 }
+//			 }
+//		 }
+//		
+//		 if (block > 0) {
+//			 return false;
+//		 }else {
+//			 return true;
+//		 }
+//  }
+//  
+//  public boolean pathYClear(int yValue, int xHead, int xTail) {
+//	  int block = 0;
+//		 if (xHead > xTail) {
+//			 for ( int x = xTail; x < xHead; x++) {
+//				 if(!isEmpty(yValue, x)) {
+//					 block ++;
+//				 }
+//			 }
+//		 }else {
+//			 for ( int x = xTail; x > xHead; x--) {
+//				 if(!isEmpty(yValue, x)) {
+//					 block ++;
+//				 }
+//			 }
+//		 }
+//		
+//		 if (block > 0) {
+//			 return false;
+//		 }else {
+//			 return true;
+//		 }
+//  }
+//  /**
+//   * take argument and passed into shortestWay(int destX, int destY, int xStart, int yStart, char step) to generate number of steps
+//   * Usage -> shortestWay(int destX, int destY, int xStart, int yStart)
+//   * 
+//   *
+//   * Return: shortestWay (destX,destY, xStart,  yStart, 'i')
+//   */
+//	 public int shortestWay(int destX, int destY, int xStart, int yStart) {
+//		 if ((pathXClear(yStart, destX, xStart) && pathYClear(destX, destY, yStart)) || (pathYClear(xStart, destY, yStart) && pathXClear(destY, destX, xStart) )) {
+//			 return calDist(destX, destY,xStart,yStart);
+//		 }
+//		 
+//			 
+//		
+//		 return shortestWay (destX,destY, xStart,  yStart, 'i');
+//	  }
+//  
   }
