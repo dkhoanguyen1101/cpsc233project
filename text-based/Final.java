@@ -1,8 +1,6 @@
 	
 	import java.util.ArrayList;
-	import java.util.Scanner;
 	public class Final extends Chara{
-	Scanner userIn = new Scanner(System.in);
 		
 	public Final(String name, int id, int att, int health, int mana, 
 			int maxAtt, int maxHealth, int maxMana, int move, int range) {
