@@ -1,11 +1,6 @@
-package sample;
-
-
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -13,10 +8,9 @@ import javafx.scene.image.*;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
-import javafx.stage.Popup;
 import javafx.scene.control.Label;
-import javafx.stage.*;
 
+import javax.print.attribute.standard.PrinterName;
 import java.awt.*;
 
 public class Start extends Application {
@@ -33,9 +27,21 @@ public class Start extends Application {
         stage.setScene(scene);
         stage.show();
 //the game scene setting
-//if want to add anything please add to this
+
         Pane gameroot = new Pane();
         Scene gamescene = new Scene(gameroot,800,600);
+
+        //Win Scene
+        Pane winroot = new Pane();
+        Scene winscene = new Scene(winroot,800,600);
+
+        //Lose Scene
+        Pane loseroot = new Pane();
+        Scene losescene = new Scene(loseroot,800,600);
+
+        //Chara Scene
+        Pane CharaRoot = new Pane();
+        Scene CharaScene = new Scene(CharaRoot,800,600);
 
 
 
@@ -82,7 +88,7 @@ public class Start extends Application {
         // when button is pressed
         button1.setOnAction(event);
 
-
+        //The PLAY button, if pressed the character selection scene will comes out
         Button PLAY = new Button("play");
         PLAY.setMinSize(120,60);
         PLAY.setLayoutX(340);
@@ -95,12 +101,63 @@ public class Start extends Application {
         PLAY.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
 
-                stage.setScene(gamescene);
+                stage.setScene(CharaScene);
                 stage.show();
 
 
             }
         });
+
+        //Character selection scene
+        //BioChem
+        Button BioChem = new Button();
+        BioChem.setMinSize(80,40);
+        BioChem.setLayoutX(100);
+        BioChem.setLayoutY(100);
+        BioChem.setGraphic(new ImageView(new Image("BioChem.png")));
+        CharaRoot.getChildren().add(BioChem);
+
+        //Zoology
+        Button Zoology = new Button();
+        Zoology.setMinSize(80,40);
+        Zoology.setLayoutX(200);
+        Zoology.setLayoutY(100);
+        Zoology.setGraphic(new ImageView(new Image("Zoology.png")));
+        CharaRoot.getChildren().add(Zoology);
+
+        //Kinesiology
+        Button Kinesiology = new Button();
+        Kinesiology.setMinSize(80,40);
+        Kinesiology.setLayoutX(300);
+        Kinesiology.setLayoutY(100);
+        Kinesiology.setGraphic(new ImageView(new Image("Kinesiology.png")));
+        CharaRoot.getChildren().add(Kinesiology);
+
+        //Engineering
+        Button Engineering = new Button();
+        Engineering.setMinSize(80,40);
+        Engineering.setLayoutX(400);
+        Engineering.setLayoutY(100);
+        Engineering.setGraphic(new ImageView(new Image("Engineering.png")));
+        CharaRoot.getChildren().add(Engineering);
+
+        //Philosophy
+        Button Philosophy = new Button();
+        Philosophy.setMinSize(80,40);
+        Philosophy.setLayoutX(500);
+        Philosophy.setLayoutY(100);
+        Philosophy.setGraphic(new ImageView(new Image("Philosophy.png")));
+        CharaRoot.getChildren().add(Philosophy);
+
+        //Nursing
+        Button Nursing = new Button();
+        Nursing.setMinSize(80,40);
+        Nursing.setLayoutX(600);
+        Nursing.setLayoutY(100);
+        Nursing.setGraphic(new ImageView(new Image("Nursing.png")));
+        CharaRoot.getChildren().add(Nursing);
+
+
 
 
         //game scene
@@ -144,10 +201,10 @@ public class Start extends Application {
         BackgroundImage GameBg = new BackgroundImage(new Image("map.jpg"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
         gameroot.setBackground(new Background(GameBg));
-        
-        
-        
-        
+
+
+
+
         Button Replay = new Button("Replay");
         Replay.setMinSize(80,40);
         Replay.setLayoutX(360);
@@ -155,7 +212,7 @@ public class Start extends Application {
         Replay.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
         Replay.setStyle("-fx-background-color: #A9A9A9");
         Replay.textFillProperty();
-        gameroot.getChildren().add(Replay);
+
 
 
 
@@ -165,22 +222,18 @@ public class Start extends Application {
                 BackgroundSize.DEFAULT);
         loseroot.setBackground(new Background(LoseBg));
         loseroot.getChildren().add(Replay);
+        //When Player lose activate  the flowing code
+        //stage.setScene(losescene);
+        //        stage.show();
+
 
 
 
         //win scene
         BackgroundImage WinBg = new BackgroundImage(new Image("WIN.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
-        loseroot.setBackground(new Background(WinBg));
-        loseroot.getChildren().add(Replay);
-
-
-
-
-
-
-
-
-
-    }
-}
+        winroot.setBackground(new Background(WinBg));
+        winroot.getChildren().add(Replay);
+        //When Player Lose activate the flowing code
+        //stage.setScene(winscene);
+        //        stage.show();
