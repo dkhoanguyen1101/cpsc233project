@@ -32,7 +32,7 @@ public class Game {
 				int wait = userIn.nextInt();
 				enemies = new ArrayList<Chara>(); //initialize a new enemy list for a new map
 				for(int i = 4; i <= 6; i++) {//put some generic enemies in the enemy list
-					toAdd = new Chara("Enemy", i, 15, 150, 0, 15, 150, 0, 3, 1);
+					toAdd = new Enemy("Enemy", i, 15, 150, 0, 15, 150, 0, 3, 1);
 					enemies.add(toAdd);
 				}
 				populateMap(players, enemies, Map);//put them all into the map (privacy leaks help with this)
