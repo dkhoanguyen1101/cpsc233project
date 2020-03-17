@@ -5,7 +5,9 @@ public class AttackPotion extends Item{
 		super(id, aName);
 	}
 	
+	//AttackPotion raises the users attack value by 10
 	public boolean use(Chara c) {
-		return false;
+		c.setAttack(c.getAttack(0 + 10);
+		return true;
 	}
 }
