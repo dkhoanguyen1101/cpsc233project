@@ -89,6 +89,7 @@ public class map {
 		  }
 		  for(ArrayList<Integer> j : toAdd) {
 			  location.add(j);
+			  passed.add(j);
 		  }
 		  
 	  }
