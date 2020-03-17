@@ -14,28 +14,28 @@ public class map {
 	  ArrayList<ArrayList<Integer>> toReturn = new ArrayList<ArrayList<Integer>>();
 	  
 	  ArrayList<Integer> up = new ArrayList<Integer>();
-	  if(x >=0 && x < column && y - 1 >=0 && y -1  < row) {}
+	  if(x >=0 && x < column && (y - 1) >=0 && (y -1)  < row) {
 	  up.add(x);
 	  up.add(y-1);
 	  toReturn.add(up);
-	  
+	  }
 	  
 	  ArrayList<Integer> down = new ArrayList<Integer>();
-	  if(x >=0 && x < column && y + 1 >=0 && y + 1  < row) {
+	  if((x >=0) && (x < column) && (y + 1) >=0 && (y + 1)  < row) {
 	  down.add(x);
 	  down.add(y+1);
 	  toReturn.add(down);
 	  }
 	  
 	  ArrayList<Integer> right = new ArrayList<Integer>();
-	  if(x + 1 >=0 && x + 1 < column && y  >=0 && y  < row) {
+	  if((x + 1) >=0 && (x + 1) < column && (y  >=0) && (y  < row)) {
 	  right.add(x+1);
 	  right.add(y);
 	  toReturn.add(right);
 	  }
 	  
 	  ArrayList<Integer> left = new ArrayList<Integer>();
-	  if(x - 1 >=0 && x - 1 < column && y  >=0 && y  < row) {
+	  if((x - 1) >=0 && (x - 1) < column && (y  >=0) && (y  < row)) {
 	  left.add(x-1);
 	  left.add(y);
 	  toReturn.add(left);
@@ -60,22 +60,37 @@ public class map {
 	  ArrayList<Integer> end = new ArrayList<Integer>();
 	  end.add(endX);
 	  end.add(endY);
+	  ArrayList<Integer> start = new ArrayList<Integer>();
+	  start.add(startX);
+	  start.add(startY);
+	  
 	 
 	  ArrayList<ArrayList<Integer>> location = new ArrayList<ArrayList<Integer>>();
 	  ArrayList<ArrayList<Integer>> passed =  new ArrayList<ArrayList<Integer>>();
 	  
-	  ArrayList<Integer> start = new ArrayList<Integer>();
+	  ArrayList<ArrayList<Integer>> toAdd = new ArrayList<ArrayList<Integer>>();
+	  ArrayList<ArrayList<Integer>> toRemove =  new ArrayList<ArrayList<Integer>>();
+	 
 	  location.add(start);
+	  passed.add(start);
+	  
 	  while(!passed.contains(end)) {
 		  steps ++;
 		  for(ArrayList<Integer> i : location) {
 			  for (ArrayList<Integer> j : getNeighbours(i.get(0), i.get(1))) {
 				  if(isEmpty(j.get(1), j.get(0)) && !passed.contains(j)){
-					  passed.add(j);
+					  toAdd.add(j);
 				  }
 			  }
+			  toRemove.add(i);
+		  }
+		  for(ArrayList<Integer> i : toRemove) {
 			  location.remove(i);
 		  }
+		  for(ArrayList<Integer> j : toAdd) {
+			  location.add(j);
+		  }
+		  
 	  }
 	  return steps;
   }
