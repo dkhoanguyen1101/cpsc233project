@@ -87,6 +87,8 @@ public class Start extends Application {
 
         // when button is pressed
         button1.setOnAction(event);
+        
+        
 
         //The PLAY button, if pressed the character selection scene will comes out
         Button PLAY = new Button("play");
@@ -156,6 +158,28 @@ public class Start extends Application {
         Nursing.setLayoutY(100);
         Nursing.setGraphic(new ImageView(new Image("Nursing.png")));
         CharaRoot.getChildren().add(Nursing);
+        
+        
+        //Finish select
+        Button Finish = new Button();
+        Finish.setText("FINISH SELECT");
+        Finish.setMinSize(100,200);
+        Finish.setLayoutX(350);
+        Finish.setLayoutY(400);
+        //Finish.setGraphic(new ImageView(new Image("Nursing.png")));
+        CharaRoot.getChildren().add(Finish);
+
+
+
+        Finish.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+
+                stage.setScene(gamescene);
+                stage.show();
+
+
+            }
+        });
 
 
 
