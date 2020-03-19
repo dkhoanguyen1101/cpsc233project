@@ -15,7 +15,7 @@ public abstract class Chara {
 	private Item[] inventory = { new EmptyItem(),  new EmptyItem(),  new EmptyItem()};
 	private int range;
 	private int move;
-	private String specDesc;
+	private String specDesc = "No special description";
 	
 	//constructors
 	public Chara() {
