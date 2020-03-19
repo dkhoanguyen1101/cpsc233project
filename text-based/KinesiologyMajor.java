@@ -53,3 +53,4 @@ public class KinesiologyMajor extends Chara {
 		}
 		return didSomething;
 	}
+}

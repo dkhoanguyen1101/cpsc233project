@@ -34,3 +34,4 @@ public class EngMajor extends Chara {
 		}
 		return didSomething;
 	}
+}

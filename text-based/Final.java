@@ -4,7 +4,7 @@
 		
 	public Final(String name, int id, int att, int health, int mana, 
 			int maxAtt, int maxHealth, int maxMana, int move, int range) {
-		super(name, id, att, health, mana, maxAtt, maxHealth, maxMana, move, range);
+		super(name, id, att, health, mana, maxAtt, maxHealth, maxMana, move, range, "none");
 	}
 		
 	//this special move is a powerful AOE attack that hits all players within one space of the final three times

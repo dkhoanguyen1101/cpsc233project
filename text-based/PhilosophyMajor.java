@@ -38,3 +38,4 @@ public class PhilosophyMajor extends Chara {
 		}
 		return didSomething;
 	}
+}
