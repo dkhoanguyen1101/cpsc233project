@@ -7,21 +7,10 @@ public class KinesiologyMajor extends Chara {
 
 	//instance variables
 			Scanner userIn = new Scanner(System.in);
-			private static int maxHealth = 250;
-			private static int maxAttack = 30;
-			private static int maxMana = 5;
-			private int ID;
-			private static String name = "Kinesiology Major";
-			private Item[] inventory = { new HealthPotion(),  new EmptyItem(),  new EmptyItem()};	
 			
 	//constructor
 	public KinesiologyMajor(int id) {
-		this.ID = id;
-		this.setAttack(maxAttack);
-		this.setHealth(maxHealth);
-		this.setMana(3);
-		this.setRange(1);
-		this.setMove(4);
+		super("KinesiologyMajor", id, 30, 250, 3, 30, 250, 5, 4, 1);
 			}
 	
 	//methods
