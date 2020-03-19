@@ -9,7 +9,7 @@ public class PhilosophyMajor extends Chara {
 	
 	//constructor
 	public PhilosophyMajor(int id) {
-		super("Philosophy Major", id, 15, 200, 2, 15, 200, 5, 5, 2);
+		super("Philosophy Major", id, 15, 200, 2, 15, 200, 5, 5, 2, "This special lowers the attack of a chosen enemy");
 	}
 	
 	//methods
