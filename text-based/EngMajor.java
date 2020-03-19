@@ -10,7 +10,7 @@ public class EngMajor extends Chara {
 		
 		//constructor
 		public EngMajor(int id) {
-			super("Engineering Major", id, 20, 200, 3, 20, 200, 5, 4, 4);
+			super("Engineering Major", id, 20, 200, 3, 20, 200, 5, 4, 4, "This special move attacks any enemies in the same chosen column or row as the Engineering Major (costs 3 mana)");
 		}
 	
 	//this special attacks any enemies in the same row as the engineer
