@@ -6,21 +6,10 @@ public class ZoologyMajor extends Chara {
 
 	//instance variables
 	Scanner userIn = new Scanner(System.in);
-	private static int maxHealth = 180;
-	private static int maxAttack = 20;
-	private static int maxMana = 5;
-	private int ID;
-	private static String name = "Zoology Major";
-	private Item[] inventory = { new HealthPotion(),  new EmptyItem(),  new EmptyItem()};	
-		
+	
 	//constructor
 	public ZoologyMajor(int id) {
-		this.ID = id;
-		this.setAttack(maxAttack);
-		this.setHealth(maxHealth);
-		this.setMana(2);
-		this.setRange(1);
-		this.setMove(8);
+		super("Zoology Major", id, 20, 180, 2, 20, 180, 5, 8, 1);
 		}
 		
 	//methods
