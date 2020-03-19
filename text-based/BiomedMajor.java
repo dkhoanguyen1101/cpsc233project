@@ -5,22 +5,11 @@ import java.math.*;
 public class BiomedMajor extends Chara {
 	
 	//instance variables
-	Scanner userIn = new Scanner(System.in);
-	private static int maxHealth = 250;
-	private static int maxAttack = 10;
-	private static int maxMana = 7;
-	private int ID;
-	private static String name = "Biomedical Major";
-	private Item[] inventory = { new HealthPotion(),  new EmptyItem(),  new EmptyItem()};	
+	Scanner userIn = new Scanner(System.in);	
 	
 	//constructor
 	public BiomedMajor(int id) {
-		this.ID = id;
-		this.setAttack(maxAttack);
-		this.setHealth(maxHealth);
-		this.setMana(4);
-		this.setRange(1);
-		this.setMove(4);
+super("Biomedical Major", id, 10, 250, 3, 10, 250, 7, 4, 1);
 	}
 	
 	//methods
