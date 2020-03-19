@@ -10,7 +10,7 @@ public class KinesiologyMajor extends Chara {
 			
 	//constructor
 	public KinesiologyMajor(int id) {
-		super("KinesiologyMajor", id, 30, 250, 3, 30, 250, 5, 4, 1);
+		super("KinesiologyMajor", id, 30, 250, 3, 30, 250, 5, 4, 1, "This special deals a chosen near-by enemy a large amount of damage (costs 2 mana)");
 			}
 	
 	//methods
