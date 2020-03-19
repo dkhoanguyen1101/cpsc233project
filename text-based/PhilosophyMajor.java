@@ -2,14 +2,30 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class PhilosophyMajor extends Chara{
+public class PhilosophyMajor extends Chara {
+
+	//instance variables
 	Scanner userIn = new Scanner(System.in);
+	private static int maxHealth = 200;
+	private static int maxAttack = 15;
+	private static int maxMana = 5;
+	private int ID;
+	private static String name = "Philosophy Major";
+	private Item[] inventory = { new HealthPotion(),  new EmptyItem(),  new EmptyItem()};	
 	
-	public PhilosophyMajor(String name, int id, int att, int health, int mana, 
-			int maxAtt, int maxHealth, int maxMana, int move, int range) {
-		super(name, id, att, health, mana, maxAtt, maxHealth, maxMana, move, range);
+	//constructor
+	public PhilosophyMajor(int id) {
+		this.ID = id;
+		this.setAttack(maxAttack);
+		this.setHealth(maxHealth);
+		this.setMana(2);
+		this.setRange(2);
+		this.setMove(5);
 	}
 	
+	//methods
+	
+	//this special lowers the attack of an enemy
 	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
 		boolean didSomething = false;
 		if(getMana() < 2)
@@ -21,7 +37,7 @@ public class PhilosophyMajor extends Chara{
 				number ++;
 				System.out.print( (number+1) +  x.getName());
 				}
-			System.out.println("Choose");
+			System.out.println("Choose an enemy:");
 			int choice = userIn.nextInt();
 			if(choice < enemies.size()) {
 				enemies.get(choice).setAttack(enemies.get(choice).getAttack() - 5);
@@ -33,4 +49,3 @@ public class PhilosophyMajor extends Chara{
 		}
 		return didSomething;
 	}
-}
