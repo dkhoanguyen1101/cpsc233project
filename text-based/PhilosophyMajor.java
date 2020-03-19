@@ -5,22 +5,11 @@ import java.util.Scanner;
 public class PhilosophyMajor extends Chara {
 
 	//instance variables
-	Scanner userIn = new Scanner(System.in);
-	private static int maxHealth = 200;
-	private static int maxAttack = 15;
-	private static int maxMana = 5;
-	private int ID;
-	private static String name = "Philosophy Major";
-	private Item[] inventory = { new HealthPotion(),  new EmptyItem(),  new EmptyItem()};	
+	Scanner userIn = new Scanner(System.in);	
 	
 	//constructor
 	public PhilosophyMajor(int id) {
-		this.ID = id;
-		this.setAttack(maxAttack);
-		this.setHealth(maxHealth);
-		this.setMana(2);
-		this.setRange(2);
-		this.setMove(5);
+		super("Philosophy Major", id, 15, 200, 2, 15, 200, 5, 5, 2);
 	}
 	
 	//methods
