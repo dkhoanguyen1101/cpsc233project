@@ -2,14 +2,30 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ChemistryMajor extends Chara{
+public class ChemistryMajor extends Chara {
+
+	//instance variables
 	Scanner userIn = new Scanner(System.in);
+	private static int maxHealth = 200;
+	private static int maxAttack = 20;
+	private static int maxMana = 5;
+	private int ID;
+	private static String name = "Chemistry Major";
+	private Item[] inventory = { new HealthPotion(),  new EmptyItem(),  new EmptyItem()};	
 	
-	public ChemistryMajor(String name, int id, int att, int health, int mana, 
-			int maxAtt, int maxHealth, int maxMana, int move, int range) {
-		super(name, id, att, health, mana, maxAtt, maxHealth, maxMana, move, range);
+	//constructor
+	public ChemistryMajor(int id) {
+		this.ID = id;
+		this.setAttack(maxAttack);
+		this.setHealth(maxHealth);
+		this.setMana(2);
+		this.setRange(1);
+		this.setMove(5);
 	}
+
+	//methods
 	
+	//this special boosts the attack of your allies
 	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
 		boolean didSomething = false;
 		if(getMana() < 2)
