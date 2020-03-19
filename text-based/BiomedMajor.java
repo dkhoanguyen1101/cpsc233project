@@ -7,9 +7,10 @@ public class BiomedMajor extends Chara {
 	//instance variables
 	Scanner userIn = new Scanner(System.in);	
 	
+	
 	//constructor
 	public BiomedMajor(int id) {
-super("Biomedical Major", id, 10, 250, 3, 10, 250, 7, 4, 1);
+super("Biomedical Major", id, 10, 250, 3, 10, 250, 7, 4, 1, "This special boosts the health of a chosen nearby ally (costs 3 mana)");
 	}
 	
 	//methods
