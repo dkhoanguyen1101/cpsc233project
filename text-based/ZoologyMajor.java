@@ -19,11 +19,11 @@ public class ZoologyMajor extends Chara {
 		boolean didSomething = false;
 		if(getMana() < 2) System.out.println("This special requires 2 mana");
 		else {
-			System.out.println("Boost your movement speed(Costs 2 mana)");
+			System.out.println("Take a second move action (Costs 2 mana)");
 			System.out.println("Enter 1 to confirm");
 			int choice = userIn.nextInt();
 			if(choice == 1) {
-				this.setMove(this.getMove() + 1);
+				Game.doMove(this, theMap);
 				}
 				setMana(getMana() - 2);
 				didSomething = true;
