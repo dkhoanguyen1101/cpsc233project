@@ -186,7 +186,7 @@ public class Game {
 		}
 	}
 	
-	private static boolean doMove(Chara charToMove, map currentMap) {
+	protected static boolean doMove(Chara charToMove, map currentMap) {
 		boolean didMove = false;
 		System.out.println("Enter the x coordinate you want to move to");
 		int newX = userIn.nextInt();
