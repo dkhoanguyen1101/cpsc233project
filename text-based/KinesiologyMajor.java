@@ -1,14 +1,32 @@
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.math.*;
-public class KinesiologyMajor extends Chara{
-	Scanner userIn = new Scanner(System.in);
+
+public class KinesiologyMajor extends Chara {
+
+	//instance variables
+			Scanner userIn = new Scanner(System.in);
+			private static int maxHealth = 250;
+			private static int maxAttack = 30;
+			private static int maxMana = 5;
+			private int ID;
+			private static String name = "Kinesiology Major";
+			private Item[] inventory = { new HealthPotion(),  new EmptyItem(),  new EmptyItem()};	
+			
+	//constructor
+	public KinesiologyMajor(int id) {
+		this.ID = id;
+		this.setAttack(maxAttack);
+		this.setHealth(maxHealth);
+		this.setMana(3);
+		this.setRange(1);
+		this.setMove(4);
+			}
 	
-	public KinesiologyMajor(String name, int id, int att, int health, int mana, 
-			int maxAtt, int maxHealth, int maxMana, int move, int range) {
-		super(name, id, att, health, mana, maxAtt, maxHealth, maxMana, move, range);
-	}
+	//methods
 	
+	//this special deals a close-by enemy a large amount of damage
 	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
 		boolean didSomething = false;
 		if(getMana() < 2) System.out.println("This special requires 2 mana");
@@ -46,4 +64,3 @@ public class KinesiologyMajor extends Chara{
 		}
 		return didSomething;
 	}
-}
