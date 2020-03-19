@@ -6,22 +6,11 @@ public class EngMajor extends Chara {
 
 	
 	//instance variables
-		Scanner userIn = new Scanner(System.in);
-		private static int maxHealth = 200;
-		private static int maxAttack = 20;
-		private static int maxMana = 5;
-		private int ID;
-		private static String name = "Engineering Major";
-		private Item[] inventory = { new HealthPotion(),  new EmptyItem(),  new EmptyItem()};	
+		Scanner userIn = new Scanner(System.in);	
 		
 		//constructor
 		public EngMajor(int id) {
-			this.ID = id;
-			this.setAttack(maxAttack);
-			this.setHealth(maxHealth);
-			this.setMana(3);
-			this.setRange(4);
-			this.setMove(4);
+			super("Engineering Major", id, 20, 200, 3, 20, 200, 5, 4, 4);
 		}
 	
 	//this special attacks any enemies in the same row as the engineer
