@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 public abstract class Chara {
@@ -14,12 +15,13 @@ public abstract class Chara {
 	private Item[] inventory = { new EmptyItem(),  new EmptyItem(),  new EmptyItem()};
 	private int range;
 	private int move;
+	private String specDesc;
 	
 	//constructors
 	public Chara() {
 		
 	}
-	public Chara(String name, int id, int att, int health, int mana, int maxAtt, int maxHealth, int maxMana, int move, int range) {
+	public Chara(String name, int id, int att, int health, int mana, int maxAtt, int maxHealth, int maxMana, int move, int range, String specDesc) {
 		this.name = new String(name);
 		this.ID = id;
 		setMove(move);
@@ -30,6 +32,7 @@ public abstract class Chara {
 		setAttack(attack);
 		setHealth(health);
 		setMana(mana);
+		this.specDesc = specDesc;
 	}
 	
 	//methods
@@ -119,10 +122,15 @@ public abstract class Chara {
 	public String getName() {
 		return name;
 	}
+	
+	public String getSpecDesc() {
+		return specDesc;
+	}
+	
 	public abstract boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies);
 	
 	public void attack(Chara receiver) {
 		receiver.setHealth(receiver.getHealth() - getAttack());
 	}
-}
+}	
 
