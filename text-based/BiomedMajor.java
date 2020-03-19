@@ -1,17 +1,31 @@
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.math.*;
 
 public class BiomedMajor extends Chara {
 	
+	//instance variables
 	Scanner userIn = new Scanner(System.in);
+	private static int maxHealth = 250;
+	private static int maxAttack = 10;
+	private static int maxMana = 7;
+	private int ID;
+	private static String name = "Biomedical Major";
+	private Item[] inventory = { new HealthPotion(),  new EmptyItem(),  new EmptyItem()};	
 	
-	public BiomedMajor(String name, int id, int att, int health, int mana, 
-			int maxAtt, int maxHealth, int maxMana, int move, int range) {
-		super(name, id, att, health, mana, maxAtt, maxHealth, maxMana, move, range);
+	//constructor
+	public BiomedMajor(int id) {
+		this.ID = id;
+		this.setAttack(maxAttack);
+		this.setHealth(maxHealth);
+		this.setMana(4);
+		this.setRange(1);
+		this.setMove(4);
 	}
 	
+	//methods
+	
+	//this special boosts the health of a near-by ally
 	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
 		boolean didSomething = false;
 		if(getMana() < 3) System.out.println("This special requires 3 mana");
@@ -29,7 +43,7 @@ public class BiomedMajor extends Chara {
 					playerIndex = i;
 				}
 			}
-			
+				
 			if(isPlayer) {
 				int[] playerPos = theMap.getPos(playerID);
 				int[] healerPos = theMap.getPos(getID());
@@ -49,3 +63,4 @@ public class BiomedMajor extends Chara {
 		return didSomething;
 	}
 }
+
