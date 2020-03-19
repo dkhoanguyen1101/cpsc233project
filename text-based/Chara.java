@@ -19,7 +19,7 @@ public abstract class Chara {
 	public Chara() {
 		
 	}
-	public Chara(int id) {
+	public Chara(String name, int id, int att, int health, int mana, int maxAtt, int maxHealth, int maxMana, int move, int range) {
 		this.name = new String(name);
 		this.ID = id;
 		setMove(move);
