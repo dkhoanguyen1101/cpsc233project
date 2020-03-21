@@ -132,7 +132,7 @@ public class map {
   /**
    * Take in arguments for id, rowCoord, colCoord, movement of the object, calculate if the movement is legal
   (less than or equals the limit)
-   * Usage ->  isLegalMove(int id, int rowCoord, int colCoord, int limit)
+   * Usage ->  isLegalMove	(int id, int rowCoord, int colCoord, int limit)
    * Parameters: id rowCoord, colCoord, limit
    *
    *  id: each object should be assigned with an unique map id to be located on the map
