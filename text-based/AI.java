@@ -41,20 +41,26 @@ public class AI {
 	public void moveAIAway(int enemyID, int enemyMoveLimit, ArrayList<Integer> playerIDs) {
 		//get position of both characters
 		int nearestPlayerID = checkClosest(enemyID, playerIDs);
+		System.out.println(nearestPlayerID);
 		int [] enemyPos = map.getPos(enemyID);
 		int [] playerPos = map.getPos(nearestPlayerID);
-		double longest = 32;
-			int colReturn = 0;
-			int rowReturn = 0;
-			for(int countRow = 0; countRow < 16 ; countRow++) {
-				for(int countCol = 0; countCol < 16; countCol++) {
-					if(map.isEmpty(countRow, countCol)) {
-						if (map.shortestWay(enemyPos[0], enemyPos[1], countCol, countRow) <= enemyMoveLimit) {
-							if(map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]) > longest){
-								colReturn = countCol;
-								rowReturn = countRow;
-								longest = map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]);
-							}
+		double shortest = 32;
+		int colReturn = 0;
+		int rowReturn = 0;
+		int xStart = Math.max(0, enemyPos[0]-enemyMoveLimit);
+		int xEnd = Math.min(15,  enemyPos[0] + enemyMoveLimit);
+		int yStart = Math.max(0, enemyPos[1]-enemyMoveLimit);
+		int yEnd = Math.min(15,  enemyPos[1] + enemyMoveLimit);
+		for(int countRow = yStart; countRow <= yEnd ; countRow++) {
+			for(int countCol = xStart; countCol <= xEnd; countCol++) {
+				if(map.isEmpty(countRow, countCol)) {
+					
+						System.out.println(1);
+						if(map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]) < shortest){
+							colReturn = countCol;
+							rowReturn = countRow;
+							shortest = map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]);
+							
 						} 
 					}
 				} 
@@ -71,25 +77,31 @@ public class AI {
 	public void moveAITowards(int enemyID, int enemyMoveLimit, ArrayList<Integer> playerIDs) {
 		//get position of both characters
 		int nearestPlayerID = checkClosest(enemyID, playerIDs);
+		System.out.println(nearestPlayerID);
 		int [] enemyPos = map.getPos(enemyID);
 		int [] playerPos = map.getPos(nearestPlayerID);
-		double longest = 32;
-			int colReturn = 0;
-			int rowReturn = 0;
-			for(int countRow = 0; countRow < 16 ; countRow++) {
-				for(int countCol = 0; countCol < 16; countCol++) {
-					if(map.isEmpty(countRow, countCol)) {		
-						if (map.shortestWay(enemyPos[0], enemyPos[1], countCol, countRow) <= enemyMoveLimit) {
-							if(map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]) < longest){
-								colReturn = countCol;
-								rowReturn = countRow;
-								longest = map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]);
-							}
+		double shortest = 32;
+		int colReturn = 0;
+		int rowReturn = 0;
+		int xStart = Math.max(0, enemyPos[0]-enemyMoveLimit);
+		int xEnd = Math.min(15,  enemyPos[0] + enemyMoveLimit);
+		int yStart = Math.max(0, enemyPos[1]-enemyMoveLimit);
+		int yEnd = Math.min(15,  enemyPos[1] + enemyMoveLimit);
+		for(int countRow = yStart; countRow <= yEnd ; countRow++) {
+			for(int countCol = xStart; countCol <= xEnd; countCol++) {
+				if(map.isEmpty(countRow, countCol)) {
+					
+						System.out.println(1);
+						if(map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]) < shortest){
+							colReturn = countCol;
+							rowReturn = countRow;
+							shortest = map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]);
+							
 						} 
 					}
 				} 
 			}
-		//set enemys position to the closest position to the closest player character
+		//set enemys position to the farthest location from the nearest player character
 			map.setPos(0, enemyPos[0], enemyPos[1]);
 			map.setPos(enemyID, colReturn, rowReturn);	
 	}
