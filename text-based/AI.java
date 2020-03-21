@@ -80,7 +80,7 @@ public class AI {
 	public void moveAITowards(int enemyID, int enemyMoveLimit, ArrayList<Integer> playerIDs) {
 		//get position of both characters
 		int nearestPlayerID = checkClosest(enemyID, playerIDs);
-		System.out.println(nearestPlayerID);
+
 		int [] enemyPos = map.getPos(enemyID);
 		int [] playerPos = map.getPos(nearestPlayerID);
 		double shortest = 32;
