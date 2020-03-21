@@ -4,17 +4,17 @@
 		
 	public Final(String name, int id, int att, int health, int mana, 
 			int maxAtt, int maxHealth, int maxMana, int move, int range) {
-		super(name, id, att, health, mana, maxAtt, maxHealth, maxMana, move, range, "none");
+		super(name, id, att, health, mana, maxAtt, maxHealth, maxMana, move, range, "");
 	}
 		
 	//this special move is a powerful AOE attack that hits all players within one space of the final three times
 	//costs three mana points to for the final to use
 		
-	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
+	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies, int xPos, int yPos) {
 		boolean didSomething = false;
-		if(getMana() < 3) System.out.println("This special requires 3 mana");
-		else {
-			
+		
+		//make sure the final has enough mana to use special
+		if(getMana() >= 3) {
 			//these two for loops check each spot around the final
 			
 			for (int a = -1; a < 2; a++) {
