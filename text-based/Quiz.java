@@ -7,7 +7,7 @@ public class Quiz extends Chara {
 		super(name, id, att, health, mana, maxAtt, maxHealth, maxMana, move, range,"none");
 	}
 	@Override
-	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
+	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies, int xPos, int yPos) {
 		// TODO Auto-generated method stub
 		return false;
 	}
