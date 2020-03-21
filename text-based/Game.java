@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 import java.math.*;
 import java.util.ArrayList;
@@ -19,11 +18,11 @@ public class Game {
 		ArrayList<Chara> players = new ArrayList<Chara>(); //create a list to hold all player characters between iteration of map
 		ArrayList<Chara> enemies = new ArrayList<Chara>(); //create a list to hold all enemies between iterations
 		//make some default characters
-		Chara toAdd = new KinesiologyMajor("Player 1", 1, 30, 300, 1, 30, 300, 5, 3, 1); //new close combat kines character (magic numbers are a bandaid right now)
+		Chara toAdd = new KinesiologyMajor(1); //new close combat kines character (magic numbers are a bandaid right now)
 		players.add(toAdd);//put them into the player character list
-		toAdd = new EngMajor("Player 2", 2, 20, 250, 1, 20, 250, 5, 3, 3);//new ranged eng character
+		toAdd = new EngMajor(2);//new ranged eng character
 		players.add(toAdd);
-		toAdd = new BiomedMajor("Player 3", 3, 10, 175, 2, 10, 175, 7, 3, 1);//new healer biomed character
+		toAdd = new BiomedMajor(3);//new healer biomed character
 		players.add(toAdd);
 		boolean stillAlive = true; //boolean to keep track of the player list - if its empty the boolean is false
 		for(map Map: worldMap) {// going through all maps in the world
@@ -186,7 +185,7 @@ public class Game {
 		}
 	}
 	
-	protected static boolean doMove(Chara charToMove, map currentMap) {
+	private static boolean doMove(Chara charToMove, map currentMap) {
 		boolean didMove = false;
 		System.out.println("Enter the x coordinate you want to move to");
 		int newX = userIn.nextInt();
@@ -264,7 +263,18 @@ public class Game {
 	
 	private static boolean useSpecial(Chara player, ArrayList<Chara> players, ArrayList<Chara> enemies, map currentMap) {
 		boolean used = false;
-		used = player.Special(currentMap, players, enemies);
+		
+		//first display the Special Description
+		System.out.println(player.getSpecDesc());
+		
+		//then make a scanner for x and y and use that in special
+		System.out.println("Enter the x coordinate of the tile");
+		int xPos = userIn.nextInt();
+		System.out.println("Enter the y coordinate of the tile");
+		int yPos = userIn.nextInt();
+		
+		//use the characters special given the chosen tile
+		used = player.Special(currentMap, players, enemies, xPos, yPos);
 		return used;
 	}
 	
