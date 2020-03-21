@@ -300,6 +300,10 @@ public class map {
 	  passed.add(start);
 	  
 	  while(!passed.contains(end)) {
+		  if (steps > 8) {
+			  System.out.println(steps);
+			  return steps;
+		  }
 		  steps ++;
 		  for(ArrayList<Integer> i : location) {
 			  for (ArrayList<Integer> j : getNeighbours(i.get(0), i.get(1))) {
@@ -318,6 +322,7 @@ public class map {
 		  }
 		  
 	  }
+	  System.out.println(steps);
 	  return steps;
   }
   
