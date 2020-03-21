@@ -127,10 +127,10 @@ public abstract class Chara {
 		return specDesc;
 	}
 	
-	public abstract boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies);
+	public abstract boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies, int xPos, int yPos);
 	
 	public void attack(Chara receiver) {
 		receiver.setHealth(receiver.getHealth() - getAttack());
 	}
-}	
+}
 
