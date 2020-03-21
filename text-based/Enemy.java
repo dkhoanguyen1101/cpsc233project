@@ -11,7 +11,7 @@ public class Enemy extends Chara{
 	 * instead, they simply return that the special 
 	 * cannot be used at all times	*/
 		
-	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
+	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies, int xPos, int yPos) {
 		return false;
 	}
 }

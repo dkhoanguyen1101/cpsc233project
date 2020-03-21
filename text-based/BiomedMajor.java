@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.math.*;
+
 
 public class BiomedMajor extends Chara {
 	
@@ -10,19 +10,17 @@ public class BiomedMajor extends Chara {
 	
 	//constructor
 	public BiomedMajor(int id) {
-super("Biomedical Major", id, 10, 250, 3, 10, 250, 7, 4, 1, "This special boosts the health of a chosen nearby ally (costs 3 mana)");
+super("Biomedical Major", id, 10, 250, 3, 10, 250, 7, 4, 1, "This special boosts the health of a chosen nearby ally (costs 3 mana). Select the tile of the teammate you would like to heal that is within three tiles");
 	}
 	
 	//methods
 	
 	//this special boosts the health of a near-by ally
-	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
+	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies, int xPos, int yPos) {
 		boolean didSomething = false;
-		if(getMana() < 3) System.out.println("This special requires 3 mana");
+		if(getMana() < 3) System.out.println("This special requires 3 mana to use");
 		else {
-			System.out.println("Heal another teammate for 40 health - within 3 spaces (costs 3 mana)");
-			System.out.println("Enter the ID of a teammate to heal");
-			Integer choice = userIn.nextInt();
+			Integer choice = theMap.getID(xPos, yPos);
 			boolean isPlayer = false;
 			int playerID = 0;
 			int playerIndex = 0;
@@ -53,4 +51,3 @@ super("Biomedical Major", id, 10, 250, 3, 10, 250, 7, 4, 1, "This special boosts
 		return didSomething;
 	}
 }
-
