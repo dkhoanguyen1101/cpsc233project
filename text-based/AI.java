@@ -40,35 +40,38 @@ public class AI {
 	
 	public void moveAIAway(int enemyID, int enemyMoveLimit, ArrayList<Integer> playerIDs) {
 		//get position of both characters
-		int nearestPlayerID = checkClosest(enemyID, playerIDs);
-		System.out.println(nearestPlayerID);
-		int [] enemyPos = map.getPos(enemyID);
-		int [] playerPos = map.getPos(nearestPlayerID);
-		double shortest = 32;
-		int colReturn = 0;
-		int rowReturn = 0;
-		int xStart = Math.max(0, enemyPos[0]-enemyMoveLimit);
-		int xEnd = Math.min(15,  enemyPos[0] + enemyMoveLimit);
-		int yStart = Math.max(0, enemyPos[1]-enemyMoveLimit);
-		int yEnd = Math.min(15,  enemyPos[1] + enemyMoveLimit);
-		for(int countRow = yStart; countRow <= yEnd ; countRow++) {
-			for(int countCol = xStart; countCol <= xEnd; countCol++) {
-				if(map.isEmpty(countRow, countCol)) {
-					
-						System.out.println(1);
-						if(map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]) < shortest){
-							colReturn = countCol;
-							rowReturn = countRow;
-							shortest = map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]);
+				int nearestPlayerID = checkClosest(enemyID, playerIDs);
+				
+				int [] enemyPos = map.getPos(enemyID);
+				int [] playerPos = map.getPos(nearestPlayerID);
+				double furthest = 32;
+				int colReturn = 0;
+				int rowReturn = 0;
+				int xStart = Math.max(0, enemyPos[0]-enemyMoveLimit);
+				int xEnd = Math.min(15,  enemyPos[0] + enemyMoveLimit);
+				int yStart = Math.max(0, enemyPos[1]-enemyMoveLimit);
+				int yEnd = Math.min(15,  enemyPos[1] + enemyMoveLimit);
+				for(int countRow = yStart; countRow <= yEnd ; countRow++) {
+					for(int countCol = xStart; countCol <= xEnd; countCol++) {
+						if(map.isEmpty(countRow, countCol) && map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]) > furthest
+								&& map.shortestWay(countCol, countRow, enemyPos[0], enemyPos[1]) < enemyMoveLimit) {
+								
 							
+									
+								
+									colReturn = countCol;
+									rowReturn = countRow;
+									furthest = map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]);
+									
+								
+							}
 						} 
 					}
-				} 
+					
+				//set enemys position to the farthest location from the nearest player character
+					map.setPos(0, enemyPos[0], enemyPos[1]);
+					map.setPos(enemyID, colReturn, rowReturn);	
 			}
-		//set enemys position to the farthest location from the nearest player character
-			map.setPos(0, enemyPos[0], enemyPos[1]);
-			map.setPos(enemyID, colReturn, rowReturn);	
-	}
 		
 	
 	//moveAITowards : moves character to the closest location possible to the nearest player
@@ -89,18 +92,21 @@ public class AI {
 		int yEnd = Math.min(15,  enemyPos[1] + enemyMoveLimit);
 		for(int countRow = yStart; countRow <= yEnd ; countRow++) {
 			for(int countCol = xStart; countCol <= xEnd; countCol++) {
-				if(map.isEmpty(countRow, countCol)) {
+				if(map.isEmpty(countRow, countCol) && map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]) < shortest
+						&& map.shortestWay(countCol, countRow, enemyPos[0], enemyPos[1]) <= enemyMoveLimit) {
+						
 					
-						System.out.println(1);
-						if(map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]) < shortest){
+							
+						
 							colReturn = countCol;
 							rowReturn = countRow;
 							shortest = map.shortestWay(countCol, countRow, playerPos[0], playerPos[1]);
 							
-						} 
+						
 					}
 				} 
 			}
+			
 		//set enemys position to the farthest location from the nearest player character
 			map.setPos(0, enemyPos[0], enemyPos[1]);
 			map.setPos(enemyID, colReturn, rowReturn);	

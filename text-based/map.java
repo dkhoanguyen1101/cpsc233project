@@ -301,7 +301,6 @@ public class map {
 	  
 	  while(!passed.contains(end)) {
 		  if(steps > 8) {
-			  System.out.println(steps);
 			  return steps;
 			  
 		  }
@@ -324,7 +323,7 @@ public class map {
 		  }
 		  
 	  }
-	  System.out.println(steps);
+	 
 	  return steps;
   }
   
