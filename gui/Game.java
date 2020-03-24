@@ -22,12 +22,12 @@ import javafx.scene.Scene;
 public class Game {
 
 	//references to all GUI elements
-	Button btn1, btn2, btn3, btn4;
-	Label lbl1, lbl2;
-	Image img;
-	ImageView imv;
-	ArrayList<ImageView> charImageFrames;
-	Scene scene;
+	protected Button btn1, btn2, btn3, btn4;
+	protected Label lbl1, lbl2;
+	protected Image img;
+	protected ImageView imv;
+	protected ArrayList<ImageView> charImageFrames;
+	protected Scene scene;
 	
 	//lists to be used to hold references to the characters on the map
 	protected ArrayList<Chara> players;
@@ -37,11 +37,13 @@ public class Game {
 	protected ArrayList<Chara> notMoved;
 	protected ArrayList<Chara> notActed;
 	
-	//elements that track the map - whole world map and individual instances
-	protected int turnNo = 1, mapNo = 0, worldNo = 1;
-	protected map[] world = new map[5];
+	//elements that track the individual instances of map
+	protected int turnNo = 1, mapNo = 0;
 	protected map currentMap;
 	protected mapGenerator newMaps = new mapGenerator();
+	
+	//Reference to current AI
+	protected AI enemyAI;
 	
 	//other technical information
 	protected final int cellSizeX = 32, cellSizeY = 32, mapSizeX = 16, mapSizeY = 16;
@@ -61,17 +63,76 @@ public class Game {
 		btn1.setText(""); btn2.setText(""); btn3.setText(""); btn4.setText("");
 	}
 	
+	public void setButtonTextActions(int ID) {
+		Chara toAct = setCharStatsLabel(ID);
+		if(toAct != null && players.contains(toAct)) {
+			if(!notMoved.contains(toAct)) {
+				btn1.setText("Move");
+			}
+			if(!notActed.contains(toAct)) {
+				btn2.setText("Attack");
+				btn3.setText("Use item");
+				btn4.setText("Use special");
+			}
+		} else {
+			setButtonTextPlayerActionChoice();
+			lbl1.setText("");
+		}
+	}
+	
+	public void setButtonTextMove() {
+		lbl2.setText("Select a space to move to");
+		btn1.setText(""); btn2.setText(""); btn3.setText("");
+		btn4.setText("Back");
+	}
+	
+	public void setButtonTextAttack() {
+		lbl2.setText("Select an enemy to attack");
+		btn1.setText(""); btn2.setText(""); btn3.setText("");
+		btn4.setText("Back");
+	}
+	
+	public void setButtonTextItems(int ID) {
+		Chara toAct = getCharaFromID(ID, players);
+		Item[] inventory = toAct.getInventory();
+		lbl2.setText("Select an item to use");
+		btn1.setText(inventory[0].getName());
+		btn2.setText(inventory[1].getName());
+		btn3.setText(inventory[2].getName());
+		btn4.setText("Back");
+	}
+	
+	public void setButtonTextSpecial(int ID) {
+		Chara toAct = getCharaFromID(ID, players);
+		lbl2.setText(toAct.getSpecialDescription());
+		btn1.setText(""); btn2.setText(""); btn3.setText("");
+		btn4.setText("Back");
+	}
+	
 	/* Methods for game facilitation, through and between maps
 	 * 
 	 */
 	
-	public void setNewWorld() {
-		for(int i = 0; i < world.length; i++) {
-			world[i] = newMaps.generate();
+	public void startNewMap() {
+		enemies.clear();
+		for(int i = 0; i < 3; i++) {
+			Chara toAdd = new Enemy(i + 4);
+			enemies.add(toAdd);
 		}
-		mapNo = 0;
-		currentMap = world[0];
-		worldNo++;
+		currentMap = newMaps.generate();
+		enemyAI = new AI(currentMap);
+		populateMap();
+		turnNo = 1;
+		mapNo++;
+		startNewTurn();
+	}
+	
+	public void startNewTurn() {
+		for(int i = 0; i < enemies.size(); i++) {
+			Chara currentEnemy = enemies.get(i);
+			
+		}
+		turnNo++;
 	}
 	
 	public void populateMap() {
@@ -90,6 +151,7 @@ public class Game {
 		for(int i = 0; i < players.size(); i++) {
 			Chara currentPlayer = players.get(i);
 			currentPlayer.setMana(currentPlayer.getMana() + 1);
+			
 		}
 	}
 	
@@ -108,18 +170,18 @@ public class Game {
 		else return true;
 	}
 	
-	public static void kill(int IDToKill, int posToKill, ArrayList<Chara> listContainingChar, map currentMap) {
+	public void kill(int IDToKill, int posToKill, ArrayList<Chara> listContainingChar) {
 		System.out.println(listContainingChar.get(posToKill).getName() + " died!");
 		int[] killCoords = currentMap.getPos(IDToKill);
 		currentMap.setPos(0, killCoords[0], killCoords[1]);
 		listContainingChar.remove(posToKill);
 	}
 	
-	public static void killChecker(ArrayList<Chara> chars, map currentMap) {
+	public void killChecker(ArrayList<Chara> chars) {
 		for(int i = 0; i < chars.size(); i++) {
 			Chara dead = chars.get(i);
 			if(dead.getHealth() <= 0) {
-				kill(dead.getID(), i, chars, currentMap);
+				kill(dead.getID(), i, chars);
 			}
 		}
 	}
@@ -167,8 +229,8 @@ public class Game {
 		}
 	}*/
 
-	public void setCharStatsLabel(int ID) {
-		Chara toDisplay;
+	public Chara setCharStatsLabel(int ID) {
+		Chara toDisplay = null;
 		if(checkIfIDInList(ID, players)) {
 			toDisplay = getCharaFromID(ID, players);
 			lbl1.setText(
@@ -185,6 +247,7 @@ public class Game {
 		} else {
 			lbl1.setText("");
 		}
+		return toDisplay;
 		
 	}
 }
