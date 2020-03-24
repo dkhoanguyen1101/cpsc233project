@@ -1,9 +1,9 @@
+
 import java.util.ArrayList;
 
-//character class @author Yuwen
-
-
-public class Chara {
+public abstract class Chara {
+	
+	//instance variables
 	private int health;
 	private int maxHealth;
 	private int attack;
@@ -15,32 +15,42 @@ public class Chara {
 	private Item[] inventory = { new EmptyItem(),  new EmptyItem(),  new EmptyItem()};
 	private int range;
 	private int move;
+	private String specDesc = "No special description";
 	
+	//constructors
 	public Chara() {
 		
 	}
-	public Chara(String name, int id, int att, int health, int mana, int maxAtt, int maxHealth, int maxMana, int move, int range) {
+	public Chara(String name, int id, int att, int health, int mana, int maxAtt, int maxHealth, int maxMana, int move, int range, String specDesc) {
 		this.name = new String(name);
 		this.ID = id;
 		setMove(move);
 		setRange(range);
-		setMaxAttack(maxAtt);
+		setMaxAttack(maxAttack);
 		setMaxHealth(maxHealth);
 		setMaxMana(maxMana);
-		setAttack(att);
+		setAttack(attack);
 		setHealth(health);
 		setMana(mana);
+		this.specDesc = specDesc;
 	}
+	
+	//methods
 	public int getMana() {return mana;}
+	
 	public void setMana(int newMana) {
 		if(newMana >= maxMana) mana = maxMana;
 		else mana = newMana;
 	}
 	
 	public int getMaxMana() {return maxMana;}
+	
 	public void setMaxMana(int newMax) {maxMana = newMax;}
+	
 	public int getMove() {return move;}
+	
 	public void setMove(int newMove) {move = newMove;}
+	
 	public int getAttack() {
       return attack;
 	}
@@ -112,12 +122,15 @@ public class Chara {
 	public String getName() {
 		return name;
 	}
-	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
-		return false;
+	
+	public String getSpecDesc() {
+		return specDesc;
 	}
+	
+	public abstract boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies, int xPos, int yPos);
 	
 	public void attack(Chara receiver) {
 		receiver.setHealth(receiver.getHealth() - getAttack());
 	}
-}	
+}
 

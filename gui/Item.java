@@ -1,6 +1,6 @@
 
 
-public class Item {
+public abstract class Item {
 private  int ID;
 private int staticID;
 private String name;
@@ -28,9 +28,7 @@ public void setName(String aName) {
 	name = aName;
 }
 
-public boolean use(Chara c) {
-	return false;
-}
+public abstract boolean use(Chara c);
 
 
 }

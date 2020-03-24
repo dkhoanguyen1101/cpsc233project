@@ -8,6 +8,8 @@ public class map {
   private int[] charPos = new int[6];
   private int[] enemyPos = new int[6];
   private int[] itemPos = new int[2];
+  
+  
 
  
   private ArrayList<ArrayList<Integer>> twoDList = new ArrayList<ArrayList<Integer>>();
@@ -23,7 +25,7 @@ public class map {
  * Return: Nothing
  */
 
-protected map(int[] acharPos, int[] aenemy, int[] aitem){
+  public map(int[] acharPos, int[] aenemy, int[] aitem){
     
     for(int countRow = 0; countRow < row; countRow++) {
     	twoDList.add(new ArrayList<Integer>());
@@ -50,7 +52,7 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
 * [-1,-1] is returned incase object is not on the map
 */
 
-  protected int[] getPos(int id) {
+  public int[] getPos(int id) {
 	  int[] position = new int[2];
 	  position[0] = -1;
 	  position[1] = -1;
@@ -65,18 +67,22 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
 	  return position;
   }
 
-  protected int[] getCharPos() {
+  public int[] getCharPos() {
 	  return charPos.clone();
   }
   
-  protected int[] getEnemyPos() {
+  public int[] getEnemyPos() {
 	  return enemyPos.clone();
   }
   
-  protected int[] getItemPos() {
+  public int[] getItemPos() {
 	  return itemPos.clone();
   }
 
+  
+  public int getID(int xCoord, int yCoord) {
+	  return twoDList.get(yCoord).get(xCoord);
+  }
   /**
    * Take in arguments for id, rowCoord, colCoord to set the position of the object
    * Usage -> setPos(int id, int rowCoord, int colCoord)
@@ -88,7 +94,7 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
    *
    * Return: nothing
    */
-  protected void setPos(int id, int colCoord, int rowCoord) {
+  public void setPos(int id, int colCoord, int rowCoord) {
 	  twoDList.get(rowCoord).set(colCoord, id);
   }
 
@@ -105,6 +111,7 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
   public boolean isEmpty(int rowCoord, int colCoord) {
 	  return twoDList.get(rowCoord).get(colCoord).equals(0);
   }
+ 
 
   /**
    * Take in arguments for id, return value if the object is on the map
@@ -114,7 +121,7 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
    *  id: each object should be assigned with an unique map id to be located on the map
    * Return: boolean: true if the position is not[-1,-1], false if it is
    */
-  private boolean isOnMap(int id) {
+  public boolean isOnMap(int id) {
 	  int[] position = getPos(id);
 	  if(position[0] != -1 && position[1] != -1) {
 		  return true;
@@ -125,7 +132,7 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
   /**
    * Take in arguments for id, rowCoord, colCoord, movement of the object, calculate if the movement is legal
   (less than or equals the limit)
-   * Usage ->  isLegalMove(int id, int rowCoord, int colCoord, int limit)
+   * Usage ->  isLegalMove	(int id, int rowCoord, int colCoord, int limit)
    * Parameters: id rowCoord, colCoord, limit
    *
    *  id: each object should be assigned with an unique map id to be located on the map
@@ -134,7 +141,7 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
    * Return: boolean: true if the attemped move is less than or equal the limit, false if the object not on map or
    the movement is more than the limit
    */
-  protected boolean isLegalMove(int id, int rowCoord, int colCoord, int limit) {
+  public boolean isLegalMove(int id, int rowCoord, int colCoord, int limit) {
 		  int[] position = getPos(id);
 		  if (isOnMap(id)) {
 		  int originalCol = position[0];
@@ -157,7 +164,7 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
    *  limit: how many step can the object move
    * Return: nothing
    */
-  protected boolean move(int id, int rowCoord, int colCoord, int limit) {
+  public boolean move(int id, int rowCoord, int colCoord, int limit) {
 	  if (isOnMap(id)) {
 	  if (isEmpty(rowCoord, colCoord)) {
 	  if (isLegalMove( id, rowCoord, colCoord, limit) == true) {
@@ -181,8 +188,8 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
 	}
   }
   
-  protected double calDist(int col1, int row1,int col2,int row2) {
-	  double dist = Math.abs(row1 - row2) + Math.abs(col1 - col2); 
+  public int calDist(int col1, int row1,int col2,int row2) {
+	  int dist = Math.abs(row1 - row2) + Math.abs(col1 - col2); 
 	  return dist;
   }
   
@@ -212,6 +219,130 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
 	  }
 	 return toReturn;
   }
+  
+  
+  /**
+   * this support shortestWay
+   * Usage -> getNeighbours(int x, int y)
+   
+   * Return: ArrayList<ArrayList<Integer>> every neighbor of the passed in block
+   */
+  public ArrayList<ArrayList<Integer>> getNeighbours(int x, int y) {
+	  ArrayList<ArrayList<Integer>> toReturn = new ArrayList<ArrayList<Integer>>();
+	  
+	  ArrayList<Integer> up = new ArrayList<Integer>();
+	  if(x >=0 && x < column && (y - 1) >=0 && (y -1)  < row) {
+	  up.add(x);
+	  up.add(y-1);
+	  toReturn.add(up);
+	  }
+	  
+	  ArrayList<Integer> down = new ArrayList<Integer>();
+	  if((x >=0) && (x < column) && (y + 1) >=0 && (y + 1)  < row) {
+	  down.add(x);
+	  down.add(y+1);
+	  toReturn.add(down);
+	  }
+	  
+	  ArrayList<Integer> right = new ArrayList<Integer>();
+	  if((x + 1) >=0 && (x + 1) < column && (y  >=0) && (y  < row)) {
+	  right.add(x+1);
+	  right.add(y);
+	  toReturn.add(right);
+	  }
+	  
+	  ArrayList<Integer> left = new ArrayList<Integer>();
+	  if((x - 1) >=0 && (x - 1) < column && (y  >=0) && (y  < row)) {
+	  left.add(x-1);
+	  left.add(y);
+	  toReturn.add(left);
+	  }
+	  
+	  return toReturn;
+  }
+  
+  public boolean trapped(int x, int y) {
+	  boolean toReturn = true;
+	  for(ArrayList<Integer> j : getNeighbours(x, y)) {
+		  if (isEmpty(j.get(1), j.get(0))) {
+			  toReturn = false;
+		  }
+	  }
+	  return toReturn;
+  }
+  
+  
+  /**
+   * take argument and calculate shortest way
+   * Usage -> shortestWay(int destX, int destY, int xStart, int yStart, 'i')
+   * Use Dijkstra's algorithm
+   * Return: int ( the steps take to travel from startpoint to end point)
+   */
+  
+  public int shortestWay(int endX,int endY,int startX,int startY) {
+	  int steps = 0;
+	  
+	  ArrayList<Integer> end = new ArrayList<Integer>();
+	  end.add(endX);
+	  end.add(endY);
+	  ArrayList<Integer> start = new ArrayList<Integer>();
+	  start.add(startX);
+	  start.add(startY);
+	  
+	 
+	  ArrayList<ArrayList<Integer>> location = new ArrayList<ArrayList<Integer>>();
+	  ArrayList<ArrayList<Integer>> passed =  new ArrayList<ArrayList<Integer>>();
+	  
+	  ArrayList<ArrayList<Integer>> toAdd = new ArrayList<ArrayList<Integer>>();
+	  ArrayList<ArrayList<Integer>> toRemove =  new ArrayList<ArrayList<Integer>>();
+	 
+	  location.add(start);
+	  passed.add(start);
+	  
+	  while(!passed.contains(end)) {
+		  if(steps > 8) {
+			  return steps;
+			  
+		  }
+		  
+		  steps ++;
+		  for(ArrayList<Integer> i : location) {
+			  for (ArrayList<Integer> j : getNeighbours(i.get(0), i.get(1))) {
+				  if(isEmpty(j.get(1), j.get(0)) && !passed.contains(j)){
+					  toAdd.add(j);
+				  }
+			  }
+			  toRemove.add(i);
+		  }
+		  for(ArrayList<Integer> i : toRemove) {
+			  location.remove(i);
+		  }
+		  for(ArrayList<Integer> j : toAdd) {
+			  location.add(j);
+			  passed.add(j);
+		  }
+		  
+	  }
+	 
+	  return steps;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /**
+   * OLD CODE
+   */
   /**
    * take argument and calculate shortest way
    * Usage -> shortestWay(int destX, int destY, int xStart, int yStart, 'i')
@@ -220,32 +351,84 @@ protected map(int[] acharPos, int[] aenemy, int[] aitem){
    * Return: int ( the steps take to travel from startpoint to end point)
    */
   
-  public int shortestWay(int destX, int destY, int xStart, int yStart, char step) {
-	  if ((destX == xStart + 1 && destY == yStart) || (destX == xStart - 1 && destY == yStart) || (destX == xStart  && destY == yStart + 1) || (destX == xStart && destY == yStart -1 )) {
-		  return 1;
-		  }
-	  if ((calDist(destX , destY, xStart -1, yStart) < calDist(destX , destY, xStart, yStart)) && step != 'r' && isEmpty( yStart, xStart-1)) {
-		  return (1 + shortestWay( destX,  destY,  xStart-1,  yStart, 'l'));
-	  }else if(calDist(destX , destY, xStart +1, yStart) < calDist(destX , destY, xStart , yStart) && step != 'l'&& isEmpty( yStart, xStart+1)) {
-		  return (1 + shortestWay( destX,  destY,  xStart+1,  yStart, 'r'));
-	  }
-	  else if(calDist(destX , destY, xStart , yStart+1) < calDist(destX , destY, xStart , yStart) && step != 'd'&& isEmpty( yStart+1, xStart)) {
-		  return (1 + shortestWay( destX,  destY,  xStart,  yStart+1, 'u'));
-	  }
-	  else if(calDist(destX , destY, xStart , yStart-1) < calDist(destX , destY, xStart , yStart) && step != 'u'&& isEmpty( yStart-1, xStart)){
-		  return (1+shortestWay( destX,  destY,  xStart,  yStart-1, 'd'));
-	  }
-	  return 1;
-  }
-  /**
-   * take argument and passed into shortestWay(int destX, int destY, int xStart, int yStart, char step) to generate number of steps
-   * Usage -> shortestWay(int destX, int destY, int xStart, int yStart)
-   * 
-   *
-   * Return: shortestWay (destX,destY, xStart,  yStart, 'i')
-   */
-	 public int shortestWay(int destX, int destY, int xStart, int yStart) {
-		 return shortestWay (destX,destY, xStart,  yStart, 'i');
-	  }
-  
+//  public int shortestWay(int destX, int destY, int xStart, int yStart, char step) {
+//	  if ((destX == xStart + 1 && destY == yStart) || (destX == xStart - 1 && destY == yStart) || (destX == xStart  && destY == yStart + 1) || (destX == xStart && destY == yStart -1 )) {
+//		  return 1;
+//		  }
+//	  if ((calDist(destX , destY, xStart -1, yStart) < calDist(destX , destY, xStart, yStart)) && step != 'r' && isEmpty( yStart, xStart-1)) {
+//		  return (1 + shortestWay( destX,  destY,  xStart-1,  yStart, 'l'));
+//	  }else if(calDist(destX , destY, xStart +1, yStart) < calDist(destX , destY, xStart , yStart) && step != 'l'&& isEmpty( yStart, xStart+1)) {
+//		  return (1 + shortestWay( destX,  destY,  xStart+1,  yStart, 'r'));
+//	  }
+//	  else if(calDist(destX , destY, xStart , yStart+1) < calDist(destX , destY, xStart , yStart) && step != 'd'&& isEmpty( yStart+1, xStart)) {
+//		  return (1 + shortestWay( destX,  destY,  xStart,  yStart+1, 'u'));
+//	  }
+//	  else if(calDist(destX , destY, xStart , yStart-1) < calDist(destX , destY, xStart , yStart) && step != 'u'&& isEmpty( yStart-1, xStart)){
+//		  return (1+shortestWay( destX,  destY,  xStart,  yStart-1, 'd'));
+//	  }
+//	  return 1;
+//  }
+// 
+//  public boolean pathXClear(int xValue, int yHead, int yTail) {
+//	  int block = 0;
+//		 if (yHead > yTail) {
+//			 for ( int y = yTail; y < yHead; y++) {
+//				 if(!isEmpty(y, xValue)) {
+//					 block ++;
+//				 }
+//			 }
+//		 }else {
+//			 for ( int y = yTail; y > yHead; y--) {
+//				 if(!isEmpty(y, xValue)) {
+//					 block ++;
+//				 }
+//			 }
+//		 }
+//		
+//		 if (block > 0) {
+//			 return false;
+//		 }else {
+//			 return true;
+//		 }
+//  }
+//  
+//  public boolean pathYClear(int yValue, int xHead, int xTail) {
+//	  int block = 0;
+//		 if (xHead > xTail) {
+//			 for ( int x = xTail; x < xHead; x++) {
+//				 if(!isEmpty(yValue, x)) {
+//					 block ++;
+//				 }
+//			 }
+//		 }else {
+//			 for ( int x = xTail; x > xHead; x--) {
+//				 if(!isEmpty(yValue, x)) {
+//					 block ++;
+//				 }
+//			 }
+//		 }
+//		
+//		 if (block > 0) {
+//			 return false;
+//		 }else {
+//			 return true;
+//		 }
+//  }
+//  /**
+//   * take argument and passed into shortestWay(int destX, int destY, int xStart, int yStart, char step) to generate number of steps
+//   * Usage -> shortestWay(int destX, int destY, int xStart, int yStart)
+//   * 
+//   *
+//   * Return: shortestWay (destX,destY, xStart,  yStart, 'i')
+//   */
+//	 public int shortestWay(int destX, int destY, int xStart, int yStart) {
+//		 if ((pathXClear(yStart, destX, xStart) && pathYClear(destX, destY, yStart)) || (pathYClear(xStart, destY, yStart) && pathXClear(destY, destX, xStart) )) {
+//			 return calDist(destX, destY,xStart,yStart);
+//		 }
+//		 
+//			 
+//		
+//		 return shortestWay (destX,destY, xStart,  yStart, 'i');
+//	  }
+//  
   }

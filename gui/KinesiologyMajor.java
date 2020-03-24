@@ -1,21 +1,25 @@
+
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.math.*;
-public class KinesiologyMajor extends Chara{
-	Scanner userIn = new Scanner(System.in);
+
+public class KinesiologyMajor extends Chara {
+
+	//instance variables
+			Scanner userIn = new Scanner(System.in);
+			
+	//constructor
+	public KinesiologyMajor(int id) {
+		super("KinesiologyMajor", id, 30, 250, 3, 30, 250, 5, 4, 1, "This special deals a chosen near-by enemy a large amount of damage (costs 2 mana). Select the tile of the enemy you want to attack.");
+			}
 	
-	public KinesiologyMajor(String name, int id, int att, int health, int mana, 
-			int maxAtt, int maxHealth, int maxMana, int move, int range) {
-		super(name, id, att, health, mana, maxAtt, maxHealth, maxMana, move, range);
-	}
+	//methods
 	
-	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies) {
+	//this special deals a close-by enemy a large amount of damage
+	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies, int xPos, int yPos) {
 		boolean didSomething = false;
 		if(getMana() < 2) System.out.println("This special requires 2 mana");
 		else {
-			System.out.println("Attack an enemy for 2x damage - within 1 cell (costs 2 mana)");
-			System.out.println("Enter the ID of an enemy to attack");
-			int choice = userIn.nextInt();
+			int choice = theMap.getID(xPos, yPos);
 			boolean isEnemy = false;
 			int enemyID = 0;
 			int enemyIndex = 0;
