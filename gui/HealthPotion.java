@@ -1,7 +1,7 @@
 public class HealthPotion extends Item {
 
 	public HealthPotion(){
-	super(32, "HealthPotion");
+	super(32, "Health Potion");
 }
 	//increases the users health points by 50
 	public boolean  use(Chara c){
