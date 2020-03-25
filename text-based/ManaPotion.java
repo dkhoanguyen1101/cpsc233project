@@ -1,8 +1,8 @@
 
 public class ManaPotion extends Item{
 
-	public ManaPotion(int id, String aName) {
-		super(id, aName);
+	public ManaPotion() {
+		super(33, "Mana Potion");
 	}
 	
 	//increases users mana points by 3

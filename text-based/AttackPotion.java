@@ -1,8 +1,8 @@
 
 public class AttackPotion extends Item{
 
-	public AttackPotion(int id, String aName) {
-		super(id, aName);
+	public AttackPotion() {
+		super(30, "Attack Potion");
 	}
 	
 	//AttackPotion raises the users attack value by 10

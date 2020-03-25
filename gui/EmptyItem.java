@@ -1,7 +1,7 @@
 
 public class EmptyItem extends Item {
 	public EmptyItem() {
-		super(0, "empty");
+		super(31, "Empty");
 	}
 	
 	@Override
