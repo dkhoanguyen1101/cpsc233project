@@ -2,8 +2,8 @@ import java.util.Random;
 
 public class RandomPotion extends Item{
 
-	public RandomPotion(int id) {
-		super(id, "Random Potion");
+	public RandomPotion() {
+		super(35, "Random Potion");
 	}
 	
 	//RandomPotion raises the Health and Mana of the user by a random amount
