@@ -1,8 +1,8 @@
 
 public class MovementPotion extends Item{
 
-	public MovementPotion(int id) {
-		super(id, "Movement Potion");
+	public MovementPotion() {
+		super(34, "Movement Potion");
 	}
 	
 	//increases the users movement by two permenently
