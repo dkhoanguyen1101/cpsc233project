@@ -20,10 +20,18 @@ public class SpecialChooseTargetHandler implements EventHandler<MouseEvent>{
 	public void handle(MouseEvent event) {
 		int x = (new Double(event.getSceneX()/game.cellSizeX)).intValue();
 		int y = (new Double(event.getSceneY()/game.cellSizeY)).intValue();
-		Chara selected;
 		if(x < game.mapSizeX && y < game.mapSizeY) {
-			user.Special(game.currentMap, game.players, game.enemies);
+			boolean used = user.Special(game.currentMap, game.players, game.enemies, x, y);
+			if(used) {
+				game.notActed.remove(user);
+			}
 		}
+		game.setButtonTextPlayerActionChoice();
+		game.btn1.setOnAction(null);
+		game.btn2.setOnAction(null);
+		game.btn3.setOnAction(null);
+		game.btn4.setOnAction(null);
+		game.scene.setOnMouseClicked(new PlayerActionSelection(game));
 	}
 
 }

@@ -28,6 +28,9 @@ public class Game {
 	protected ImageView imv;
 	protected ArrayList<ImageView> charImageFrames;
 	protected Scene scene;
+	protected Scene intermittentScene;
+	protected Scene gameOverScene;
+	protected Stage stage;
 	
 	//lists to be used to hold references to the characters on the map
 	protected ArrayList<Chara> players;
@@ -59,6 +62,7 @@ public class Game {
 	 */
 	
 	public void setButtonTextPlayerActionChoice() {
+		turnChecker();
 		lbl2.setText("Select a character to act: ");
 		btn1.setText(""); btn2.setText(""); btn3.setText(""); btn4.setText("");
 	}
@@ -86,7 +90,7 @@ public class Game {
 		btn4.setText("Back");
 	}
 	
-	public void setButtonTextAttack() {
+	public void setButtonTextAttack()  {
 		lbl2.setText("Select an enemy to attack");
 		btn1.setText(""); btn2.setText(""); btn3.setText("");
 		btn4.setText("Back");
@@ -104,7 +108,7 @@ public class Game {
 	
 	public void setButtonTextSpecial(int ID) {
 		Chara toAct = getCharaFromID(ID, players);
-		lbl2.setText(toAct.getSpecialDescription());
+		lbl2.setText(toAct.getSpecDesc());
 		btn1.setText(""); btn2.setText(""); btn3.setText("");
 		btn4.setText("Back");
 	}
@@ -129,8 +133,15 @@ public class Game {
 	
 	public void startNewTurn() {
 		for(int i = 0; i < enemies.size(); i++) {
-			Chara currentEnemy = enemies.get(i);
-			
+			Chara currentEnemy = enemies.get(i);//get the current enemy in the list
+			ArrayList<Integer> playerIDs = new ArrayList<Integer>();//create a list to get the IDs of players to pass into AI
+			for(int j = 0; j < players.size(); j++) {//fill the player ID list
+				playerIDs.add(new Integer(players.get(j).getID())); 
+			}
+			enemyAI.moveAITowards(currentEnemy.getID(), currentEnemy.getMove(), playerIDs); //move all enemies toward the players (all enemies are aggressive for now)
+			Chara closestPlayer = getCharaFromID(enemyAI.checkClosest(currentEnemy.getID(), playerIDs), players); //get the character closest to the enemy
+			if (isLegalAttack(closestPlayer, currentEnemy)) currentEnemy.attack(closestPlayer); //if possible to attack, attack
+			killChecker(players);//check to see if the enemy killed a player
 		}
 		turnNo++;
 	}
@@ -145,6 +156,16 @@ public class Game {
 			currentMap.setPos(enemies.get(i).getID(), currentMap.getEnemyPos()[index], currentMap.getEnemyPos()[index + 1]);
 		}
 		currentMap.setPos(7, currentMap.getItemPos()[0], currentMap.getItemPos()[1]);
+	}
+	
+	public void turnChecker() {
+		if(enemies.isEmpty()) {
+			stage.setScene(intermittentScene);
+		} else if(players.isEmpty()) {
+			stage.setScene(gameOverScene);
+		} else if(notMoved.isEmpty() && notActed.isEmpty()) {
+			startNewTurn();
+;		}
 	}
 	
 	public void turnMana() {

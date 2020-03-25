@@ -24,7 +24,7 @@ public class AttackHandler implements EventHandler<ActionEvent>{
 		game.btn2.setOnAction(null);
 		game.btn3.setOnAction(null);
 		game.btn4.setOnAction(null);
-		game.scene.setOnMouseClicked(new AttackChooseEnemyHandler(game));
+		game.scene.setOnMouseClicked(new AttackChooseEnemyHandler(game, attacker));
 	}
 
 }

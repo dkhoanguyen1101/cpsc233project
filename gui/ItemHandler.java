@@ -8,21 +8,22 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
 
-public class SpecialHandler implements EventHandler<ActionEvent>{
+public class ItemHandler implements EventHandler<ActionEvent>{
 	
 	Game game;
 	Chara user;
 	
-	public SpecialHandler(Game box, Chara u) {
+	public ItemHandler(Game box, Chara u) {
 		game = box; user = u;
 	}
-
+	
 	public void handle(ActionEvent event) {
-		game.setButtonTextSpecial(user.getID());
-		game.btn1.setOnAction(null);
-		game.btn2.setOnAction(null);
-		game.btn3.setOnAction(null);
+		game.setButtonTextItems(user.getID());
+		game.btn1.setOnAction(new ItemChooseUseHandler(game, user, 0));
+		game.btn2.setOnAction(new ItemChooseUseHandler(game, user, 1));
+		game.btn3.setOnAction(new ItemChooseUseHandler(game, user, 2));
 		game.btn4.setOnAction(new GoBackHandler(game));
-		game.scene.setOnMouseClicked(new SpecialChooseTargetHandler(game, user));
+		game.scene.setOnMouseClicked(null);
 	}
+
 }
