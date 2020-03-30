@@ -16,12 +16,10 @@ public abstract class Chara {
 	private int range;
 	private int move;
 	private String specDesc = "No special description";
+	private String imageUrl;
 	
 	//constructors
-	public Chara() {
-		
-	}
-	public Chara(String name, int id, int att, int health, int mana, int maxAtt, int maxHealth, int maxMana, int move, int range, String specDesc) {
+	public Chara(String name, int id, int att, int health, int mana, int maxAtt, int maxHealth, int maxMana, int move, int range, String specDesc, String imageUrl) {
 		this.name = new String(name);
 		this.ID = id;
 		setMove(move);
@@ -33,9 +31,17 @@ public abstract class Chara {
 		setHealth(health);
 		setMana(mana);
 		this.specDesc = specDesc;
+		setImageUrl(imageUrl);
 	}
 	
 	//methods
+	public String getImageUrl(){
+		return imageUrl;
+	}
+	
+	public void setImageUrl(String uRl) {
+		imageUrl = uRl;
+	}
 	public int getMana() {return mana;}
 	
 	public void setMana(int newMana) {
