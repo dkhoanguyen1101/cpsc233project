@@ -8,11 +8,11 @@ public class EngMajor extends Chara {
 		Scanner userIn = new Scanner(System.in);	
 		
 		//constructor
-		public EngMajor(int id) {
-			super("Engineering Major", id, 20, 200, 3, 20, 200, 5, 4, 4, "This special move attacks any enemies in the same chosen column or row as the Engineering Major (costs 3 mana). Select a tile in the same row or column as the engineering major to decide the direction to attack");
+		public EngMajor(String name, int id, int att, int health, int mana, int maxAtt, int maxHealth, int maxMana, int move, int range, String specDesc, String imageUrl) {
+			super("Engineering Major", id, 20, 200, 3, 20, 200, 5, 4, 4, "This special move attacks any enemies in the same chosen column or row as the Engineering Major (costs 3 mana). Select a tile in the same row or column as the engineering major to decide the direction to attack", "Engineering.png");
 		}
 	
-	//this special attacks any enemies in the same row as the engineer
+	//this special attacks any enemies in the same row as the engineer"Engineering.png"
 	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies, int xPos, int yPos) {
 		boolean didSomething = false;
 		int row = theMap.getPos(getID())[1];
