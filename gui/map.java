@@ -7,8 +7,7 @@ public class map {
   private int column= 16;
   private int[] charPos = new int[6];
   private int[] enemyPos = new int[6];
-  private int[] itemPos = new int[2];
-  
+ private String imageUrl;
   
 
  
@@ -25,6 +24,28 @@ public class map {
  * Return: Nothing
  */
 
+  public map(int[] acharPos, int[] aenemy, int[] aitem, String url){
+    
+    for(int countRow = 0; countRow < row; countRow++) {
+    	twoDList.add(new ArrayList<Integer>());
+    	for(int countColumn = 0; countColumn < column; countColumn++) {
+    		twoDList.get(countRow).add(0);
+    		}
+    	}
+    charPos = acharPos.clone();
+    enemyPos = aenemy.clone();
+    itemPos = aitem.clone();
+    setImageURL(url);
+    }
+
+  protected void setImageURL(String string) {
+	  imageUrl = string;
+  }
+  
+  public String getImageURL() {
+	  String toReturn = imageUrl;
+	  return toReturn;
+  }
   public map(int[] acharPos, int[] aenemy, int[] aitem){
     
     for(int countRow = 0; countRow < row; countRow++) {
