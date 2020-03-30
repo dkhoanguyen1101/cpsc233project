@@ -1,11 +1,9 @@
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class ChemistryMajor extends Chara {
-
-	//instance variables
-	Scanner userIn = new Scanner(System.in);	
+	
 	
 	//constructor
 	public ChemistryMajor(int id) {
