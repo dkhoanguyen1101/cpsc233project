@@ -1,11 +1,9 @@
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class PhilosophyMajor extends Chara {
-
-	//instance variables
-	Scanner userIn = new Scanner(System.in);	
+	
 	
 	//constructor
 	public PhilosophyMajor(int id) {
