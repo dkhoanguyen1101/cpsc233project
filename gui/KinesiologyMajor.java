@@ -7,8 +7,8 @@ public class KinesiologyMajor extends Chara {
 			Scanner userIn = new Scanner(System.in);
 			
 	//constructor
-	public KinesiologyMajor(int id) {
-		super("KinesiologyMajor", id, 30, 250, 3, 30, 250, 5, 4, 1, "This special deals a chosen near-by enemy a large amount of damage (costs 2 mana). Select the tile of the enemy you want to attack.");
+	public KinesiologyMajor(String name, int id, int att, int health, int mana, int maxAtt, int maxHealth, int maxMana, int move, int range, String specDesc, String imageUrl) {
+		super("KinesiologyMajor", id, 30, 250, 3, 30, 250, 5, 4, 1, "This special deals a chosen near-by enemy a large amount of damage (costs 2 mana). Select the tile of the enemy you want to attack.", "Klnesiology.png");
 			}
 	
 	//methods
