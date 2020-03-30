@@ -1,4 +1,3 @@
-package GUI;
 
 import java.math.*;
 import java.util.ArrayList;
@@ -7,6 +6,7 @@ import com.sun.javafx.collections.MappingChange.Map;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -24,9 +24,9 @@ public class Game {
 	//references to all GUI elements
 	protected Button btn1, btn2, btn3, btn4;
 	protected Label lbl1, lbl2;
-	protected Image img;
 	protected ImageView imv;
-	protected ArrayList<ImageView> charImageFrames;
+	//protected ArrayList<ImageView> charImageFrames;
+	protected Pane root;
 	protected Scene scene;
 	protected Scene intermittentScene;
 	protected Scene gameOverScene;
@@ -35,6 +35,7 @@ public class Game {
 	//lists to be used to hold references to the characters on the map
 	protected ArrayList<Chara> players;
 	protected ArrayList<Chara> enemies;
+	protected ArrayList<CharaImageView> images;
 	
 	//lists to keep track of player characters the act as part of the player's turn
 	protected ArrayList<Chara> notMoved;
@@ -51,10 +52,22 @@ public class Game {
 	//other technical information
 	protected final int cellSizeX = 32, cellSizeY = 32, mapSizeX = 16, mapSizeY = 16;
 	
-	public Game(Button b1, Button b2, Button b3, Button b4,
-			Label l1, Label l2, Image image, ImageView imageV, Scene s) {
+	public Game(Button b1, Button b2, Button b3, Button b4, Stage st, Scene s/*,
+			Label l1, Label l2, Image image, ImageView imageV, Scene s, Scene is, Scene gos*/) {
 		btn1 = b1; btn2 = b2; btn3 = b3; btn4 = b4;
-		lbl1 = l1; lbl2 = l2; img = image; imv = imageV; scene = s;
+		lbl1 = new Label(); lbl2 = new Label(); imv = new ImageView(); scene = s; root = new Pane(); stage = st;
+		//intermittentScene = is; gameOverScene = gos;
+		
+		imv.setLayoutX(0.0); imv.setLayoutY(0.0);
+		root.getChildren().add(imv);
+		
+		lbl1.setMaxSize(288, 400);
+		lbl2.setMaxSize(288, 400);
+		lbl1.setText("1"); lbl2.setText("2");
+		lbl1.setLayoutX(512); lbl1.setLayoutY(0);
+		lbl2.setLayoutX(512); lbl2.setLayoutY(400);
+		root.getChildren().add(lbl1);
+		root.getChildren().add(lbl2);
 	}
 	
 	/* Methods for setting button functions and visuals in response to game
@@ -70,10 +83,10 @@ public class Game {
 	public void setButtonTextActions(int ID) {
 		Chara toAct = setCharStatsLabel(ID);
 		if(toAct != null && players.contains(toAct)) {
-			if(!notMoved.contains(toAct)) {
+			if(notMoved.contains(toAct)) {
 				btn1.setText("Move");
 			}
-			if(!notActed.contains(toAct)) {
+			if(notActed.contains(toAct)) {
 				btn2.setText("Attack");
 				btn3.setText("Use item");
 				btn4.setText("Use special");
@@ -117,14 +130,39 @@ public class Game {
 	 * 
 	 */
 	
+	/**
+	public void initialize() {
+		Pane root = new Pane();
+		intermittentScene = new Scene(root, 800, 600);
+		Label textbox = new Label();
+		textbox.setText("You win!");
+		textbox.setMinSize(200, 100);
+		textbox.setLayoutX(300);
+		textbox.setLayoutY(100);
+		Button cont = new Button();
+		cont.setText("Continue to next map");
+		cont.setOnAction(f -> {
+            cont.(e -> {
+            	
+            });
+		});
+	}*/
+	
 	public void startNewMap() {
 		enemies.clear();
+		images.clear();
+		for(int i = 0; i < players.size(); i++) {
+			CharaImageView toAdd = new CharaImageView(players.get(i).getID(), players.get(i).getImageUrl());
+			images.add(toAdd);
+		}
 		for(int i = 0; i < 3; i++) {
 			Chara toAdd = new Enemy(i + 4);
 			enemies.add(toAdd);
+			images.add(new CharaImageView(toAdd.getID(), toAdd.getImageUrl()));
 		}
 		currentMap = newMaps.generate();
 		enemyAI = new AI(currentMap);
+		imv.setImage(new Image(currentMap.getImageURL()));
 		populateMap();
 		turnNo = 1;
 		mapNo++;
@@ -143,6 +181,8 @@ public class Game {
 			if (isLegalAttack(closestPlayer, currentEnemy)) currentEnemy.attack(closestPlayer); //if possible to attack, attack
 			killChecker(players);//check to see if the enemy killed a player
 		}
+		notActed = new ArrayList<Chara>(players);
+		notMoved = new ArrayList<Chara>(enemies);
 		turnNo++;
 	}
 	
@@ -160,9 +200,24 @@ public class Game {
 	
 	public void turnChecker() {
 		if(enemies.isEmpty()) {
-			stage.setScene(intermittentScene);
+			lbl1.setText("You lose!");
+			lbl2.setText("");
+			btn1.setText(null); btn1.setOnAction(null);
+			btn2.setText(null); btn2.setOnAction(null);
+			btn3.setText(null); btn3.setOnAction(null);
+			btn4.setText("Continue");
+			btn4.setOnAction(new EventHandler<ActionEvent>() {
+				public void handle(ActionEvent e) {
+					startNewMap();
+				}
+			});
 		} else if(players.isEmpty()) {
-			stage.setScene(gameOverScene);
+			lbl1.setText("You lose!");
+			lbl2.setText("");
+			btn1.setText(null); btn1.setOnAction(null);
+			btn2.setText(null); btn2.setOnAction(null);
+			btn3.setText(null); btn3.setOnAction(null);
+			btn4.setText(null); btn4.setOnAction(null);
 		} else if(notMoved.isEmpty() && notActed.isEmpty()) {
 			startNewTurn();
 ;		}
