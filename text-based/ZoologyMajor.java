@@ -1,10 +1,8 @@
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class ZoologyMajor extends Chara {
 
-	//instance variables
-	Scanner userIn = new Scanner(System.in);
 	
 	//constructor
 	public ZoologyMajor(int id) {
