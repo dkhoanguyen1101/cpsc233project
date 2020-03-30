@@ -1,4 +1,4 @@
-package GUI;
+
 
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
@@ -23,7 +23,7 @@ public class AttackHandler implements EventHandler<ActionEvent>{
 		game.btn1.setOnAction(null);
 		game.btn2.setOnAction(null);
 		game.btn3.setOnAction(null);
-		game.btn4.setOnAction(null);
+		game.btn4.setOnAction(new GoBackHandler(game));
 		game.scene.setOnMouseClicked(new AttackChooseEnemyHandler(game, attacker));
 	}
 

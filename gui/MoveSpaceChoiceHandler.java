@@ -1,4 +1,4 @@
-package GUI;
+
 
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
@@ -32,7 +32,7 @@ public class MoveSpaceChoiceHandler implements EventHandler<MouseEvent>{
 		game.btn1.setOnAction(null);
 		game.btn2.setOnAction(null);
 		game.btn3.setOnAction(null);
-		game.btn4.setOnAction(null);
+		game.btn4.setOnAction(new EndTurnHandler(game));
 		game.scene.setOnMouseClicked(new PlayerActionSelection(game));
 	}
 }

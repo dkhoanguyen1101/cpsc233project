@@ -1,4 +1,4 @@
-package GUI;
+
 
 import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
@@ -24,13 +24,18 @@ public class PlayerActionSelection implements EventHandler<MouseEvent>{
 		if(x < game.mapSizeX && y < game.mapSizeY) {
 			int selectedID = game.currentMap.getID(x, y);
 			game.setCharStatsLabel(selectedID);
+			game.setButtonTextActions(selectedID);
 			if(game.checkIfIDInList(selectedID, game.players)) {
 				selected = game.getCharaFromID(selectedID, game.players);
-				game.btn1.setOnAction(new MoveHandler(game, selected));
-				game.btn2.setOnAction(new AttackHandler(game, selected));
-				game.btn3.setOnAction(new ItemHandler(game, selected));
-				game.btn4.setOnAction(new SpecialHandler(game, selected));
-				game.scene.setOnMouseClicked(null);
+				if(game.checkIfIDInList(selectedID, game.notMoved)) {
+					game.btn1.setOnAction(new MoveHandler(game, selected));
+				}
+				if(game.checkIfIDInList(selectedID, game.notActed)) {
+					game.btn2.setOnAction(new AttackHandler(game, selected));
+					game.btn3.setOnAction(new ItemHandler(game, selected));
+					game.btn4.setOnAction(new SpecialHandler(game, selected));
+				}
+				game.scene.setOnMouseClicked(new CharacterSelectedHandler(game, selected));
 			}
 		}
 	}
