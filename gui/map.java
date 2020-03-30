@@ -7,6 +7,7 @@ public class map {
   private int column= 16;
   private int[] charPos = new int[6];
   private int[] enemyPos = new int[6];
+private int[] itemPos = new int[2];
  private String imageUrl;
   
 
