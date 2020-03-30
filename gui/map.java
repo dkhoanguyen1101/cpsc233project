@@ -5,8 +5,8 @@ public class map {
 
   private int row = 16;
   private int column= 16;
-  private int[] charPos = new int[6];
-  private int[] enemyPos = new int[6];
+  private int[] charPos = new int[12];
+  private int[] enemyPos = new int[12];
 private int[] itemPos = new int[2];
  private String imageUrl;
   
