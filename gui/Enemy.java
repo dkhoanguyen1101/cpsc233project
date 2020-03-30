@@ -2,9 +2,8 @@ import java.util.ArrayList;
 
 public class Enemy extends Chara{
 		
-	public Enemy(String name, int id, int att, int health, int mana, 
-			int maxAtt, int maxHealth, int maxMana, int move, int range) {
-		super(name, id, att, health, mana, maxAtt, maxHealth, maxMana, move, range, "none");
+	public Enemy(int id) {
+		super("Enemy", id, 15, 150, 0, 15, 150, 0, 4, 1, "none", "Enemy.png");
 	}
 		
 	/* basic enemies do not have specials.
