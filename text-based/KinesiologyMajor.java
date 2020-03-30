@@ -1,11 +1,10 @@
 
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class KinesiologyMajor extends Chara {
 
-	//instance variables
-			Scanner userIn = new Scanner(System.in);
+
 			
 	//constructor
 	public KinesiologyMajor(int id) {
