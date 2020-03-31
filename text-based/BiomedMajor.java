@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class BiomedMajor extends Chara {
 	
 	//instance variables
-	Scanner userIn = new Scanner(System.in);	
+	
 	
 	
 	//constructor

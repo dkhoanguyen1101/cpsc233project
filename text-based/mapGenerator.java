@@ -70,7 +70,7 @@ public map generate() {
 		return toReturn;
 	}
 	case( 3):{
-		System.out.print(3);
+		
 		map toReturn = new map(map3[0], map3[1], map3[2]);
 		for(int i = 0; i < 5 ; i++) {
 			for (int j = i; j<16 - i; j ++) {
