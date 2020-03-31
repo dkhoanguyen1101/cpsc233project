@@ -327,7 +327,7 @@ public class Game {
 		if(range == 1) {
 			switch(choice) {
 			case 7:
-				Item toAdd = new HealthPotion(7);
+				Item toAdd = new HealthPotion();
 				pickUpItem(user, toAdd);
 				didSomething = true;
 				currentMap.setPos(0, itemCoords[0], itemCoords[1]);
