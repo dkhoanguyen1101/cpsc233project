@@ -1,12 +1,9 @@
 import java.util.ArrayList;
 
 public class ZoologyMajor extends Chara {
-
-	//instance variables
-	Scanner userIn = new Scanner(System.in);
 	
 	//constructor
-	public ZoologyMajor(String name, int id, int att, int health, int mana, int maxAtt, int maxHealth, int maxMana, int move, int range, String specDesc, String imageUrl) {
+	public ZoologyMajor(int id) {
 		super("Zoology Major", id, 20, 180, 2, 20, 180, 5, 8, 1, "This special allows the Zoology Major to move a second time (Costs 2 mana). Select the location you would like to move to", "Zoology.png");
 		}
 		

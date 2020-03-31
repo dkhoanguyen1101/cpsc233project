@@ -4,10 +4,9 @@ import java.util.ArrayList;
 public class PhilosophyMajor extends Chara {
 
 	//instance variables
-	Scanner userIn = new Scanner(System.in);	
 	
 	//constructor
-	public PhilosophyMajor(String name, int id, int att, int health, int mana, int maxAtt, int maxHealth, int maxMana, int move, int range, String specDesc, String imageUrl) {
+	public PhilosophyMajor(int id) {
 		super("Philosophy Major", id, 15, 200, 2, 15, 200, 5, 5, 2, "This special lowers the attack of a chosen enemy (costs 2 mana). Select the tile of the enemy you want to target", "Philosophy.png");
 	}
 	

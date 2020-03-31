@@ -4,7 +4,6 @@ import java.util.ArrayList;
 public class KinesiologyMajor extends Chara {
 
 	//instance variables
-			Scanner userIn = new Scanner(System.in);
 			
 	//constructor
 	public KinesiologyMajor(int id) {

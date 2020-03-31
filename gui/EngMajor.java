@@ -5,10 +5,9 @@ public class EngMajor extends Chara {
 
 	
 	//instance variables
-		Scanner userIn = new Scanner(System.in);	
 		
 		//constructor
-		public EngMajor(String name, int id, int att, int health, int mana, int maxAtt, int maxHealth, int maxMana, int move, int range, String specDesc, String imageUrl) {
+		public EngMajor(int id) {
 			super("Engineering Major", id, 20, 200, 3, 20, 200, 5, 4, 4, "This special move attacks any enemies in the same chosen column or row as the Engineering Major (costs 3 mana). Select a tile in the same row or column as the engineering major to decide the direction to attack", "Engineering.png");
 		}
 	

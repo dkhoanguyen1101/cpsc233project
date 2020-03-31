@@ -2,12 +2,11 @@ import java.util.ArrayList;
 
 public class BiomedMajor extends Chara {
 	
-	//instance variables
-	Scanner userIn = new Scanner(System.in);	
+	//instance variables	
 	
 	
 	//constructor
-	public BiomedMajor(String name, int id, int att, int health, int mana, int maxAtt, int maxHealth, int maxMana, int move, int range, String specDesc, String imageUrl) {
+	public BiomedMajor(int id) {
         super("Biomedical Major", id, 10, 250, 3, 10, 250, 7, 4, 1, "This special boosts the health of a chosen nearby ally (costs 3 mana). Select the tile of the teammate you would like to heal that is within three tiles", "BioChem.png");
 	}
 	
