@@ -204,11 +204,11 @@ public class Game {
 		enemies = new ArrayList<Chara>();
 		images = new ArrayList<CharaImageView>();
 		Chara toAdd = new KinesiologyMajor(1); players.add(toAdd);
-		/*toAdd = new ZoologyMajor(2); players.add(toAdd);
+		toAdd = new ZoologyMajor(2); players.add(toAdd);
 		toAdd = new BiomedMajor(3); players.add(toAdd);
 		toAdd = new EngMajor(4); players.add(toAdd);
 		toAdd = new PhilosophyMajor(5); players.add(toAdd);
-		toAdd = new ChemistryMajor(6); players.add(toAdd);*/
+		toAdd = new ChemistryMajor(6); players.add(toAdd);
 		
 		startNewMap();
 	}
