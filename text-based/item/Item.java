@@ -1,4 +1,5 @@
-
+package item;
+import Chara.*;
 
 public abstract class Item {
 private  int ID;

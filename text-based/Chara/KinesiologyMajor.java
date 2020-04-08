@@ -1,5 +1,8 @@
+package Chara;
 
 import java.util.ArrayList;
+
+import main.map;
 
 
 public class KinesiologyMajor extends Chara {

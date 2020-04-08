@@ -1,4 +1,7 @@
+package Chara;
 import java.util.ArrayList;
+
+import main.map;
 
 public class Quiz extends Chara {
 

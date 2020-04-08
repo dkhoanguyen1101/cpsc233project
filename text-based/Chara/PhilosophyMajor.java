@@ -1,5 +1,8 @@
+package Chara;
 
 import java.util.ArrayList;
+
+import main.map;
 
 
 public class PhilosophyMajor extends Chara {

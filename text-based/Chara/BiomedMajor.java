@@ -1,5 +1,8 @@
+package Chara;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import main.map;
 
 public class BiomedMajor extends Chara {
 	

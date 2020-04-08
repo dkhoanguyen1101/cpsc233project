@@ -1,5 +1,8 @@
+package Chara;
 		
 import java.util.ArrayList;
+
+import main.map;
 public class Midterm extends Chara {
 		
 	public Midterm(String name, int id, int att, int health, int mana, 

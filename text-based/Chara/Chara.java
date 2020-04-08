@@ -1,6 +1,7 @@
-
+package Chara;
 import java.util.ArrayList;
-
+import item.*;
+import main.*;
 public abstract class Chara {
 	
 	//instance variables

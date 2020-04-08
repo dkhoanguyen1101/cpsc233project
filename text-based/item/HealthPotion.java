@@ -1,3 +1,5 @@
+package item;
+import Chara.*;
 public class HealthPotion extends Item {
 
 	public HealthPotion(){

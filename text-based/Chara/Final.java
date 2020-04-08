@@ -1,5 +1,8 @@
+package Chara;
 	
 	import java.util.ArrayList;
+
+import main.map;
 	public class Final extends Chara{
 		
 	public Final(String name, int id, int att, int health, int mana, 

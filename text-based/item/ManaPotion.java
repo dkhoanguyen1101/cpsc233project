@@ -1,4 +1,5 @@
-
+package item;
+import Chara.*;
 public class ManaPotion extends Item{
 
 	public ManaPotion() {

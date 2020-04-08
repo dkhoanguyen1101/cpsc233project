@@ -1,4 +1,5 @@
-
+package item;
+import Chara.*;
 public class EmptyItem extends Item {
 	public EmptyItem() {
 		super(31, "Empty");

@@ -1,5 +1,6 @@
+package item;
 import java.util.Random;
-
+import Chara.*;
 public class RandomPotion extends Item{
 
 	public RandomPotion() {

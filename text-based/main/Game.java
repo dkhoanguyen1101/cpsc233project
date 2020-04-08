@@ -1,6 +1,17 @@
+package main;
 import java.util.Scanner;
+
+import Chara.BiomedMajor;
+import Chara.Enemy;
+import Chara.EngMajor;
+import Chara.KinesiologyMajor;
+import item.EmptyItem;
+import item.HealthPotion;
+
 import java.math.*;
 import java.util.ArrayList;
+import Chara.*;
+import item.*;
 public class Game {
 
 	private static Scanner userIn = new Scanner(System.in);
