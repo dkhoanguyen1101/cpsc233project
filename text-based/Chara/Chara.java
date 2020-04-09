@@ -27,10 +27,10 @@ public abstract class Chara {
 		this.ID = id;
 		setMove(move);
 		setRange(range);
-		setMaxAttack(maxAttack);
+		setMaxAttack(maxAtt);
 		setMaxHealth(maxHealth);
 		setMaxMana(maxMana);
-		setAttack(attack);
+		setAttack(att);
 		setHealth(health);
 		setMana(mana);
 		this.specDesc = specDesc;
