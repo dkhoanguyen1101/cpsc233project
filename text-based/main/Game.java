@@ -39,7 +39,6 @@ public class Game {
 		for(map Map: worldMap) {// going through all maps in the world
 			if(stillAlive) {// if the players havent died yet
 				System.out.println("Enter an integer to go to the next map");//a sort of between map pause screen, so it doesn't just pop into another map after one is beaten
-				int wait = userIn.nextInt();
 				enemies = new ArrayList<Chara>(); //initialize a new enemy list for a new map
 				for(int i = 4; i <= 6; i++) {//put some generic enemies in the enemy list
 					toAdd = new Enemy("Enemy", i, 15, 150, 0, 15, 150, 0, 3, 1);
