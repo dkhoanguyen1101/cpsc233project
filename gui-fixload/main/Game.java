@@ -386,6 +386,7 @@ public class Game {
 		}
 		
 		imv.setImage(new Image(currentMap.getImageURL())); //set the image of the map
+		enemyAI = new AI(currentMap); //initialize a new AI for that map
 		//set all of the images for the characters, enemies and the item
 		for(Chara i:players) { //for all player characters
 			CharaImageView toAdd = new CharaImageView(i.getID(), i.getImageUrl()); //create a new imageView for them

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import main.map;
 
 public class Enemy extends Chara{
-		
+	//super class for character
 	public Enemy(int id) {
 		super("Enemy", id, 15, 150, 0, 15, 150, 0, 4, 1, "none", "Enemy.png");
 	}

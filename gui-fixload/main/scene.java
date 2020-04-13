@@ -30,7 +30,7 @@ public class scene extends Application {
         Scene scene = new Scene(root,800,600);
         stage.setScene(scene);
         stage.show();
-//the game scene setting
+       //the game scene setting
 
         Pane gameroot = new Pane();
         Scene gamescene = new Scene(gameroot,800,600);

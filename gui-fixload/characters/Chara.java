@@ -9,7 +9,7 @@ import main.map;
 
 public abstract class Chara implements Serializable{
 	
-	//instance variables
+	//instance variables for character
 	private int health;
 	private int maxHealth;
 	private int attack;
@@ -24,7 +24,7 @@ public abstract class Chara implements Serializable{
 	private String specDesc = "No special description";
 	private String imageUrl;
 	
-	//constructors
+	//constructors for character
 	public Chara(String name, int id, int att, int health, int mana, int maxAtt, int maxHealth, int maxMana, int move, int range, String specDesc, String imageUrl) {
 		this.name = new String(name);
 		this.ID = id;
@@ -40,7 +40,7 @@ public abstract class Chara implements Serializable{
 		setImageUrl(imageUrl);
 	}
 	
-	//methods
+	//getter and setter methods for character
 	public String getImageUrl(){
 		return imageUrl;
 	}
@@ -48,27 +48,40 @@ public abstract class Chara implements Serializable{
 	public void setImageUrl(String uRl) {
 		imageUrl = uRl;
 	}
-	public int getMana() {return mana;}
+	
+	public int getMana() {
+		return mana;
+	}
 	
 	public void setMana(int newMana) {
 		if(newMana >= maxMana) mana = maxMana;
 		else mana = newMana;
 	}
 	
-	public int getMaxMana() {return maxMana;}
+	public int getMaxMana() {
+		return maxMana;
+	}
 	
-	public void setMaxMana(int newMax) {maxMana = newMax;}
+	public void setMaxMana(int newMax) {
+		maxMana = newMax;
+	}
 	
-	public int getMove() {return move;}
+	public int getMove() {
+		return move;
+	}
 	
-	public void setMove(int newMove) {move = newMove;}
+	public void setMove(int newMove) {
+		move = newMove;
+	}
 	
 	public int getAttack() {
-      return attack;
+		return attack;
 	}
+	
 	public void setAttack(int att) {
-      attack = att;
+		attack = att;
 	}
+	
 	public void setMaxAttack(int i) {
 		maxAttack = i;
 	}
@@ -76,30 +89,36 @@ public abstract class Chara implements Serializable{
 		int toReturn = maxAttack;
 		return toReturn;
 	}
+	
 	public int getMaxHealth() {
 		int toReturn = maxHealth;
 		return toReturn;
 	}
+	
 	public void setMaxHealth(int i) {
 		maxHealth = i;
 	}
+	
 	public int getRange() {  
 	      return range;
 		}
 		public void setRange(int r) {
 	      range = r;
 		}
-	 public Item[] getInventory() {
+	
+	public Item[] getInventory() {
 		Item[] toReturn = new Item[3];
 	    for (int index = 0; index < this.inventory.length; index++) {
 	    	toReturn[index] = this.inventory[index];
 	    	}
 	    return toReturn;
 	    }
-	 public void setItem(Item newItem,int index) {
+	
+	public void setItem(Item newItem,int index) {
 	        inventory[index] = newItem;
 	    }
-	 public String getItemName(int ind) {
+	
+	public String getItemName(int ind) {
 		 return new String(this.inventory[ind].getName());
 	 }
 	 
