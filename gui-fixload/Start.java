@@ -19,14 +19,14 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import java.io.File;
-
+//method for start the game
 public class Start extends Application {
     public static void main(String[] args){launch(args);}
 
 
 
 
-    @Override
+//method Override and setting all the scene
     public void start(Stage stage) throws Exception {
         int CharaX = 0;
         int CharaY;
@@ -41,8 +41,8 @@ public class Start extends Application {
         Scene scene = new Scene(root,800,600);
         stage.setScene(scene);
         stage.show();
-//the game scene setting
-
+	    
+        //the game scene setting
         Pane gameroot = new Pane();
         Scene gamescene = new Scene(gameroot,800,600);
 
@@ -60,7 +60,7 @@ public class Start extends Application {
 
 
 
-        //start scene
+        //set up start scene
         BackgroundImage bg = new BackgroundImage(new Image("start.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
         root.setBackground(new Background(bg));
@@ -70,7 +70,8 @@ public class Start extends Application {
         dk.setLayoutX(53);
         dk.setLayoutY(55);
         root.getChildren().add(dk);
-
+	
+	//set up the button "About"
         Button button1 = new Button("About");
         button1.setMinSize(120,60);
         button1.setLayoutX(340);
@@ -78,16 +79,17 @@ public class Start extends Application {
         button1.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
         button1.setStyle("-fx-background-color: #A9A9A9");
         root.getChildren().add(button1);
-
+        //load the team member name image in About button
         Label label = new Label();
         Popup popup = new Popup();
         label.setLayoutX(100);
         label.setLayoutY(200);
         popup.getContent().add(label);
         label.setGraphic(new ImageView(new Image("name.png")));
+	//set up click event handler
         EventHandler<ActionEvent> event =
                 new EventHandler<ActionEvent>() {
-
+                //method for click back button and go back main menu
                     public void handle(ActionEvent e)
                     {
 
@@ -102,9 +104,9 @@ public class Start extends Application {
                 
         
 
-        // when button is pressed
+        //what happen when button is pressed
         button1.setOnAction(event);
-
+        //set up the button load
         Button LOAD = new Button("load");
         LOAD.setMinSize(120,60);
         LOAD.setLayoutX(340);
@@ -112,12 +114,9 @@ public class Start extends Application {
         LOAD.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
         LOAD.setStyle("-fx-background-color: #A9A9A9");
         LOAD.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-            	/*
-                stage.setScene(CharaScene);
-                stage.show();
-            	 */
-
+                //method for handle different action event     
+		public void handle(ActionEvent e) {
+                //check the file save or not
                 File tmpDir = new File("save.properties");
 
                 boolean exists = tmpDir.exists();
@@ -157,20 +156,7 @@ public class Start extends Application {
         });
         root.getChildren().add(PLAY);
         root.getChildren().add(LOAD);
-
-
-        /*PLAY.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-            	
-                stage.setScene(CharaScene);
-                stage.show();
-            	 
-
-            }
-        });*/
-        
         //Character selection scene
-
         Button finish = new Button();
         finish.setMinSize(80, 40);
         finish.setLayoutX(300);
@@ -189,7 +175,7 @@ public class Start extends Application {
         		game.scene.setOnMouseClicked(new PlayerActionSelection(game));
         	}
 		});
-        
+         //set different image view
         ImageView sel1 = new ImageView();
         sel1.setLayoutX(250);
         sel1.setLayoutY(150);
@@ -224,7 +210,7 @@ public class Start extends Application {
 		});
         CharaRoot.getChildren().add(reselect);
         
-        //Chemistry
+        //button for Chemistry and set action event
         Button BioChem = new Button();
         BioChem.setMinSize(80,40);
         BioChem.setLayoutX(100);
@@ -260,7 +246,7 @@ public class Start extends Application {
 		});
         CharaRoot.getChildren().add(BioChem);
 
-        //Zoology
+        //button for Zoology and set action event
         Button Zoology = new Button();
         Zoology.setMinSize(80,40);
         Zoology.setLayoutX(200);
@@ -296,7 +282,7 @@ public class Start extends Application {
 		});
         CharaRoot.getChildren().add(Zoology);
 
-        //Kinesiology
+        //button for Kinesiology and set action event
         Button Kinesiology = new Button();
         Kinesiology.setMinSize(80,40);
         Kinesiology.setLayoutX(300);
@@ -334,7 +320,7 @@ public class Start extends Application {
 
 
 
-        //Engineering
+        //button for Engineering and set action event
         Button Engineering = new Button();
         Engineering.setMinSize(80,40);
         Engineering.setLayoutX(400);
@@ -370,7 +356,7 @@ public class Start extends Application {
 		});
         CharaRoot.getChildren().add(Engineering);
 
-        //Philosophy
+        //button for Philosophy and set action event
         Button Philosophy = new Button();
         Philosophy.setMinSize(80,40);
         Philosophy.setLayoutX(500);
@@ -406,7 +392,7 @@ public class Start extends Application {
 		});
         CharaRoot.getChildren().add(Philosophy);
 
-        //BioChem
+        //button for Chemistry and set action event
         Button Chemistry = new Button();
         Chemistry.setMinSize(80,40);
         Chemistry.setLayoutX(600);
@@ -442,31 +428,8 @@ public class Start extends Application {
 		});
         CharaRoot.getChildren().add(Chemistry);
         
-        /*
-        //Finish select
-        Button Finish = new Button();
-        Finish.setText("FINISH SELECT");
-        Finish.setMinSize(100,200);
-        Finish.setLayoutX(350);
-        Finish.setLayoutY(400);
-        //Finish.setGraphic(new ImageView(new Image("Nursing.png")));
-        CharaRoot.getChildren().add(Finish);
-
-
-        Finish.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-
-                stage.setScene(gamescene);
-                stage.show();
-
-            }
-        });
-		*/
         
-
-
-
-        //game scene
+        //set up game scene button
         Button button = new Button("1");
         button.setMinSize(80,40);
         button.setLayoutX(30);
