@@ -65,14 +65,14 @@ public class Start extends Application {
                 BackgroundSize.DEFAULT);
         root.setBackground(new Background(bg));
 
-        Image duck = new Image("duck.png");
+        Image duck = new Image("duck.png");//inset the duck image
         ImageView dk = new ImageView(duck);
         dk.setLayoutX(53);
         dk.setLayoutY(55);
         root.getChildren().add(dk);
 	
 	//set up the button "About"
-        Button button1 = new Button("About");
+        Button button1 = new Button("About");//inset the About image
         button1.setMinSize(120,60);
         button1.setLayoutX(340);
         button1.setLayoutY(230);
@@ -85,7 +85,7 @@ public class Start extends Application {
         label.setLayoutX(100);
         label.setLayoutY(200);
         popup.getContent().add(label);
-        label.setGraphic(new ImageView(new Image("name.png")));
+        label.setGraphic(new ImageView(new Image("name.png")));//inset the team member name image
 	//set up click event handler
         EventHandler<ActionEvent> event =
                 new EventHandler<ActionEvent>() {
