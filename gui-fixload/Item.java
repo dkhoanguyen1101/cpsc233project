@@ -1,6 +1,6 @@
+import java.io.Serializable;
 
-
-public abstract class Item {
+public abstract class Item implements Serializable {
 private  int ID;
 private int staticID;
 private String name, imageURL;

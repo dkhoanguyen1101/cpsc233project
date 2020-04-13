@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class map {
+public class map implements Serializable{
 
 	private int row = 16;
 	  private int column= 16;

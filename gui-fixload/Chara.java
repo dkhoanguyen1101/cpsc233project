@@ -1,7 +1,8 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Chara {
+public abstract class Chara implements Serializable{
 	
 	//instance variables
 	private int health;
