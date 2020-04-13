@@ -211,12 +211,12 @@ public class Start extends Application {
         CharaRoot.getChildren().add(reselect);
         
         //button for Medical and set action event
-        Button BioChem = new Button("Medical Student");
-        BioChem.setMinSize(80,40);
-        BioChem.setLayoutX(100);
-        BioChem.setLayoutY(100);
-        BioChem.setGraphic(new ImageView(new Image("Chemistry.png")));
-        BioChem.setOnAction(new EventHandler<ActionEvent>() {
+        Button BioMed = new Button("Medical Student");
+        BioMed.setMinSize(80,40);
+        BioMed.setLayoutX(100);
+        BioMed.setLayoutY(100);
+        BioMed.setGraphic(new ImageView(new Image("Chemistry.png")));
+        BioMed.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
         	public void handle(ActionEvent e) {
         		int selectedNo = selectedPlayers.size();
@@ -244,7 +244,7 @@ public class Start extends Application {
         		}
         	}
 		});
-        CharaRoot.getChildren().add(BioChem);
+        CharaRoot.getChildren().add(BioMed);
 
         //button for Zoology and set action event
         Button Zoology = new Button("Zoology Major");
