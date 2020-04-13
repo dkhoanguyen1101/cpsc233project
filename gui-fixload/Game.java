@@ -448,6 +448,7 @@ public class Game {
 			btn4.setText(null); btn4.setOnAction(null);
 			stage.setScene(intermittentScene);
 		} else if(players.isEmpty()) {
+			calcScoreAndGPA();
 			stage.setScene(gameOverScene);
 			stage.show();
 		} else if(notMoved.isEmpty() && notActed.isEmpty()) {
