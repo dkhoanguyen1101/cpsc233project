@@ -4,7 +4,7 @@ public class ZoologyMajor extends Chara {
 	
 	//constructor
 	public ZoologyMajor(int id) {
-		super("Zoology Major", id, 20, 180, 2, 20, 180, 5, 8, 1, "This special allows the Zoology Major to move a second time (Costs 2 mana). Select the location you would like to move to", "Zoology.png");
+		super("Zoology Major", id, 20, 180, 2, 20, 180, 5, 8, 1, "This special allows the Zoology Major to move \n a second time (Costs 2 mana).\n Select the location you would like to move to", "Zoology.png");
 		}
 		
 	//methods
