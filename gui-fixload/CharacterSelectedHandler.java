@@ -12,16 +12,16 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
-
+//method for character selection handler
 public class CharacterSelectedHandler implements EventHandler<MouseEvent>{
-
+//instance variable
 	Game game;
 	Chara selected;
-	
+	//constructor
 	public CharacterSelectedHandler(Game box, Chara s) {
 		game = box; selected = s;
 	}
-	
+	//main method for mouse click handle
 	public void handle(MouseEvent event) {
 		int x = (new Double(event.getSceneX()/game.cellSizeX)).intValue();
 		int y = (new Double(event.getSceneY()/game.cellSizeY)).intValue();
