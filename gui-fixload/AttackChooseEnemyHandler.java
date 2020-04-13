@@ -7,16 +7,16 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
-
+//method for attack handler by choose different enemy
 public class AttackChooseEnemyHandler implements EventHandler<MouseEvent>{
-
+//instance variable
 	Game game;
 	Chara attacker;
-	
+	//constructor for handler
 	public AttackChooseEnemyHandler(Game box, Chara a) {
 		game = box; attacker = a;
 	}
-	
+	//main method the event handler
 	public void handle(MouseEvent event) {
 		int x = (new Double(event.getSceneX()/game.cellSizeX)).intValue();
 		int y = (new Double(event.getSceneY()/game.cellSizeY)).intValue();
