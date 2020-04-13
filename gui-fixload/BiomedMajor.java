@@ -10,7 +10,7 @@ public class BiomedMajor extends Chara {
 	
 	//constructor
 	public BiomedMajor(int id) {
-        super("Biomedical Major", id, 10, 250, 3, 10, 250, 7, 4, 1, "This special boosts the health of a chosen \n nearby ally (costs 3 mana). \n Select the tile of the teammate you would like \n to heal that is within three tiles", "Chemistry.png");
+        super("Biomedical Major", id, 10, 250, 3, 10, 250, 7, 4, 1, "This special boosts the health of a chosen \n nearby ally (costs 3 mana). \n Select the tile of the teammate you would like \n to heal that is within three tiles", "BioMed.png");
 	}
 	
 	//methods
