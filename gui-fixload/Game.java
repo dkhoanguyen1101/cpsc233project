@@ -631,7 +631,9 @@ public class Game {
 					toReturn.getName() + "\n" // name
 							+ "Health: " + toReturn.getHealth() + "/" + toReturn.getMaxHealth() + "\n" //health out of max
 							+ "Attack: " + toReturn.getAttack() + "/" + toReturn.getMaxAttack() + "\n" //attack out of base
-							+ "Mana:" + toReturn.getMana() + "/" + toReturn.getMaxMana(); //mana out of max
+							+ "Energy: " + toReturn.getMana() + "/" + toReturn.getMaxMana() + "\n"//energy out of max
+							+ "Attack Range: " + toReturn.getRange() + " Space(s)\n"//attack range
+							+ "Movement Range: " + toReturn.getMove() + " Spaces";//movement range
 		} else if (checkIfIDInList(ID, enemies)) { //if character is an enemy
 			toReturn = getCharaFromID(ID, enemies); //get return variable
 			toDisplay =  //set message to display as
