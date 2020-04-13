@@ -6,14 +6,13 @@ import main.map;
 
 public class KinesiologyMajor extends Chara {
 
-	//instance variables
 			
 	//constructor
 	public KinesiologyMajor(int id) {
 		super("KinesiologyMajor", id, 30, 250, 3, 30, 250, 5, 4, 1, "This special deals a chosen near-by \n enemy a large amount of damage \n (costs 2 mana). \n Select the tile of the enemy \n you want to attack.", "Kinesiology.png");
 			}
 	
-	//methods
+	
 	
 	//this special deals a close-by enemy a large amount of damage
 	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies, int xPos, int yPos) {
