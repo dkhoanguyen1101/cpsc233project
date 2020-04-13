@@ -7,7 +7,7 @@ public class ChemistryMajor extends Chara {
 	
 	//constructor
 	public ChemistryMajor(int id) {
-		super("Chemistry Major", id, 15, 200, 2, 15, 200, 5, 5, 1, "This special boosts the attack \n of a chosen ally (costs 3 mana). \n Select the ally you want to boost \n on the map", "Chemistry.png");
+		super("Chemistry Major", id, 15, 200, 2, 15, 200, 5, 5, 1, "This special boosts the attack \n of a chosen ally (costs 3 mana). \n Select the ally you want to boost \n on the map", "BioChem.png");
 	}
 
 	//methods
