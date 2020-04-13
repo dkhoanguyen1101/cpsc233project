@@ -1,12 +1,9 @@
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Properties;
+import java.io.ObjectOutputStream;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class SaveHandler implements EventHandler<ActionEvent> {
 
@@ -17,46 +14,19 @@ public class SaveHandler implements EventHandler<ActionEvent> {
     }
 
     public void handle(ActionEvent event) {
-        try (OutputStream output = new FileOutputStream("save.properties")) {
 
-            Properties prop = new Properties();
-
-            // set the properties value
-            prop.setProperty("mapImageURL", game.currentMap.getImageURL());
-
-            ArrayList<Integer> healths = new ArrayList<>();
-            ArrayList<Integer> playerPositions = new ArrayList<>();
-            for (Chara player :
-                    game.players) {
-                int id = player.getID();
-
-                playerPositions.add(game.currentMap.getPos(id)[0]);
-                playerPositions.add(game.currentMap.getPos(id)[1]);
-
-                healths.add(player.getHealth());
-            }
-
-            ArrayList<Integer> enemyPositions = new ArrayList<>();
-            for (Chara enemy :
-                    game.enemies) {
-                int id = enemy.getID();
-
-                enemyPositions.add(game.currentMap.getPos(id)[0]);
-                enemyPositions.add(game.currentMap.getPos(id)[1]);
-
-                healths.add(enemy.getHealth());
-            }
-
-
-
-            prop.setProperty("mapCharPos", Arrays.toString(playerPositions.toArray()));
-            prop.setProperty("mapEnemyPos", Arrays.toString(enemyPositions.toArray()));
-            prop.setProperty("mapHealths", Arrays.toString(healths.toArray()));
-
-            // save properties to project root folder
-            prop.store(output, null);
-
-            System.out.println(prop);
+          try {
+        	  ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("output.bin"));//create save file
+        	  output.writeObject(game.players);//write required data to save file
+        	  output.writeObject(game.enemies);
+        	  output.writeObject(game.notMoved);
+        	  output.writeObject(game.notActed);
+        	  output.writeObject(game.currentMap);
+        	  output.writeObject(game.getScore());
+        	  output.writeObject(game.getGPA());
+        	  output.writeObject(game.turnNo);
+        	  output.writeObject(game.mapNo);
+        	  output.close();//close when finished
 
         } catch (IOException io) {
             io.printStackTrace();

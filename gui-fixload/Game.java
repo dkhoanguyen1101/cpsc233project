@@ -1,7 +1,4 @@
 
-import java.math.*;
-import java.util.ArrayList;
-
 import java.util.Random;
 
 import com.sun.javafx.collections.MappingChange.Map;
@@ -27,11 +24,19 @@ import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.Random;
 
+/** The controller for the game - tracks characters, enemies, items, positions on the map both code-wise and GUI-wise
+ *  sets button action descriptions, and more.
+ * 
+ * @author Derrick C
+ * contributions by Robert and Khoa
+ */
 public class Game {
 
 	//references to all GUI elements
@@ -66,39 +71,97 @@ public class Game {
 	protected boolean isLoading;
 	
 	//numbers for scores
-	private int score = 0;
+	private double score = 0;
 	private double GPA = 0.0;
 	private double averageTime = 20;
 	
 	//other technical information
 	protected final int cellSizeX = 32, cellSizeY = 32, mapSizeX = 16, mapSizeY = 16;
 	
+	/** constructor for a new controller - player of the game
+	 * 
+	 * @param st  stage to set scenes on as the game progresses
+	 * @param selected  list of characters selected on the previous screen
+	 * @param isLoading  boolean that determines if a game is loaded
+	 */
 	public Game(Stage st, ArrayList<Chara> selected, boolean isLoading) {
-		this.isLoading = isLoading;
+		this.isLoading = isLoading; //set loading to be checked later
+		stage = st; //save the stage to set
 		
-		root = new Pane();
+		//creation of the game scene
+		root = new Pane(); //new pane for the stage
 		BackgroundImage GameBg = new BackgroundImage(new Image("tan.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
-		root.setBackground(new Background(GameBg));
-		lbl1 = new Label(); lbl2 = new Label(); imv = new ImageView();
-		stage = st; root = new Pane();
+		root.setBackground(new Background(GameBg)); //setting the background
 		
-		scene = new Scene(root, 800, 600);
+		scene = new Scene(root, 800, 600); //producing the new scene
 		
-		imv.setLayoutX(0.0); imv.setLayoutY(0.0);
-		imv.setImage(new Image("Map1.png"));
+		imv = new ImageView(); //setting the view for the map image
+		imv.setLayoutX(0.0); imv.setLayoutY(0.0); //constrain to the top left corner
 		root.getChildren().add(imv);
 		
-		btn1 = new Button("1");
-        btn1.setMinSize(80,40);
-        btn1.setLayoutX(30);
+		//creation of the intermission screen - going between one map to another when you finish 
+		Pane intRoot = new Pane(); //create a different root to build the new scene
+		intermittentScene = new Scene(intRoot, 800, 600);
+		Label textbox = new Label(); //label that is used to display the "you win" message
+		textbox.setText("You win!");
+		textbox.setMinSize(200, 100); //set size, orientation
+		textbox.setLayoutX(300);
+		textbox.setLayoutY(100);
+		Button cont = new Button(); // button which will continue the game onto a new map
+		cont.setText("Continue to next map"); 
+		cont.setOnAction(new EventHandler<ActionEvent>() { //setting the handler for when the button is clicked
+			@Override
+			public void handle(ActionEvent e) {
+				startNewMap(); //begin a new map
+				stage.setScene(scene); //set the stage back to the game scene
+				stage.show();
+			}
+		});
+		cont.setMinSize(100, 50); //set size, orientation
+		cont.setLayoutX(350);
+		cont.setLayoutY(400);
+		intRoot.getChildren().add(textbox); //add both the win message and continue buttons
+		intRoot.getChildren().add(cont);
+		
+		//creation of the game over screen
+		Pane goRoot = new Pane(); //new root
+		gameOverScene = new Scene(goRoot, 800, 600);
+		Label goLabel = new Label(); //label which displays game over and final score
+		goLabel .setText("Game Over! \n"
+				+ "Final Score: " + score + "\n"
+				+ "Final GPA: " + GPA);
+		goLabel.setMinSize(200, 100); //set size, orientation
+		goLabel.setLayoutX(300);
+		goLabel.setLayoutY(100);
+		goRoot.getChildren().add(goLabel); //add to the scene
+		
+		Button end = new Button(); //button to quit the game
+		end.setText("Quit");
+		end.setOnAction(new EventHandler<ActionEvent>() { //setting the handler for the quit button
+			@Override
+			public void handle(ActionEvent e) {
+				stage.close(); //close the window - end the program
+			}
+		});
+		end.setMinSize(100, 50); //set size, orientation
+		end.setLayoutX(350);
+		end.setLayoutY(400);
+		goRoot.getChildren().add(end); //add to the scene
+		
+		
+		//setting the buttons used to select actions
+		
+		btn1 = new Button("1"); //create a new button
+        btn1.setMinSize(80,40); //set size
+        btn1.setLayoutX(30);	//set x and y positions on the scene
         btn1.setLayoutY(530);
-        btn1.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
-        btn1.setStyle("-fx-background-color: #A9A9A9");
-        root.getChildren().add(btn1);
+        btn1.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;"); //set a nicer border
+        btn1.setStyle("-fx-background-color: #A9A9A9"); //and colour
+        root.getChildren().add(btn1); 
 
 
-        btn2 = new Button("2");
+        btn2 = new Button("2"); //repeat above another 4 times
         btn2.setMinSize(80,40);
         btn2.setLayoutX(140);
         btn2.setLayoutY(530);
@@ -125,7 +188,7 @@ public class Game {
         btn4.textFillProperty();
         root.getChildren().add(btn4);
         
-        btn5 = new Button("Save");
+        btn5 = new Button("Save"); //5th button will be used for saving only
 		btn5.setMinSize(80,40);
 		btn5.setLayoutX(470);
 		btn5.setLayoutY(530);
@@ -134,7 +197,9 @@ public class Game {
 		btn5.textFillProperty();
 		root.getChildren().add(btn5);
 		
-		lbl1.setMaxSize(288, 300);
+		lbl1 = new Label(); //building labels which will be used to display game information
+		lbl2 = new Label();
+		lbl1.setMaxSize(288, 300); //setting the available space for both of them
 		lbl2.setMaxSize(288, 300);
 		lbl1.setText("1"); lbl2.setText("2");
 		lbl1.setLayoutX(512); lbl1.setLayoutY(0);
@@ -142,66 +207,86 @@ public class Game {
 		root.getChildren().add(lbl1);
 		root.getChildren().add(lbl2);
 		
-		stage.setScene(scene);
-		stage.show();
+		stage.setScene(scene);//set the stage to the new game scene
+		stage.show();//show the game
 		
-		initialize(selected);
+		initialize(selected);//initialize the actual game
 	}
 	
-	/* Methods for setting btn1 functions and visuals in response to game
+	/* Methods for setting button functions and visuals in response to game
 	 * 
 	 */
 	
+	/** for choosing a player character to act
+	 * 
+	 */
 	public void setButtonTextPlayerActionChoice() {
 		
-		lbl2.setText("Select a character to act: ");
-		btn1.setText(""); btn2.setText(""); btn3.setText(""); btn4.setText("End turn");
-		//System.out.println(currentMap.toString());
-		turnChecker();
+		lbl2.setText("Select a character to act: "); //display instruction
+		btn1.setText(""); btn2.setText(""); btn3.setText(""); btn4.setText("End turn"); //display available actions
+		turnChecker(); //check to see if a new turn must be set, done every time this method is called.
 	}
 	
+	/** for selecting an action for the selected character
+	 * 
+	 * @param ID  the id of the space selected
+	 */
 	public void setButtonTextActions(int ID) {
-		Chara toAct = setCharStatsLabel(ID);
-		if(toAct != null && players.contains(toAct)) {
-			if(notMoved.contains(toAct)) {
-				btn1.setText("Move");
+		Chara toAct = setCharStatsLabel(ID); //retrieve and display the stats of the selected id
+		if(toAct != null && players.contains(toAct)) { //if the selected id is a player character
+			if(notMoved.contains(toAct)) { //if the player has not yet moved
+				btn1.setText("Move"); //display the available action
 			}
-			if(notActed.contains(toAct)) {
-				btn2.setText("Attack");
-				btn3.setText("Use item");
+			if(notActed.contains(toAct)) { //if the player has not yet acted
+				btn2.setText("Attack"); //display the available actions
+				btn3.setText("Use item"); 
 				btn4.setText("Use special");
 			}
-		} else {
-			setButtonTextPlayerActionChoice();
+		} else { //if not a player character
+			setButtonTextPlayerActionChoice(); //reset the general actions
 		}
 	}
 	
+	/** for selecting a space to move a character
+	 * 
+	 */
 	public void setButtonTextMove() {
-		lbl2.setText("Select a space to move to");
-		btn1.setText(""); btn2.setText(""); btn3.setText("");
+		lbl2.setText("Select a space to move to"); //display instruction
+		btn1.setText(""); btn2.setText(""); btn3.setText(""); //display actions
 		btn4.setText("Back");
 	}
 	
+	/** for selecting a space to attack
+	 * 
+	 */
 	public void setButtonTextAttack()  {
-		lbl2.setText("Select an enemy to attack");
+		lbl2.setText("Select an enemy to attack"); //see above
 		btn1.setText(""); btn2.setText(""); btn3.setText("");
 		btn4.setText("Back");
 	}
 	
+	/** for selecting a character's item to use
+	 * 
+	 * @param ID  the selected player character's ID
+	 */
 	public void setButtonTextItems(int ID) {
-		Chara toAct = getCharaFromID(ID, players);
-		Item[] inventory = toAct.getInventory();
-		lbl2.setText("Select an item to use");
-		btn1.setText(inventory[0].getName());
+		Chara toAct = getCharaFromID(ID, players); //get the character from it's ID
+		Item[] inventory = toAct.getInventory(); //retrieve that character's inventory
+		lbl2.setText("Select an item to use"); //display instructions
+		btn1.setText(inventory[0].getName()); //display the available items to use
 		btn2.setText(inventory[1].getName());
 		btn3.setText(inventory[2].getName());
 		btn4.setText("Back");
 	}
 	
+	/** for selecting a character's special ability
+	 * 
+	 * @param ID  character to act
+	 */
 	public void setButtonTextSpecial(int ID) {
-		Chara toAct = getCharaFromID(ID, players);
-		lbl2.setText(toAct.getSpecDesc());
-		btn1.setText(""); btn2.setText(""); btn3.setText("");
+		Chara toAct = getCharaFromID(ID, players); //get character from it's ID
+		lbl2.setText(toAct.getSpecDesc()); //get and set the character's special description/instructions
+		btn1.setText(""); btn2.setText(""); btn3.setText(""); //display available actions
 		btn4.setText("Back");
 	}
 	
@@ -209,72 +294,21 @@ public class Game {
 	 * 
 	 */
 	
-	
+	/** set the logic portions of the game
+	 * 
+	 * @param selectedPlayers  list of player selected in the character selection screen, null if the game is loaded
+	 */
 	public void initialize(ArrayList<Chara> selectedPlayers) {
 		
-		
-		Pane intRoot = new Pane();
-		intermittentScene = new Scene(intRoot, 800, 600);
-		Label textbox = new Label();
-		textbox.setText("You win!");
-		textbox.setMinSize(200, 100);
-		textbox.setLayoutX(300);
-		textbox.setLayoutY(100);
-		Button cont = new Button();
-		cont.setText("Continue to next map");
-		cont.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				startNewMap();
-				stage.setScene(scene);
-				stage.show();
-			}
-		});
-		cont.setMinSize(100, 50);
-		cont.setLayoutX(350);
-		cont.setLayoutY(400);
-		intRoot.getChildren().add(textbox);
-		intRoot.getChildren().add(cont);
-		
-		Pane goRoot = new Pane();
-		gameOverScene = new Scene(goRoot, 800, 600);
-		Label goLabel = new Label();
-		goLabel .setText("Game Over! \n"
-				+ "Final Score: " + score + "\n"
-				+ "Final GPA: " + GPA);
-		goLabel.setMinSize(200, 100);
-		goLabel.setLayoutX(300);
-		goLabel.setLayoutY(100);
-		goRoot.getChildren().add(goLabel);
-		
-		Button end = new Button();
-		end.setText("Quit");
-		end.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				stage.close();
-			}
-		});
-		end.setMinSize(100, 50);
-		end.setLayoutX(350);
-		end.setLayoutY(400);
-		goRoot.getChildren().add(end);
-		
-		if(selectedPlayers != null) {
-			players = new ArrayList<Chara>(selectedPlayers);
+		if(selectedPlayers != null) { //if the list of players exists
+			players = selectedPlayers; //take that as the list of players
 		} else {
-			players = new ArrayList<Chara>();
+			players = new ArrayList<Chara>(); //if not initialize a list to be loaded
 		}
-		enemies = new ArrayList<Chara>();
-		images = new ArrayList<CharaImageView>();
-		/*Chara toAdd = new KinesiologyMajor(1); players.add(toAdd);
-		toAdd = new ZoologyMajor(2); players.add(toAdd);
-		toAdd = new BiomedMajor(3); players.add(toAdd);
-		toAdd = new EngMajor(4); players.add(toAdd);
-		toAdd = new PhilosophyMajor(5); players.add(toAdd);
-		toAdd = new ChemistryMajor(6); players.add(toAdd);*/
+		enemies = new ArrayList<Chara>(); //initialize a list to contain enemies
+		images = new ArrayList<CharaImageView>(); //initialize a list to contain the images of each character
 		
-		if(isLoading)
+		if(isLoading) //check for loading game or starting new game
 		{
 			loadMap();
 		}else{
@@ -282,95 +316,107 @@ public class Game {
 		}
 	}
 	
+	/** begin a new map
+	 * 
+	 */
 	public void startNewMap() {
-		enemies.clear();
-		if(!images.isEmpty()) {
-			for(int i = 0; i < images.size(); i++) {
-				CharaImageView current = images.get(i);
-				root.getChildren().remove(current.getImage());
+		enemies.clear(); //as a precaution, clear the list of enemies
+		if(!images.isEmpty()) { //if the list of images is not empty yet
+			for(int i = 0; i < images.size(); i++) { //for all images in the list
+				CharaImageView current = images.get(i); //get the image
+				root.getChildren().remove(current.getImage()); //remove it from the game stage
 			}
 		}
-		images.clear();
-		for(int i = 0; i < players.size(); i++) {
-			CharaImageView toAdd = new CharaImageView(players.get(i).getID(), players.get(i).getImageUrl());
-			images.add(toAdd);
-			root.getChildren().add(toAdd.getImage());
-		}
-		for(int i = 0; i < 3; i++) {
-			Chara toAdd = new Enemy(i + 4);
-			enemies.add(toAdd);
-			CharaImageView toAddImg = new CharaImageView(toAdd.getID(), toAdd.getImageUrl());
-			images.add(toAddImg);
-			root.getChildren().add(toAddImg.getImage());
-		}
-		currentMap = newMaps.generate();
-		enemyAI = new AI(currentMap);
-		imv.setImage(new Image(currentMap.getImageURL()));
-		populateMap();
-		turnNo = 1;
-		mapNo++;
+		images.clear(); //finally clear the images
 		
-		refreshChars();
-		notActed = new ArrayList<Chara>(players);
+		for(int i = 0; i < players.size(); i++) { //for all player characters
+			CharaImageView toAdd = new CharaImageView(players.get(i).getID(), players.get(i).getImageUrl()); //create a new imageView for tgem
+			images.add(toAdd); //add them to the list of all images
+			root.getChildren().add(toAdd.getImage()); //add the character's image to the board
+		}
+		
+		for(int i = 0; i < 3; i++) { //creating three new enemies
+			Chara toAdd = new Enemy(i + 4); //set them to IDs above the alloted three player IDs
+			enemies.add(toAdd); //add them to the list od enemies
+			CharaImageView toAddImg = new CharaImageView(toAdd.getID(), toAdd.getImageUrl()); //create a new imageView for each enemy
+			images.add(toAddImg); //add them to the list
+			root.getChildren().add(toAddImg.getImage()); //add their images to the board
+		}
+		currentMap = newMaps.generate(); //generate a new map
+		enemyAI = new AI(currentMap); //generate a new AI based on the new map
+		imv.setImage(new Image(currentMap.getImageURL())); //set the new map image
+		populateMap(); //populate the new map
+		turnNo = 1; //reset the turn number
+		mapNo++; //increase the total maps beat by 1
+		
+		refreshChars(); //reset characters to start a new map
+		notActed = new ArrayList<Chara>(players); //prep characters for a new turn
 		notMoved = new ArrayList<Chara>(players);
-		
-		
-		//System.out.println(currentMap.toString());
+		setButtonTextPlayerActionChoice();
 	}
 	
+	/** load a current game
+	 * 
+	 */
 	public void loadMap()
 	{
-		enemies.clear();
-		if(!images.isEmpty()) {
-			for(int i = 0; i < images.size(); i++) {
-				CharaImageView current = images.get(i);
-				root.getChildren().remove(current.getImage());
-			}
-		}
-		images.clear();
-		for(int i = 0; i < players.size(); i++) {
-			CharaImageView toAdd = new CharaImageView(players.get(i).getID(), players.get(i).getImageUrl());
-			images.add(toAdd);
-			root.getChildren().add(toAdd.getImage());
-		}
-		for(int i = 0; i < 6; i++) {
-			Chara toAdd = new Enemy(i + 7);
-			enemies.add(toAdd);
-			CharaImageView toAddImg = new CharaImageView(toAdd.getID(), toAdd.getImageUrl());
-			images.add(toAddImg);
-			root.getChildren().add(toAddImg.getImage());
-		}
+		try  {
 
-		currentMap = newMaps.generate();
-
-
-		try (InputStream input = new FileInputStream("save.properties")) {
-
-			Properties prop = new Properties();
-
-			// load a properties file
-			prop.load(input);
-
-			// Sets map
-			currentMap = newMaps.generate(prop.getProperty("mapImageURL"));
+			ObjectInputStream output = new ObjectInputStream(new FileInputStream("output.bin"));//get the save file
+			
+			players = (ArrayList<Chara>) output.readObject(); //unpack all of the objects from the save file
+			enemies = (ArrayList<Chara>) output.readObject();
+			notMoved = (ArrayList<Chara>) output.readObject();
+			notActed = (ArrayList<Chara>) output.readObject();
+			currentMap = (map) output.readObject();
+			score = (double) output.readObject();
+			GPA = (double) output.readObject();
+			turnNo = (int) output.readObject();
+			mapNo = (int) output.readObject();
+			output.close();
+			
 		} catch (IOException ex) {
 			ex.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
-
-		enemyAI = new AI(currentMap);
-		imv.setImage(new Image(currentMap.getImageURL()));
-		populateMap();
-		turnNo = 1;
-		mapNo++;
-
-		refreshChars();
-		notActed = new ArrayList<Chara>(players);
-		notMoved = new ArrayList<Chara>(players);
+		
+		imv.setImage(new Image(currentMap.getImageURL())); //set the image of the map
+		//set all of the images for the characters, enemies and the item
+		for(Chara i:players) { //for all player characters
+			CharaImageView toAdd = new CharaImageView(i.getID(), i.getImageUrl()); //create a new imageView for them
+			images.add(toAdd); //add to list of images
+			int[] pos = currentMap.getPos(i.getID()); //get the position of that character on the map
+			ImageView image = toAdd.getImage(); //get the image from the object
+			image.setLayoutX(pos[0] * cellSizeX); image.setLayoutY(pos[1] * cellSizeY); //set the proper layout of the image
+			root.getChildren().add(image); //add the image to the stage
+		}
+		for(Chara i:enemies) { //repeat above process for enemies
+			CharaImageView toAdd = new CharaImageView(i.getID(), i.getImageUrl()); 
+			images.add(toAdd);
+			int[] pos = currentMap.getPos(i.getID());
+			ImageView image = toAdd.getImage();
+			image.setLayoutX(pos[0] * cellSizeX); image.setLayoutY(pos[1] * cellSizeY);
+			root.getChildren().add(image);
+		}
+		int itemCheck = currentMap.getID(currentMap.getItemPos()[0], currentMap.getItemPos()[1]); //look for item in default space
+		if(itemCheck >= 30 & itemCheck <= 35) { //if an item designated ID is in that space on the map
+			CharaImageView toAdd = new CharaImageView(itemCheck, "Item.png"); //create it a new imageView
+			images.add(toAdd); //and so on
+			ImageView image = toAdd.getImage();
+			image.setLayoutX(currentMap.getItemPos()[0] * cellSizeX);
+			image.setLayoutY(currentMap.getItemPos()[1] * cellSizeY);
+			root.getChildren().add(image);
+		}
+		
 	}
 	
+	/** begin a new turn
+	 * 
+	 */
 	public void startNewTurn() {
-		for(int i = 0; i < enemies.size(); i++) {
-			if(players.size() > 0) {
+		for(int i = 0; i < enemies.size(); i++) { //for all enemies
+			if(!players.isEmpty()) { //if players are all not dead
 				Chara currentEnemy = enemies.get(i);//get the current enemy in the list
 				ArrayList<Integer> playerIDs = new ArrayList<Integer>();//create a list to get the IDs of players to pass into AI
 				for(int j = 0; j < players.size(); j++) {//fill the player ID list
@@ -385,27 +431,28 @@ public class Game {
 				killChecker(players);//check to see if the enemy killed a player
 			}
 		}
-		turnMana();
-		notActed = new ArrayList<Chara>(players);
+		turnMana(); //increase all player's mana
+		calcScoreAndGPA(); //update the score
+		notActed = new ArrayList<Chara>(players); //fresh turn - reset trackers for moved and acted
 		notMoved = new ArrayList<Chara>(players);
-		turnNo++;
+		turnNo++; //iincrease turn number
 	}
-	
+	/** fill a new map
+	 * 
+	 */
 	public void populateMap() {
-		int[] charPos = currentMap.getCharPos();
+		int[] charPos = currentMap.getCharPos(); //get default positions from map
 		int[] enemyPos = currentMap.getEnemyPos();
 		int[] itemPos = currentMap.getItemPos();
-		for(int i = 0; i < players.size(); i++) {
-			//System.out.println(players.size());
-			int index = i * 2;
-			int id = players.get(i).getID();
-			currentMap.setPos(id, charPos[index], charPos[index + 1]);
-			ImageView image = getImageViewFromID(id, images);
-			image.setLayoutX(charPos[index] * cellSizeX);
+		for(int i = 0; i < players.size(); i++) { //for all players
+			int index = i * 2; //get accounted index to set character positions
+			int id = players.get(i).getID(); //get the ID of the character to place on the map
+			currentMap.setPos(id, charPos[index], charPos[index + 1]); //set place on the map
+			ImageView image = getImageViewFromID(id, images); //get the image of the character set
+			image.setLayoutX(charPos[index] * cellSizeX); //set its x and y layout in the window
 			image.setLayoutY(charPos[index + 1] * cellSizeY);
-			//System.out.println("Putting " + id + " on space " + charPos[index] + ", " + charPos[index + 1]);
 		}
-		for(int i = 0; i < enemies.size(); i++) {
+		for(int i = 0; i < enemies.size(); i++) { //repeat for enemies
 			int index = i * 2;
 			int id = enemies.get(i).getID();
 			currentMap.setPos(id, enemyPos[index], enemyPos[index + 1]);
@@ -413,11 +460,11 @@ public class Game {
 			image.setLayoutX(enemyPos[index] * cellSizeX);
 			image.setLayoutY(enemyPos[index + 1] * cellSizeY);
 		}
-		Random numberGen = new Random();
-		int newItem = numberGen.nextInt(5);
+		Random numberGen = new Random(); //generate a random potion to put on the map
+		int newItem = numberGen.nextInt(5); //5 items in total, preset to certain items
 		CharaImageView toAdd;
 		int newID = 0;
-		switch(newItem) {
+		switch(newItem) { //determine item ID from generated number
 		case 0:
 			newID = 30; break;
 		case 1:
@@ -429,41 +476,44 @@ public class Game {
 		case 4:
 			newID = 35; break;
 		}
-		currentMap.setPos(newID, itemPos[0], itemPos[1]);
-		toAdd = new CharaImageView(newID, "Item.png");
-		images.add(toAdd);
-		ImageView image = toAdd.getImage();
-		root.getChildren().add(image);
-		image.setLayoutX(itemPos[0] * cellSizeX);
+		currentMap.setPos(newID, itemPos[0], itemPos[1]); //set place on map
+		toAdd = new CharaImageView(newID, "Item.png"); //set a new image
+		images.add(toAdd); //add to list
+		ImageView image = toAdd.getImage(); //get image
+		root.getChildren().add(image); //add to scene
+		image.setLayoutX(itemPos[0] * cellSizeX); //set orientation
 		image.setLayoutY(itemPos[1] * cellSizeY);
 	}
 	
+	/** check if a turn or game is over
+	 * 
+	 */
 	public void turnChecker() {
-		if(enemies.isEmpty()) {
-			lbl1.setText("");
-			lbl2.setText("");
-			btn1.setText(null); btn1.setOnAction(null);
-			btn2.setText(null); btn2.setOnAction(null);
-			btn3.setText(null); btn3.setOnAction(null);
-			btn4.setText(null); btn4.setOnAction(null);
-			stage.setScene(intermittentScene);
-		} else if(players.isEmpty()) {
-			calcScoreAndGPA();
-			stage.setScene(gameOverScene);
+		if(enemies.isEmpty()) { //if no enemies alive
+			stage.setScene(intermittentScene); //display the intermission scene
 			stage.show();
-		} else if(notMoved.isEmpty() && notActed.isEmpty()) {
-			startNewTurn();
+		} else if(players.isEmpty()) { //if no players alive
+			stage.setScene(gameOverScene); //display game over scene
+			stage.show();
+		} else if(notMoved.isEmpty() && notActed.isEmpty()) { //if all players actions are done
+			startNewTurn(); //begin a new turn automatically
 ;		}
 	}
 	
-	public void turnMana() {
-		for(int i = 0; i < players.size(); i++) {
+	/** increase each player's mana as a new turn is started
+	 *  
+	 */
+	public void turnMana() { 
+		for(int i = 0; i < players.size(); i++) { //for all players
 			Chara currentPlayer = players.get(i);
-			currentPlayer.setMana(currentPlayer.getMana() + 1);
+			currentPlayer.setMana(currentPlayer.getMana() + 1); //increase mana by 1 point
 			
 		}
 	}
 	
+	/** restore all characters to base stats as a new map is started
+	 *  
+	 */
 	public void refreshChars() {
 		for(int i = 0; i < players.size(); i++) {
 			Chara current = players.get(i);
@@ -475,31 +525,46 @@ public class Game {
 	 * 
 	 */
 	
+	/** checker for if one player can attack another
+	 * 
+	 * @param attacker  character attacking
+	 * @param receiver  character receiving the attack
+	 * @return  boolean as to whether or not the attack is legal
+	 */
 	public boolean isLegalAttack(Chara attacker, Chara receiver) {
-		int atkRange = attacker.getRange();
-		int[] atkPos = currentMap.getPos(attacker.getID());
-		int[] recPos = currentMap.getPos(receiver.getID());
-		int atkDist = (Math.abs(atkPos[0] - recPos[0]) + Math.abs(atkPos[1] - recPos[1]));
-		if (atkDist > atkRange)  {
-			return false;
+		int atkRange = attacker.getRange(); //get the range at which the attacker can attack
+		int[] atkPos = currentMap.getPos(attacker.getID()); //get position of the attacker
+		int[] recPos = currentMap.getPos(receiver.getID()); //get position of the receiver
+		int atkDist = (Math.abs(atkPos[0] - recPos[0]) + Math.abs(atkPos[1] - recPos[1])); //get the distance between the two characters
+		if (atkDist > atkRange)  { //if that distance is longer than the range
+			return false; //not legal attack
 		}
-		else return true;
+		else return true; //if not, attack is legal
 	}
 	
+	/** thanos snap a character from existence
+	 * 
+	 * @param IDToKill  ID of character to kill
+	 * @param posToKill  position in list of the character to kill
+	 * @param listContainingChar  list the character belongs to (players or enemies)
+	 */
 	public void kill(int IDToKill, int posToKill, ArrayList<Chara> listContainingChar) {
-		System.out.println(listContainingChar.get(posToKill).getName() + " died!");
-		int[] killCoords = currentMap.getPos(IDToKill);
-		currentMap.setPos(0, killCoords[0], killCoords[1]);
-		listContainingChar.remove(posToKill);
-		ImageView image = getImageViewFromID(IDToKill, images);
-		root.getChildren().remove(image);
+		int[] killCoords = currentMap.getPos(IDToKill); //get coordinates of the character to kill
+		currentMap.setPos(0, killCoords[0], killCoords[1]); //set the space that character was on to empty
+		listContainingChar.remove(posToKill); //remove character from arrayList
+		ImageView image = getImageViewFromID(IDToKill, images); //get the imageView of the character
+		root.getChildren().remove(image); //remove it from the map
 	}
 	
+	/** Check a list see if a character needs to be killed
+	 * 
+	 * @param chars  list of characters to check
+	 */
 	public void killChecker(ArrayList<Chara> chars) {
-		for(int i = 0; i < chars.size(); i++) {
+		for(int i = 0; i < chars.size(); i++) { //for all characters in the specified list
 			Chara dead = chars.get(i);
-			if(dead.getHealth() <= 0) {
-				kill(dead.getID(), i, chars);
+			if(dead.getHealth() <= 0) { //if it's health is zero or less
+				kill(dead.getID(), i, chars); //kill the character off
 			}
 		}
 	}
@@ -508,82 +573,81 @@ public class Game {
 	 * 
 	 */
 	
-	/**
+	/** Get a Chara object from its unique ID
 	 * 
-	 * @param ID
-	 * @param listToCheck
-	 * @return
+	 * @param ID  ID of the character to find
+	 * @param listToCheck  list to look for character ID
+	 * @return  character with the specified ID from the list - null if not there
 	 */
 	public Chara getCharaFromID(int ID, ArrayList<Chara> listToCheck) {
-		Chara toReturn = null;
-		for(int i = 0; i < listToCheck.size(); i++) {
-			if (listToCheck.get(i).getID() == ID) toReturn = listToCheck.get(i);
+		Chara toReturn = null; //declare and initialize a return value to null (in case the character is not there)
+		for(int i = 0; i < listToCheck.size(); i++) { //for all characters in the list
+			if (listToCheck.get(i).getID() == ID) toReturn = listToCheck.get(i); //if that character's id matches specified, set return value to that character
 		}
-		return toReturn;
+		return toReturn; //return the character
 	}
 	
+	/** get an ImageView for a character from a list based on a character's ID
+	 * 
+	 * @param ID  ID of image to get
+	 * @param listToCheck  list of CharaImageViews to look through
+	 * @return  the ImageView for the specified IDs character - returns null if not there
+	 */
 	public ImageView getImageViewFromID(int ID, ArrayList<CharaImageView> listToCheck) {
-		ImageView toReturn = null;
-		for(int i = 0; i < listToCheck.size(); i++) {
-			if (listToCheck.get(i).getID() == ID) toReturn = listToCheck.get(i).getImage();
+		ImageView toReturn = null; //declare and initialize return value to null (in case the character's image is not there)
+		for(int i = 0; i < listToCheck.size(); i++) { //for all CharaImageViews in specified list
+			if (listToCheck.get(i).getID() == ID) toReturn = listToCheck.get(i).getImage(); //if the ID matches specified, return the ImageView 
 		}
 		return toReturn;
 	}
 	
+	/** Check if a character is in a list base on ID
+	 * 
+	 * @param ID  ID of character to look for
+	 * @param listToCheck  list to check for ID
+	 * @return  boolean as to whether or not the character is in that list- null if not
+	 */
 	public boolean checkIfIDInList(int ID, ArrayList<Chara> listToCheck) {
-		boolean isThere = false;
-		for(int i = 0; i < listToCheck.size(); i++) {
-			if (!isThere) {
-				if (listToCheck.get(i).getID() == ID) isThere = true;
+		boolean isThere = false; //declare and initialize a return value to false (in case the character is not there
+		for(int i = 0; i < listToCheck.size(); i++) { //for all characters in the list
+			if (!isThere) { //if the character has not already been found
+				if (listToCheck.get(i).getID() == ID) isThere = true; //if the current character's ID matches the specified, return value becomes true
 			}
 		}
 		return isThere;
 	}
 	
-	/*public void printListOfChars(ArrayList<Chara> chars, boolean arePlayers) {
-		for(int i = 0; i < chars.size(); i++) {
-			Chara theChar = chars.get(i);
-			System.out.print(
-					theChar.getName()
-					+ " (ID: " + theChar.getID()
-					+ ") Health: " + theChar.getHealth()  + "/" + theChar.getMaxHealth()
-					+ " Atk: " + theChar.getAttack() + "/" + theChar.getMaxAttack());
-			if(arePlayers) System.out.println(" Mana: " + theChar.getMana() + "/" + theChar.getMaxMana());
-			else System.out.println("");
-			
-			System.out.println("");
-		}
-	}*/
-
+	/** set the label for character stats
+	 * 
+	 * @param ID  ID of character to set stats for
+	 * @return  the character who's stats were set
+	 */
 	public Chara setCharStatsLabel(int ID) {
-		Chara toReturn = null;
-		String toDisplay = null;
-		if(checkIfIDInList(ID, players)) {
-			//System.out.println("Player found");
-			toReturn = getCharaFromID(ID, players);
-			//System.out.println(toDisplay.getName());
-			toDisplay = 
-					toReturn.getName() + "\n"
-							+ "Health: " + toReturn.getHealth() + "/" + toReturn.getMaxHealth() + "\n"
-							+ "Attack: " + toReturn.getAttack() + "/" + toReturn.getMaxAttack() + "\n"
-							+ "Mana" + toReturn.getMana() + "/" + toReturn.getMaxMana();
-		} else if (checkIfIDInList(ID, enemies)) {
-			//System.out.println("Enemy found");
-			toReturn = getCharaFromID(ID, enemies);
-			//System.out.println(toDisplay.getName());
-			toDisplay = 
-					toReturn.getName() + "\n"
-							+ "Health: " + toReturn.getHealth() + "/" + toReturn.getMaxHealth() + "\n"
-							+ "Attack: " + toReturn.getAttack() + "/" + toReturn.getMaxAttack();
-		} else {
-			lbl1.setText("");
+		Chara toReturn = null; //initialize a return variable to null (in case not there)
+		String toDisplay = ""; //string to store the message displayed - initialized to an empty string incase the character is not found
+		if(checkIfIDInList(ID, players)) { //if character is a player
+			toReturn = getCharaFromID(ID, players); //set character return vale
+			toDisplay = //set message to display as
+					toReturn.getName() + "\n" // name
+							+ "Health: " + toReturn.getHealth() + "/" + toReturn.getMaxHealth() + "\n" //health out of max
+							+ "Attack: " + toReturn.getAttack() + "/" + toReturn.getMaxAttack() + "\n" //attack out of base
+							+ "Mana:" + toReturn.getMana() + "/" + toReturn.getMaxMana(); //mana out of max
+		} else if (checkIfIDInList(ID, enemies)) { //if character is an enemy
+			toReturn = getCharaFromID(ID, enemies); //get return variable
+			toDisplay =  //set message to display as
+					toReturn.getName() + "\n" //name
+							+ "Health: " + toReturn.getHealth() + "/" + toReturn.getMaxHealth() + "\n" //health out of max
+							+ "Attack: " + toReturn.getAttack() + "/" + toReturn.getMaxAttack(); //attack out of base
+							//enemies have no special, so no mana
 		}
-		
-		lbl1.setText(toDisplay);
+		lbl1.setText(toDisplay); //set the display text
 		return toReturn;
 		
 	}
 	
+	/** Calculate the current score and the GPA
+	 *  Code done by Robert
+	 */
 	public void calcScoreAndGPA() {
 		//needs turn number and average health, how do i get it
 		//health is easy, just use Chara.getHealth();
