@@ -24,6 +24,7 @@ public class SpecialChooseTargetHandler implements EventHandler<MouseEvent>{
 			boolean used = user.Special(game.currentMap, game.players, game.enemies, x, y);
 			if(used) {
 				game.notActed.remove(user);
+				game.killChecker(game.enemies);
 			}
 		}
 		game.setButtonTextPlayerActionChoice();
