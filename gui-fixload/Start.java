@@ -210,8 +210,8 @@ public class Start extends Application {
 		});
         CharaRoot.getChildren().add(reselect);
         
-        //button for Chemistry and set action event
-        Button BioChem = new Button();
+        //button for Medical and set action event
+        Button BioChem = new Button("Medical Student");
         BioChem.setMinSize(80,40);
         BioChem.setLayoutX(100);
         BioChem.setLayoutY(100);
@@ -247,10 +247,10 @@ public class Start extends Application {
         CharaRoot.getChildren().add(BioChem);
 
         //button for Zoology and set action event
-        Button Zoology = new Button();
+        Button Zoology = new Button("Zoology Major");
         Zoology.setMinSize(80,40);
-        Zoology.setLayoutX(200);
-        Zoology.setLayoutY(100);
+        Zoology.setLayoutX(100);
+        Zoology.setLayoutY(50);
         Zoology.setGraphic(new ImageView(new Image("Zoology.png")));
         Zoology.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
@@ -283,7 +283,7 @@ public class Start extends Application {
         CharaRoot.getChildren().add(Zoology);
 
         //button for Kinesiology and set action event
-        Button Kinesiology = new Button();
+        Button Kinesiology = new Button("Kinesiology Major");
         Kinesiology.setMinSize(80,40);
         Kinesiology.setLayoutX(300);
         Kinesiology.setLayoutY(100);
@@ -321,10 +321,10 @@ public class Start extends Application {
 
 
         //button for Engineering and set action event
-        Button Engineering = new Button();
+        Button Engineering = new Button("Engineering Major");
         Engineering.setMinSize(80,40);
-        Engineering.setLayoutX(400);
-        Engineering.setLayoutY(100);
+        Engineering.setLayoutX(300);
+        Engineering.setLayoutY(50);
         Engineering.setGraphic(new ImageView(new Image("Engineering.png")));
         Engineering.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
@@ -357,7 +357,7 @@ public class Start extends Application {
         CharaRoot.getChildren().add(Engineering);
 
         //button for Philosophy and set action event
-        Button Philosophy = new Button();
+        Button Philosophy = new Button("Philosophy Major");
         Philosophy.setMinSize(80,40);
         Philosophy.setLayoutX(500);
         Philosophy.setLayoutY(100);
@@ -393,10 +393,10 @@ public class Start extends Application {
         CharaRoot.getChildren().add(Philosophy);
 
         //button for Chemistry and set action event
-        Button Chemistry = new Button();
+        Button Chemistry = new Button("Chemistry Major");
         Chemistry.setMinSize(80,40);
-        Chemistry.setLayoutX(600);
-        Chemistry.setLayoutY(100);
+        Chemistry.setLayoutX(500);
+        Chemistry.setLayoutY(50);
         Chemistry.setGraphic(new ImageView(new Image("BioChem.png")));
         Chemistry.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
