@@ -4,7 +4,7 @@ public class ZoologyMajor extends Chara {
 	
 	//constructor
 	public ZoologyMajor(int id) {
-		super("Zoology Major", id, 20, 180, 2, 20, 180, 5, 8, 1, "This special allows the Zoology Major to move \n a second time (Costs 2 mana).\n Select the location you would like to move to", "Zoology.png");
+		super("Zoology Major", id, 20, 180, 2, 20, 180, 5, 6, 1, "This special allows the Zoology Major to increase \n it's overall movement range (Costs 2 mana). \n Click anywhere on the map to activate this", "Zoology.png");
 		}
 		
 	//methods
@@ -15,7 +15,8 @@ public class ZoologyMajor extends Chara {
 		if (getMana() < 2) {
 			System.out.println("This special requires 2 mana");
 		} else {
-			didSomething = theMap.move(this.getID(), xPos, yPos, this.getRange());
+			didSomething = true;
+			this.setMove(this.getMove() + 1);
 		}
 		if (didSomething == true) {
 			setMana(getMana() - 2);
