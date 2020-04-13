@@ -38,25 +38,25 @@ public class Start extends Application {
 
 
         Pane root = new Pane();
-        Scene scene = new Scene(root,800,600);
+        Scene scene = new Scene(root,800,600);//set the scene size
         stage.setScene(scene);
         stage.show();
 	    
         //the game scene setting
         Pane gameroot = new Pane();
-        Scene gamescene = new Scene(gameroot,800,600);
+        Scene gamescene = new Scene(gameroot,800,600);//set game scene size
 
         //Win Scene
         Pane winroot = new Pane();
-        Scene winscene = new Scene(winroot,800,600);
+        Scene winscene = new Scene(winroot,800,600);//set Win scene size
 
         //Lose Scene
         Pane loseroot = new Pane();
-        Scene losescene = new Scene(loseroot,800,600);
+        Scene losescene = new Scene(loseroot,800,600);//set Lose scene size
 
         //Chara Scene
         Pane CharaRoot = new Pane();
-        Scene CharaScene = new Scene(CharaRoot,800,600);
+        Scene CharaScene = new Scene(CharaRoot,800,600);//set Chara scene size
 
 
 
