@@ -102,7 +102,7 @@ public map generate() {
 	}
 	
 }
-
+//method used to instead of generating a new map and saved URL file location
 public map generate(String map)
 {
 	switch(map) {
