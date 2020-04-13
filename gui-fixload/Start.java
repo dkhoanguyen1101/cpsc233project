@@ -224,12 +224,12 @@ public class Start extends Application {
 		});
         CharaRoot.getChildren().add(reselect);
         
-        //BioChem
+        //Chemistry
         Button BioChem = new Button();
         BioChem.setMinSize(80,40);
         BioChem.setLayoutX(100);
         BioChem.setLayoutY(100);
-        BioChem.setGraphic(new ImageView(new Image("BioChem.png")));
+        BioChem.setGraphic(new ImageView(new Image("Chemistry.png")));
         BioChem.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
         	public void handle(ActionEvent e) {
@@ -406,12 +406,12 @@ public class Start extends Application {
 		});
         CharaRoot.getChildren().add(Philosophy);
 
-        //Chemistry
+        //BioChem
         Button Chemistry = new Button();
         Chemistry.setMinSize(80,40);
         Chemistry.setLayoutX(600);
         Chemistry.setLayoutY(100);
-        Chemistry.setGraphic(new ImageView(new Image("Chemistry.png")));
+        Chemistry.setGraphic(new ImageView(new Image("BioChem.png")));
         Chemistry.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
         	public void handle(ActionEvent e) {
