@@ -7,16 +7,16 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
-
+//method for special choose target handler
 public class SpecialChooseTargetHandler implements EventHandler<MouseEvent>{
-	
+	//instance variable
 	Game game;
 	Chara user;
-	
+	//constructor
 	public SpecialChooseTargetHandler(Game box, Chara u) {
 		game = box; user = u;
 	}
-	
+	//main method for mouse event handler
 	public void handle(MouseEvent event) {
 		int x = (new Double(event.getSceneX()/game.cellSizeX)).intValue();
 		int y = (new Double(event.getSceneY()/game.cellSizeY)).intValue();
