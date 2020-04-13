@@ -127,7 +127,7 @@ public class Start extends Application {
                 //method for handle different action event     
 		public void handle(ActionEvent e) {
                 //check the file save or not
-                File tmpDir = new File("save.properties");
+                File tmpDir = new File("output.bin");
 
                 boolean exists = tmpDir.exists();
             	if(exists)
