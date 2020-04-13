@@ -225,7 +225,7 @@ public class Start extends Application {
         BioMed.setMinSize(80,40);
         BioMed.setLayoutX(100);
         BioMed.setLayoutY(100);
-        BioMed.setGraphic(new ImageView(new Image("Chemistry.png")));
+        BioMed.setGraphic(new ImageView(new Image("BioMed.png")));
         BioMed.setOnAction(new EventHandler<ActionEvent>() {
         	@Override
         	public void handle(ActionEvent e) {
