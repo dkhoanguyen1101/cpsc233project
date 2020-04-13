@@ -4,17 +4,18 @@ import java.util.ArrayList;
 
 
 public class map implements Serializable{
-
+	
+	//instance variable
 	private int row = 16;
-	  private int column= 16;
-	  private int[] charPos = new int[12];
-	  private int[] enemyPos = new int[12];
+	private int column= 16;
+	private int[] charPos = new int[12];
+	private int[] enemyPos = new int[12];
 	private int[] itemPos = new int[2];
-	 private String imageUrl;
+	private String imageUrl;
 	  
 
 	 
-	  private ArrayList<ArrayList<Integer>> twoDList = new ArrayList<ArrayList<Integer>>();
+	private ArrayList<ArrayList<Integer>> twoDList = new ArrayList<ArrayList<Integer>>();
 
 	  /**
 	 * Take in arguments for row and column to generate twoDList each elements in is 0
@@ -27,7 +28,8 @@ public class map implements Serializable{
 	 * Return: Nothing
 	 */
 
-	  public map(int[] acharPos, int[] aenemy, int[] aitem, String url){
+	//main method for map 
+	 public map(int[] acharPos, int[] aenemy, int[] aitem, String url){
 	    
 	    for(int countRow = 0; countRow < row; countRow++) {
 	    	twoDList.add(new ArrayList<Integer>());
@@ -40,11 +42,11 @@ public class map implements Serializable{
 	    itemPos = aitem.clone();
 	    setImageURL(url);
 	    }
-
+//setter for image
   protected void setImageURL(String string) {
 	  imageUrl = string;
   }
-  
+  //getter for image 
   public String getImageURL() {
 	  String toReturn = imageUrl;
 	  return toReturn;
