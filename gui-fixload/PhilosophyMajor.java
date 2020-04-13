@@ -6,7 +6,6 @@ import main.map;
 
 public class PhilosophyMajor extends Chara {
 
-	//instance variables
 	
 	//constructor
 	public PhilosophyMajor(int id) {
@@ -14,7 +13,6 @@ public class PhilosophyMajor extends Chara {
 	}
 	
 	//methods
-	
 	//this special lowers the attack of an enemy
 	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies, int xPos, int yPos) {
 		boolean didSomething = false;
