@@ -432,7 +432,7 @@ public class Start extends Application {
         //set up game scene button
         Button button = new Button("1");
         button.setMinSize(80,40);
-        button.setLayoutX(30);
+        button.setLayoutX(30);//set button x position
         button.setLayoutY(530);
         button.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
         button.setStyle("-fx-background-color: #A9A9A9");
@@ -441,7 +441,7 @@ public class Start extends Application {
 
         Button button2 = new Button("2");
         button2.setMinSize(80,40);
-        button2.setLayoutX(140);
+        button2.setLayoutX(140);//set button x position
         button2.setLayoutY(530);
         button2.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
         button2.setStyle("-fx-background-color: #A9A9A9");
@@ -450,7 +450,7 @@ public class Start extends Application {
 
         Button button3 = new Button("3");
         button3.setMinSize(80,40);
-        button3.setLayoutX(250);
+        button3.setLayoutX(250);//set button x position
         button3.setLayoutY(530);
         button3.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
         button3.setStyle("-fx-background-color: #A9A9A9");
@@ -459,7 +459,7 @@ public class Start extends Application {
 
         Button button4 = new Button("4");
         button4.setMinSize(80,40);
-        button4.setLayoutX(360);
+        button4.setLayoutX(360);//set button x position
         button4.setLayoutY(530);
         button4.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
         button4.setStyle("-fx-background-color: #A9A9A9");
