@@ -7,16 +7,16 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
-
+//method for move space choice handler
 public class MoveSpaceChoiceHandler implements EventHandler<MouseEvent>{
-	
+	//instance variablec
 	Game game;
 	Chara mover;
-	
+	//constructor
 	public MoveSpaceChoiceHandler(Game box, Chara m) {
 		game = box; mover = m;
 	}
-	
+	//main method for move space handler
 	public void handle(MouseEvent event) {
 		int x = (new Double(event.getSceneX()/game.cellSizeX)).intValue();
 		int y = (new Double(event.getSceneY()/game.cellSizeY)).intValue();
