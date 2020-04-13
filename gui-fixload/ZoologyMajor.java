@@ -1,4 +1,4 @@
-
+package characters;
 import java.util.ArrayList;
 
 import main.map;
