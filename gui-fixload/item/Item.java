@@ -12,10 +12,9 @@ private String name, imageURL;
 public Item(int id, String aName) {
 	setID(id);
 	setName(aName);
-	imageURL = "Item.png";
-	
-//getters and setters
+	imageURL = "Item.png";	
 }
+//getters and setters
 public int getStatic() {
 	int toReturn = staticID;
 	return toReturn;
