@@ -58,6 +58,7 @@ public class Game {
 	protected ArrayList<Chara> players;
 	protected ArrayList<Chara> enemies;
 	protected ArrayList<CharaImageView> images;
+	protected Label goLabel;
 	
 	//lists to keep track of player characters the act as part of the player's turn
 	protected ArrayList<Chara> notMoved;
@@ -131,7 +132,7 @@ public class Game {
 		//creation of the game over screen
 		Pane goRoot = new Pane(); //new root
 		gameOverScene = new Scene(goRoot, 800, 600);
-		Label goLabel = new Label(); //label which displays game over and final score
+		goLabel = new Label(); //label which displays game over and final score
 		goLabel .setText("Game Over! \n"
 				+ "Final Score: " + score + "\n"
 				+ "Final GPA: " + GPA);
@@ -692,6 +693,9 @@ public class Game {
 				GPA = 4.3;
 			}
 		} 
+		goLabel .setText("Game Over! \n"
+				+ "Final Score: " + score + "\n"
+				+ "Final GPA: " + GPA);
 		
 	}
 	
