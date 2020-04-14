@@ -657,11 +657,8 @@ public class Game {
 	 *  Code done by Robert
 	 */
 	public void calcScoreAndGPA() {
-		//needs turn number and average health, how do i get it
-		//health is easy, just use Chara.getHealth();
-		//turnNo is a variable I can access that has the amount of turns
 		//average team health value = current added health / total added Health
-		//turn number can probably be considered good if less than 20, we can change this later
+		//turn number is considered good if less than 20
 		//for every turn over, -5%. For every turn under, +5% (based on averageTime being 20, this can be changed)
 		//so value = 20 - turns taken
 		//then value gets added to score value
