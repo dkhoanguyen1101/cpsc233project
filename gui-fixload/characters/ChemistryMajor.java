@@ -24,7 +24,7 @@ public class ChemistryMajor extends Chara {
 			int choice = theMap.getID(xPos, yPos);
 			for(Chara teammate: players) {
 				if (choice == teammate.getID()) {
-					players.get(choice).setAttack(players.get(choice).getAttack() + 5);
+					teammate.setAttack(teammate.getAttack() + 5);
 					setMana(getMana() - 3);
 					didSomething = true;
 				}		
