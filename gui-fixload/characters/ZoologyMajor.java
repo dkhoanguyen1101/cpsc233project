@@ -12,7 +12,7 @@ public class ZoologyMajor extends Chara {
 		
 	//methods
 	
-	//Special allows the ZoologyMajor Character to take a second movement action
+	//Special allows the ZoologyMajor Character to increase their movement distance
 	public boolean Special(map theMap, ArrayList<Chara> players, ArrayList<Chara> enemies, int xPos, int yPos) {
 		boolean didSomething = false;
 		if (getMana() < 2) {
