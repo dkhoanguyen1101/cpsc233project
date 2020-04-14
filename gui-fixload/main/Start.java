@@ -38,31 +38,13 @@ public class Start extends Application {
 
 //method Override and setting all the scene
     public void start(Stage stage) throws Exception {
-        int CharaX = 0;
-        int CharaY;
+        
         ArrayList<Chara> selectedPlayers = new ArrayList<Chara>();
-        ImageView player1 = new ImageView(new Image("Kinesiology.png"));
-
-        ImageView player2 = new ImageView(new Image("BioChem.png"));
-
-
 
         Pane root = new Pane();
         Scene scene = new Scene(root,800,600);//set the scene size
         stage.setScene(scene);
         stage.show();
-	    
-        //the game scene setting
-        Pane gameroot = new Pane();
-        Scene gamescene = new Scene(gameroot,800,600);//set game scene size
-
-        //Win Scene
-        Pane winroot = new Pane();
-        Scene winscene = new Scene(winroot,800,600);//set Win scene size
-
-        //Lose Scene
-        Pane loseroot = new Pane();
-        Scene losescene = new Scene(loseroot,800,600);//set Lose scene size
 
         //Chara Scene
         Pane CharaRoot = new Pane();
@@ -438,127 +420,5 @@ public class Start extends Application {
 		});
         CharaRoot.getChildren().add(Chemistry);
         
-        
-        //set up game scene button
-        Button button = new Button("1");
-        button.setMinSize(80,40);
-        button.setLayoutX(30);
-        button.setLayoutY(530);
-        button.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
-        button.setStyle("-fx-background-color: #A9A9A9");
-        gameroot.getChildren().add(button);
-
-
-        Button button2 = new Button("2");
-        button2.setMinSize(80,40);
-        button2.setLayoutX(140);
-        button2.setLayoutY(530);
-        button2.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
-        button2.setStyle("-fx-background-color: #A9A9A9");
-        button2.textFillProperty();
-        gameroot.getChildren().add(button2);
-
-        Button button3 = new Button("3");
-        button3.setMinSize(80,40);
-        button3.setLayoutX(250);
-        button3.setLayoutY(530);
-        button3.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
-        button3.setStyle("-fx-background-color: #A9A9A9");
-        button3.textFillProperty();
-        gameroot.getChildren().add(button3);
-
-        Button button4 = new Button("4");
-        button4.setMinSize(80,40);
-        button4.setLayoutX(360);
-        button4.setLayoutY(530);
-        button4.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
-        button4.setStyle("-fx-background-color: #A9A9A9");
-        button4.textFillProperty();
-        gameroot.getChildren().add(button4);
-        gameroot.getChildren().add(player1);
-        player2.setLayoutX(32);
-        player2.setLayoutY(32);
-        gameroot.getChildren().add(player2);
-
-
-
-
-        BackgroundImage GameBg = new BackgroundImage(new Image("tan.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-        gameroot.setBackground(new Background(GameBg));
-        
-
-        /**
-        player1.setOnMouseClicked(f -> {
-            gamescene.setOnMouseClicked(e -> {
-                double x =  (e.getX()%32);
-                double y =  (e.getY()%32);
-                //System.out.println(x+","+y);
-                double cx =e.getX()-x;
-                double cy = e.getY()-y;
-                player1.setLayoutX(cx);
-                player1.setLayoutY(cy);
-                //System.out.println(cx + ","+ cy);
-
-
-            });
-
-        });
-        player2.setOnMouseClicked(f -> {
-            gamescene.setOnMouseClicked(e -> {
-                double x =  (e.getX()%32);
-                double y =  (e.getY()%32);
-                //System.out.println(x+","+y);
-                double cx =e.getX()-x;
-                double cy = e.getY()-y;
-                player2.setLayoutX(cx);
-                player2.setLayoutY(cy);
-                //System.out.println(cx + ","+ cy);
-
-
-            });
-
-        });
-
-
-
-
-
-
-
-        Button Replay = new Button("Replay");
-        Replay.setMinSize(80,40);
-        Replay.setLayoutX(360);
-        Replay.setLayoutY(510);
-        Replay.setStyle("-fx-border-color: #000000; -fx-border-width: 5px;");
-        Replay.setStyle("-fx-background-color: #A9A9A9");
-        Replay.textFillProperty();
-
-
-
-
-
-        //lose scene
-        BackgroundImage LoseBg = new BackgroundImage(new Image("end.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-        loseroot.setBackground(new Background(LoseBg));
-        loseroot.getChildren().add(Replay);
-        //When Player lose activate  the flowing code
-        //stage.setScene(losescene);
-        //        stage.show();
-
-
-
-
-        //win scene
-        BackgroundImage WinBg = new BackgroundImage(new Image("WIN.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-        winroot.setBackground(new Background(WinBg));
-        winroot.getChildren().add(Replay);
-        //When Player Lose activate the flowing code
-        //stage.setScene(winscene);
-        //        stage.show();*/
-
-
     }
 }
